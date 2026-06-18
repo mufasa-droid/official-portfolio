@@ -9,8 +9,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "default", size = "default", asChild = false, ...props }, ref) => {
-    const Comp = asChild ? "a" : "button"
-    
     const baseStyles = cn(
       "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50",
       {
@@ -26,12 +24,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className
     )
 
+    // When asChild is true, render as anchor element
     if (asChild) {
+      // Filter out button-specific props for anchor tag
+      const { form, formAction, formEncType, formMethod, formNoValidate, ...anchorProps } = props as any
       return (
-        <a className={baseStyles} ref={ref as any} {...props} />
+        <a className={baseStyles} ref={ref as any} {...anchorProps} />
       )
     }
 
+    // Default: render as button element
     return (
       <button className={baseStyles} ref={ref} {...props} />
     )
