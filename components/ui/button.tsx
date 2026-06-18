@@ -4,12 +4,15 @@ import { cn } from "@/lib/utils"
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "default" | "outline" | "ghost"
   size?: "default" | "sm" | "lg"
+  asChild?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "default", size = "default", ...props }, ref) => {
+  ({ className, variant = "default", size = "default", asChild, ...props }, ref) => {
+    const Comp = asChild ? "a" : "button"
+    
     return (
-      <button
+      <Comp
         className={cn(
           "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50",
           {
@@ -24,7 +27,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           },
           className
         )}
-        ref={ref}
+        ref={ref as any}
         {...props}
       />
     )
