@@ -44,34 +44,51 @@ export const skills = {
 export const projects = [
   {
     id: "project-1",
-    title: "SaaS Analytics Dashboard",
-    duration: "3 months",
-    team: "Team of 2",
-    slug: "saas-analytics-dashboard",
+    title: "TraderMind — AI Trading Performance Coach",
+    duration: "6 weeks",
+    team: "Solo Project",
+    slug: "tradermind-ai-trading-coach",
     featured: true,
-    problem: "Companies struggle to visualize complex data and make data-driven decisions quickly",
-    solution: "Built a real-time analytics platform with interactive charts, custom filters, and AI-powered insights",
-    role: "Lead Frontend Developer",
+    problem: "Most traders lose money not because of bad market analysis, but because of poor psychology, emotional decision-making, and repeated behavioral mistakes. No existing tool analyzes the trader — they all analyze the market.",
+    solution: "Built a full-stack AI-powered behavioral intelligence platform that tracks trader psychology, scores discipline, detects damaging patterns like revenge trading and FOMO entries, and delivers personalized AI coaching reports — without ever generating a single buy/sell signal.",
+    role: "Full-Stack Developer & Product Architect",
     impact: {
-      metric: "40% faster decision-making",
-      detail: "Reduced average time-to-insight from 2 hours to 72 minutes through optimized data visualization"
+      metric: "11-feature behavioral engine",
+      detail: "Built a two-layer AI system: a deterministic engine that calculates 15+ behavioral metrics (discipline score, consistency score, risk quality, emotional stability) and a GPT-4o interpretation layer that converts raw analytics into personalized coach-voice reports — all deployed on a fully free stack."
     },
-    tech: ["Next.js", "TypeScript", "Recharts", "TailwindCSS", "PostgreSQL"],
-    features: [
-      "Real-time data sync with WebSocket integration",
-      "Custom drag-and-drop dashboard builder",
-      "AI-powered anomaly detection alerts",
-      "Export reports in PDF, CSV, and Excel formats",
-      "Role-based access control (RBAC)"
+    tech: [
+      "Next.js 15",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase",
+      "PostgreSQL",
+      "OpenAI GPT-4o",
+      "Recharts",
+      "MetaAPI",
+      "Vercel"
     ],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+    features: [
+      "AI weekly & monthly behavioral coaching reports powered by GPT-4o",
+      "Real-time trade evaluation engine — alignment score, discipline score, and risk warning before entry",
+      "Behavioral intelligence engine detecting 12 pattern types: revenge trading, FOMO, post-win risk creep, overtrading and more",
+      "Live broker sync via MetaAPI for MT4/MT5 trade history with zero manual logging",
+      "Behavioral journaling with emotion tracking, confidence/stress/fear sliders, and per-trade reflection",
+      "Session performance analytics — London vs New York vs Asian vs Overlap win rates",
+      "Strategy performance breakdown with best-session correlation",
+      "Goals & rule enforcement system with real-time compliance monitoring",
+      "Interactive AI coach chat with full trading context injected per message",
+      "Demo mode with pre-seeded realistic trade data and one-click guest access",
+      "11-table PostgreSQL schema with Row Level Security — every user sees only their own data"
+    ],
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop",
     gallery: [
+      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1642790106117-e829d14b6cce?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
     ],
-    liveUrl: "https://demo-analytics.vercel.app",
-    githubUrl: "https://github.com/yourusername/analytics-dashboard",
-
+    liveUrl: "https://trader-mind-kohl.vercel.app",
+    githubUrl: "https://github.com/mufasa-droid/TraderMind",
   },
   {
     id: "project-2",
@@ -96,30 +113,6 @@ export const projects = [
     image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop",
     liveUrl: "https://demo-shop.vercel.app",
     githubUrl: "https://github.com/yourusername/ecommerce",
-  },
-  {
-    id: "project-3",
-    title: "AI Content Generator",
-    slug: "ai-content-generator",
-    featured: false,
-    problem: "Content creators spend hours generating and optimizing content",
-    solution: "Created an AI-powered tool that generates SEO-optimized blog posts, social media content, and ad copy",
-    role: "Frontend Developer & AI Integration",
-    impact: {
-      metric: "10x content output",
-      detail: "Users generate 10x more content in same timeframe with 85% quality retention"
-    },
-    tech: ["Next.js", "OpenAI API", "TypeScript", "TailwindCSS", "Supabase"],
-    features: [
-      "Multi-format content generation (blog, social, ads)",
-      "SEO keyword optimization",
-      "Tone and style customization",
-      "Content history and versioning",
-      "Export in multiple formats"
-    ],
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop",
-    liveUrl: "https://ai-content-gen.vercel.app",
-    githubUrl: "https://github.com/yourusername/ai-content-gen",
   },
   {
     id: "project-4",
