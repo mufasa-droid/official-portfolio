@@ -8,8 +8,8 @@ export const personalInfo = {
   phone: "+234 915 7531 916",
   availableForWork: true,
   socials: {
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
+    github: "https://github.com/mufasa-droid",
+    linkedin: "https://linkedin.com/in/abdulhammed-mustapha-37454634b",
     twitter: "https://twitter.com/yourusername",
   }
 }
@@ -20,12 +20,12 @@ export const skills = {
     { name: "Next.js", level: 90 },
     { name: "TypeScript", level: 88 },
     { name: "JavaScript (ES6+)", level: 95 },
-    { name: "Tailwind CSS", level: 92 },
+    { name: "Tailwind CSS", level: 72 },
     { name: "HTML5 & CSS3", level: 98 },
   ],
   backend: [
     { name: "Node.js", level: 82 },
-    { name: "Express", level: 80 },
+    { name: "Express", level: 60 },
     { name: "MongoDB", level: 75 },
     { name: "PostgreSQL", level: 70 },
     { name: "REST APIs", level: 85 },
@@ -36,7 +36,7 @@ export const skills = {
     { name: "VS Code", level: 95 },
     { name: "Figma", level: 85 },
     { name: "Docker", level: 70 },
-    { name: "Vercel/Netlify", level: 88 },
+    { name: "Vercel", level: 88 },
     { name: "Firebase", level: 80 },
   ]
 }
@@ -45,6 +45,8 @@ export const projects = [
   {
     id: "project-1",
     title: "SaaS Analytics Dashboard",
+    duration: "3 months",
+    team: "Team of 2",
     slug: "saas-analytics-dashboard",
     featured: true,
     problem: "Companies struggle to visualize complex data and make data-driven decisions quickly",
@@ -69,6 +71,7 @@ export const projects = [
     ],
     liveUrl: "https://demo-analytics.vercel.app",
     githubUrl: "https://github.com/yourusername/analytics-dashboard",
+
   },
   {
     id: "project-2",
