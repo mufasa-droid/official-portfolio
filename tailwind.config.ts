@@ -30,6 +30,18 @@ const config: Config = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -37,14 +49,17 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['var(--font-inter)'],
-        mono: ['var(--font-mono)'],
+        sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+      },
+      transitionTimingFunction: {
+        'ease-out-custom': 'cubic-bezier(0.23, 1, 0.32, 1)',
+        'ease-in-out-custom': 'cubic-bezier(0.77, 0, 0.175, 1)',
       },
       animation: {
-        'fade-in': 'fade-in 0.5s ease-in-out',
-        'slide-up': 'slide-up 0.5s ease-out',
-        'slide-down': 'slide-down 0.5s ease-out',
-        'scale-in': 'scale-in 0.3s ease-out',
+        'fade-in': 'fade-in 0.25s cubic-bezier(0.23, 1, 0.32, 1)',
+        'slide-up': 'slide-up 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
+        'scale-in': 'scale-in 0.2s cubic-bezier(0.23, 1, 0.32, 1)',
       },
       keyframes: {
         'fade-in': {
@@ -52,15 +67,11 @@ const config: Config = {
           '100%': { opacity: '1' },
         },
         'slide-up': {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        'slide-down': {
-          '0%': { transform: 'translateY(-20px)', opacity: '0' },
+          '0%': { transform: 'translateY(12px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
         'scale-in': {
-          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '0%': { transform: 'scale(0.96)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
       },
@@ -68,4 +79,5 @@ const config: Config = {
   },
   plugins: [],
 }
+
 export default config

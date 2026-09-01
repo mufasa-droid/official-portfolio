@@ -4,20 +4,30 @@
 
 @layer base {
   :root {
-    --background: 222 47% 4%;
-    --foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 224 71% 60%;
-    --primary: 224 71% 60%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 5.5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 5.5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 4.8% 12%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 217.2 91.2% 59.8%;
     --radius: 0.75rem;
+
+    /* Emil Kowalski custom motion curves */
+    --ease-out-custom: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out-custom: cubic-bezier(0.77, 0, 0.175, 1);
   }
 }
 
@@ -25,18 +35,23 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
   
   html {
     scroll-behavior: smooth;
+    color-scheme: dark;
   }
 
-  /* Custom scrollbar */
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/25 selection:text-primary;
+    font-feature-settings: "rlig" 1, "calt" 1, "cv02" 1, "cv03" 1, "cv04" 1;
+    scrollbar-color: hsl(var(--muted)) hsl(var(--background));
+    scrollbar-width: thin;
+  }
+
+  /* Custom scrollbar for Webkit */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
+    height: 6px;
   }
   
   ::-webkit-scrollbar-track {
@@ -48,24 +63,64 @@
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-muted-foreground/50;
+    @apply bg-muted-foreground/40;
   }
 }
 
 @layer components {
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
-  
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-400 to-purple-400;
+
+  /* Subtle technical background grid */
+  .bg-grid-technical {
+    background-size: 32px 32px;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   }
-  
-  .glass {
-    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+
+  .bg-dot-technical {
+    background-size: 20px 20px;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   }
-  
-  .glow-effect {
-    box-shadow: 0 0 40px rgba(96, 165, 250, 0.2);
+
+  /* Premium Editorial Glass & Surface Panels */
+  .glass-panel {
+    @apply bg-card/80 backdrop-blur-md border border-white/[0.08] shadow-sm;
+  }
+
+  .glass-card {
+    @apply relative bg-gradient-to-b from-white/[0.04] to-white/[0.01] backdrop-blur-md border border-white/[0.08] rounded-2xl transition-all duration-200;
+  }
+
+  .glass-card-hover {
+    @apply hover:border-white/20 hover:bg-white/[0.06];
+  }
+
+  /* High-craft typography gradients */
+  .heading-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-200 to-zinc-400;
+  }
+
+  .accent-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-300;
+  }
+
+  /* Technical code/metric badge */
+  .tech-chip {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 transition-colors hover:border-white/20 hover:text-white;
+  }
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

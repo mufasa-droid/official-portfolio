@@ -4,31 +4,65 @@ import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface SectionHeadingProps {
+  number?: string
+  badge?: string
   title: string
   subtitle?: string
   description?: string
+  align?: "left" | "center"
   className?: string
 }
 
-export function SectionHeading({ title, subtitle, description, className }: SectionHeadingProps) {
+export function SectionHeading({
+  number,
+  badge,
+  title,
+  subtitle,
+  description,
+  align = "center",
+  className,
+}: SectionHeadingProps) {
+  const isCenter = align === "center"
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      className={cn("space-y-4 text-center mb-16", className)}
-    >
-      {subtitle && (
-        <p className="text-sm font-medium text-primary uppercase tracking-wider">
-          {subtitle}
-        </p>
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+      className={cn(
+        "space-y-3 mb-16",
+        isCenter ? "text-center max-w-3xl mx-auto" : "text-left max-w-2xl",
+        className
       )}
-      <h2 className="text-4xl md:text-5xl font-bold gradient-text">
+    >
+      {(number || badge || subtitle) && (
+        <div
+          className={cn(
+            "flex items-center gap-2",
+            isCenter ? "justify-center" : "justify-start"
+          )}
+        >
+          {number && (
+            <span className="font-mono text-xs text-primary font-semibold tracking-wider">
+              {number}
+            </span>
+          )}
+          {(badge || subtitle) && (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono uppercase tracking-widest text-zinc-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+              {badge || subtitle}
+            </span>
+          )}
+        </div>
+      )}
+
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">
         {title}
       </h2>
+
       {description && (
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg text-zinc-400 font-normal leading-relaxed">
           {description}
         </p>
       )}
