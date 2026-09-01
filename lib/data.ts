@@ -1,4 +1,13 @@
-export const personalInfo = {
+import {
+  PersonalInfo,
+  SkillCategories,
+  Project,
+  ExperienceItem,
+  TestimonialItem,
+  CurrentWork,
+} from "@/types/portfolio"
+
+export const personalInfo: PersonalInfo = {
   name: "Abdulhammed Mustapha",
   role: "Senior Frontend Developer",
   tagline: "Building fast, scalable web applications with React & Next.js",
@@ -14,7 +23,7 @@ export const personalInfo = {
   }
 }
 
-export const skills = {
+export const skills: SkillCategories = {
   frontend: [
     { name: "React", level: 95 },
     { name: "Next.js", level: 90 },
@@ -41,7 +50,7 @@ export const skills = {
   ]
 }
 
-export const projects = [
+export const projects: Project[] = [
   {
     id: "project-1",
     title: "TraderMind — AI Trading Performance Coach",
@@ -140,7 +149,7 @@ export const projects = [
   }
 ]
 
-export const experience = [
+export const experience: ExperienceItem[] = [
   {
     company: "Freelance",
     role: "Senior Frontend Developer",
@@ -167,7 +176,7 @@ export const experience = [
   }
 ]
 
-export const testimonials = [
+export const testimonials: TestimonialItem[] = [
   {
     name: "Sarah Johnson",
     role: "Product Manager",
@@ -191,7 +200,7 @@ export const testimonials = [
   }
 ]
 
-export const currentWork = {
+export const currentWork: CurrentWork = {
   title: "Building a Developer Portfolio Template",
   description: "Creating an open-source Next.js portfolio template with advanced animations and SEO optimization",
   tech: ["Next.js 14", "Framer Motion", "TypeScript"],

@@ -5,13 +5,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, ExternalLink, Github } from "lucide-react"
 import { projects } from "@/lib/data"
+import { Project } from "@/types/portfolio"
 
 interface ProjectPageProps {
   params: { slug: string }
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = projects.find(p => (p as any).slug === params.slug)
+  const project: Project | undefined = projects.find(p => p.slug === params.slug)
 
   if (!project) {
     return (
@@ -25,8 +26,6 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       </div>
     )
   }
-
-  const p = project as any
 
   return (
     <main className="min-h-screen bg-background pt-24">
@@ -49,34 +48,34 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         className="container-custom mb-16"
       >
         <div className="max-w-4xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">{p.title}</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">{project.title}</h1>
           
           <div className="flex flex-wrap gap-8 mb-8 text-sm">
-            {p.role && (
+            {project.role && (
               <div>
                 <p className="text-muted-foreground mb-1 uppercase">Role</p>
-                <p className="font-semibold">{p.role}</p>
+                <p className="font-semibold">{project.role}</p>
               </div>
             )}
-            {p.duration && (
+            {project.duration && (
               <div>
                 <p className="text-muted-foreground mb-1 uppercase">Duration</p>
-                <p className="font-semibold">{p.duration}</p>
+                <p className="font-semibold">{project.duration}</p>
               </div>
             )}
-            {p.team && (
+            {project.team && (
               <div>
                 <p className="text-muted-foreground mb-1 uppercase">Team</p>
-                <p className="font-semibold">{p.team}</p>
+                <p className="font-semibold">{project.team}</p>
               </div>
             )}
           </div>
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-4 mb-12">
-            {p.liveUrl && (
+            {project.liveUrl && (
               <a
-                href={p.liveUrl}
+                href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium"
@@ -85,9 +84,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                 Visit Live Project
               </a>
             )}
-            {p.githubUrl && (
+            {project.githubUrl && (
               <a
-                href={p.githubUrl}
+                href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors font-medium"
@@ -101,7 +100,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       </motion.div>
 
       {/* Hero Image */}
-      {p.image && (
+      {project.image && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -110,8 +109,8 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         >
           <div className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden glass">
             <Image
-              src={p.image}
-              alt={p.title}
+              src={project.image}
+              alt={project.title}
               fill
               className="object-cover"
               priority
@@ -126,30 +125,30 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           {/* Main Content */}
           <div className="md:col-span-2 space-y-12">
             {/* Problem & Solution */}
-            {p.problem && (
+            {project.problem && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
                 <h2 className="text-2xl font-bold mb-4">The Problem</h2>
-                <p className="text-lg text-muted-foreground">{p.problem}</p>
+                <p className="text-lg text-muted-foreground">{project.problem}</p>
               </motion.div>
             )}
 
-            {p.solution && (
+            {project.solution && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
                 <h2 className="text-2xl font-bold mb-4">The Solution</h2>
-                <p className="text-lg text-muted-foreground">{p.solution}</p>
+                <p className="text-lg text-muted-foreground">{project.solution}</p>
               </motion.div>
             )}
 
             {/* Features */}
-            {p.features && p.features.length > 0 && (
+            {project.features && project.features.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -157,7 +156,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               >
                 <h2 className="text-2xl font-bold mb-6">Key Features</h2>
                 <ul className="space-y-3">
-                  {p.features.map((feature: string, index: number) => (
+                  {project.features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
                       <span className="text-muted-foreground">{feature}</span>
@@ -168,7 +167,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             )}
 
             {/* Gallery */}
-            {p.gallery && p.gallery.length > 0 && (
+            {project.gallery && project.gallery.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -176,14 +175,14 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               >
                 <h2 className="text-2xl font-bold mb-6">Project Gallery</h2>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {p.gallery.map((image: string, index: number) => (
+                  {project.gallery.map((image, index) => (
                     <div
                       key={index}
                       className="relative h-64 rounded-lg overflow-hidden glass hover:shadow-lg transition-shadow"
                     >
                       <Image
                         src={image}
-                        alt={`${p.title} screenshot ${index + 1}`}
+                        alt={`${project.title} screenshot ${index + 1}`}
                         fill
                         className="object-cover hover:scale-105 transition-transform duration-300"
                       />
@@ -202,20 +201,20 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             className="space-y-6"
           >
             {/* Impact */}
-            {p.impact && (
+            {project.impact && (
               <div className="glass rounded-2xl p-6">
                 <h3 className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">Impact</h3>
-                <p className="text-2xl font-bold text-primary mb-3">{p.impact.metric}</p>
-                <p className="text-sm text-muted-foreground leading-relaxed">{p.impact.detail}</p>
+                <p className="text-2xl font-bold text-primary mb-3">{project.impact.metric}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{project.impact.detail}</p>
               </div>
             )}
 
             {/* Tech Stack */}
-            {p.tech && p.tech.length > 0 && (
+            {project.tech && project.tech.length > 0 && (
               <div className="glass rounded-2xl p-6">
                 <h3 className="text-xs font-semibold text-muted-foreground mb-4 uppercase tracking-wider">Tech Stack</h3>
                 <div className="flex flex-wrap gap-2">
-                  {p.tech.map((tech: string) => (
+                  {project.tech.map((tech) => (
                     <span
                       key={tech}
                       className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono"
