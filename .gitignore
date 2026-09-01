@@ -33,9 +33,16 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# documentation & agent files
 ARCHITECTURE.md
 CONTRIBUTING.md
 DEPLOYMENT.md
 FINAL_SUMMARY.md
 PROJECT_IDEAS.md
-SETUP_GUIDE.md 
+SETUP_GUIDE.md
+AGENTS.md
+agent.md
+.agents/
+.agent/
+skills-lock.json
+text.txt
