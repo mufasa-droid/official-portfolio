@@ -1,109 +1,167 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code2, Zap, Users } from "lucide-react"
+import { Layers, Zap, Cpu, ArrowUpRight, Terminal, MapPin } from "lucide-react"
 import { SectionHeading } from "../ui/section-heading"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card"
+import { Badge } from "../ui/badge"
 
-const values = [
+const pillars = [
   {
-    icon: Code2,
-    title: "Clean Code",
-    description: "Writing maintainable, scalable code that teams love to work with",
+    icon: Layers,
+    badge: "ARCHITECTURE",
+    title: "Resilient System Architecture",
+    description:
+      "Strict type systems, composable component hierarchies, and clean server/client boundaries designed for long-term maintainability.",
   },
   {
     icon: Zap,
-    title: "Performance First",
-    description: "Optimizing every interaction for speed and smooth user experience",
+    badge: "PERFORMANCE",
+    title: "Sub-100ms Interaction UX",
+    description:
+      "Eliminating waterfalls, optimizing Core Web Vitals (LCP, CLS, INP), and engineering buttery 60fps GPU-accelerated micro-interactions.",
   },
   {
-    icon: Users,
-    title: "User-Centric",
-    description: "Building interfaces that solve real problems and delight users",
+    icon: Cpu,
+    badge: "AI & SYSTEMS",
+    title: "AI Product Engineering",
+    description:
+      "Bridging deterministic computation engines with LLM reasoning layers (like GPT-4o) to turn complex data into actionable user intelligence.",
   },
 ]
 
 export function About() {
   return (
-    <section id="about" className="py-24 relative">
+    <section id="about" className="py-24 relative border-t border-white/[0.08]">
       <div className="container-custom">
         <SectionHeading
-          subtitle="About Me"
-          title="I solve problems through code"
-          description="Specialized in turning complex business requirements into elegant, high-performance web applications"
+          number="01"
+          badge="PROFILE & PHILOSOPHY"
+          title="Engineering resilient software with high craft & systems thinking."
+          description="I specialize in building production-grade web applications that combine architectural rigor with fluid, responsive user experiences."
         />
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {values.map((value, index) => (
+        {/* 3 Core Engineering Pillars */}
+        <div className="grid md:grid-cols-3 gap-6 mb-16">
+          {pillars.map((pillar, index) => (
             <motion.div
-              key={value.title}
-              initial={{ opacity: 0, y: 20 }}
+              key={pillar.title}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass rounded-2xl p-8 hover:bg-white/10 transition-all duration-300 group"
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.35, delay: index * 0.08, ease: [0.23, 1, 0.32, 1] }}
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <value.icon className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-              <p className="text-muted-foreground">{value.description}</p>
+              <Card hoverEffect className="h-full flex flex-col justify-between">
+                <CardHeader>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary">
+                      <pillar.icon className="h-5 w-5" />
+                    </div>
+                    <Badge variant="mono">{pillar.badge}</Badge>
+                  </div>
+                  <CardTitle className="text-lg">{pillar.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-zinc-400">
+                    {pillar.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
 
+        {/* Narrative & Technical Ledger */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="glass rounded-2xl p-8 md:p-12"
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+          className="glass-card p-8 md:p-12 border border-white/[0.12]"
         >
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">What I Do</h3>
-              <div className="space-y-4 text-muted-foreground">
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            
+            {/* Story & Approach */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="flex items-center gap-2 text-xs font-mono text-primary">
+                <Terminal className="h-3.5 w-3.5" />
+                <span>{"// WHO I AM & HOW I BUILD"}</span>
+              </div>
+
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-snug">
+                Senior Frontend Engineer dedicated to turning complex domains into effortless interfaces.
+              </h3>
+
+              <div className="space-y-4 text-zinc-400 text-sm sm:text-base leading-relaxed">
                 <p>
-                  I specialize in building modern web applications that are fast, 
-                  accessible, and scalable. My expertise lies in frontend development 
-                  with React and Next.js, but I&apos;m comfortable working across the full stack.
+                  With years of specialized experience across <span className="text-zinc-200 font-medium">React, Next.js, and TypeScript</span>, 
+                  I build web systems where reliability meets delight. I treat software craftsmanship not merely as making things work, 
+                  but ensuring every state transition, data query, and edge-case feels intentional.
                 </p>
                 <p>
-                  Every project I take on is an opportunity to push boundaries and 
-                  deliver measurable results. I don&apos;t just write code—I build solutions 
-                  that drive business growth and improve user experiences.
+                  My flagship work on <span className="text-white font-medium">TraderMind</span> demonstrates this ethos: building an 11-feature 
+                  deterministic calculation engine paired with a GPT-4o interpretation layer to analyze trader psychology without latency bottlenecks.
                 </p>
                 <p>
-                  Currently focused on helping startups and established companies ship 
-                  high-quality web products faster through modern tooling and best practices.
+                  Whether architecting scalable frontend component libraries, reducing layout shifts, or integrating AI workflows, 
+                  I focus on delivering verifiable business impact and maintainable codebases that teams enjoy shipping.
                 </p>
+              </div>
+
+              <div className="pt-2 flex flex-wrap gap-4">
+                <a
+                  href="#projects"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono text-primary hover:text-white transition-colors"
+                >
+                  <span>Explore Case Studies</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+                <span className="text-zinc-700">•</span>
+                <a
+                  href="https://github.com/mufasa-droid"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-white transition-colors"
+                >
+                  <span>View GitHub Repositories</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
               </div>
             </div>
 
-            <div>
-              <h3 className="text-2xl font-bold mb-4">What Sets Me Apart</h3>
-              <ul className="space-y-3">
-                {[
-                  "Strong TypeScript expertise for type-safe, maintainable codebases",
-                  "Performance optimization reducing load times by up to 60%",
-                  "Component-driven development with reusable design systems",
-                  "SEO-first approach ensuring maximum visibility",
-                  "Agile methodology with clear communication and documentation",
-                  "Continuous learning mindset staying ahead of tech trends",
-                ].map((item, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className="flex items-start gap-3"
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </motion.li>
-                ))}
-              </ul>
+            {/* Quick Technical Ledger */}
+            <div className="lg:col-span-5 space-y-4 lg:pl-6 lg:border-l border-white/[0.08]">
+              <div className="flex items-center justify-between text-xs font-mono text-zinc-400 pb-2 border-b border-white/[0.08]">
+                <span>ENGINEERING SNAPSHOT</span>
+                <span className="text-emerald-400 font-semibold">ACTIVE</span>
+              </div>
+
+              <div className="space-y-3 font-mono text-xs">
+                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-1">
+                  <div className="text-zinc-500">PRIMARY FOCUS</div>
+                  <div className="text-zinc-200 font-medium">Next.js 14/15 App Router • TypeScript • AI Interfaces</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-1">
+                  <div className="text-zinc-500">LOCATION & AVAILABILITY</div>
+                  <div className="text-zinc-200 flex items-center gap-1.5 font-medium">
+                    <MapPin className="h-3.5 w-3.5 text-primary" />
+                    <span>Lagos, Nigeria (UTC+1) • Global Remote</span>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-1">
+                  <div className="text-zinc-500">CORE ETHOS</div>
+                  <div className="text-zinc-200 font-medium">Type Safety • Zero Cascading Re-renders • Accessible WCAG AA</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-1">
+                  <div className="text-zinc-500">COLLABORATION</div>
+                  <div className="text-zinc-200 font-medium">Clear Async Communication • Rigorous PR Reviews • Agile Flow</div>
+                </div>
+              </div>
             </div>
+
           </div>
         </motion.div>
       </div>
