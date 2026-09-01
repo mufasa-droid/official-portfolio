@@ -103,7 +103,7 @@ export function Contact() {
                 <button
                   type="button"
                   onClick={copyEmail}
-                  className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-all active:scale-[0.97]"
+                  className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-[background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
                   title="Copy email address"
                   aria-label="Copy email address"
                 >
@@ -135,7 +135,7 @@ export function Contact() {
                 <button
                   type="button"
                   onClick={copyPhone}
-                  className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-all active:scale-[0.97]"
+                  className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-[background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
                   title="Copy phone number"
                   aria-label="Copy phone number"
                 >
@@ -259,7 +259,7 @@ export function Contact() {
                         name="name"
                         required
                         placeholder="e.g. Alex Morgan (Acme Inc)"
-                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans"
+                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans"
                       />
                     </div>
 
@@ -273,7 +273,7 @@ export function Contact() {
                         name="email"
                         required
                         placeholder="alex@company.com"
-                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans"
+                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans"
                       />
                     </div>
 
@@ -287,7 +287,7 @@ export function Contact() {
                         rows={4}
                         required
                         placeholder="Describe what you are looking to build, technical challenges, or timeline..."
-                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none font-sans"
+                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom resize-none font-sans"
                       />
                     </div>
 

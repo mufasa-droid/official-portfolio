@@ -115,7 +115,7 @@ export function ArchitectureExplorer() {
             <button
               key={layer.id}
               onClick={() => setActiveTab(layer.id)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-150 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-[background-color,color,border-color,box-shadow] duration-150 ease-out-custom ${
                 activeTab === layer.id
                   ? "bg-primary text-primary-foreground font-semibold shadow-sm"
                   : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"

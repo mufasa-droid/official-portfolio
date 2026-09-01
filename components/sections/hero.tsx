@@ -105,7 +105,7 @@ export function Hero() {
               <button
                 type="button"
                 onClick={copyEmail}
-                className="inline-flex items-center gap-2 h-12 px-4 rounded-xl border border-white/[0.08] bg-white/[0.02] text-xs font-mono text-zinc-400 hover:text-white hover:border-white/20 transition-all active:scale-[0.97]"
+                className="inline-flex items-center gap-2 h-12 px-4 rounded-xl border border-white/[0.08] bg-white/[0.02] text-xs font-mono text-zinc-400 hover:text-white hover:border-white/20 transition-[border-color,background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
                 title="Copy email to clipboard"
                 aria-label="Copy email address"
               >
