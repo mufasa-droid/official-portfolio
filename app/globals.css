@@ -91,7 +91,10 @@
   }
 
   .glass-card {
-    @apply relative bg-gradient-to-b from-white/[0.04] to-white/[0.01] backdrop-blur-md border border-white/[0.08] rounded-2xl transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out-custom;
+    @apply relative bg-gradient-to-b from-white/[0.04] to-white/[0.01] backdrop-blur-md border border-white/[0.08] rounded-2xl;
+    transition-property: border-color, background-color, box-shadow, transform;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   .glass-card-hover {

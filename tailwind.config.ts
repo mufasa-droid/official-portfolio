@@ -53,8 +53,8 @@ const config: Config = {
         mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       transitionTimingFunction: {
-        'ease-out-custom': 'cubic-bezier(0.23, 1, 0.32, 1)',
-        'ease-in-out-custom': 'cubic-bezier(0.77, 0, 0.175, 1)',
+        'out-custom': 'cubic-bezier(0.23, 1, 0.32, 1)',
+        'in-out-custom': 'cubic-bezier(0.77, 0, 0.175, 1)',
       },
       animation: {
         'fade-in': 'fade-in 0.25s cubic-bezier(0.23, 1, 0.32, 1)',
