@@ -32,7 +32,7 @@ const pillars = [
 
 export function About() {
   return (
-    <section id="about" className="py-24 relative border-t border-white/[0.08]">
+    <section id="about" className="py-24 relative border-t border-white/[0.08] scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
         <SectionHeading
           number="01"

@@ -57,7 +57,7 @@ export function Footer() {
             <button
               type="button"
               onClick={scrollToTop}
-              className="flex items-center gap-1 text-zinc-400 hover:text-white transition-colors p-1"
+              className="flex items-center gap-1 text-zinc-400 hover:text-white transition-colors p-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label="Scroll back to top"
             >
               <span>TOP</span>

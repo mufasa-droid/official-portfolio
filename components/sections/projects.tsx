@@ -15,10 +15,10 @@ export function Projects() {
   const others = projects.filter((p) => !p.featured)
 
   return (
-    <section id="projects" className="py-24 relative border-t border-white/[0.08]">
+    <section id="projects" className="py-24 relative border-t border-white/[0.08] scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
         <SectionHeading
-          number="03"
+          number="02"
           badge="FEATURED CASE STUDIES"
           title="Engineered Products & Architectural Case Studies"
           description="A selection of high-impact production applications showcasing full-stack performance, type safety, and AI integration."

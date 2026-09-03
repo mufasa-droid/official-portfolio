@@ -38,6 +38,18 @@ export function Navbar() {
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
+  // Close mobile menu on Escape key press
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsMobileMenuOpen(false)
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [isMobileMenuOpen])
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-200 ${
@@ -108,11 +120,11 @@ export function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, scale: 0.98, y: -4 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.98, y: -4 }}
             transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
-            className="md:hidden border-b border-white/[0.08] bg-background/95 backdrop-blur-xl px-4 py-6 shadow-xl"
+            className="md:hidden border-b border-white/[0.08] bg-background/95 backdrop-blur-xl px-4 py-6 shadow-xl origin-top"
           >
             <nav className="flex flex-col space-y-3" aria-label="Mobile Navigation">
               {navItems.map((item) => (

@@ -73,15 +73,15 @@ export function Hero() {
               className="grid grid-cols-3 gap-4 pt-2 border-y border-white/[0.08] py-4 max-w-xl"
             >
               <div>
-                <p className="font-mono text-xl sm:text-2xl font-bold text-white">100%</p>
+                <p className="font-mono text-xl sm:text-2xl font-bold text-white tabular-nums">100%</p>
                 <p className="text-xs text-zinc-400 font-mono">TypeScript / Type-Safe</p>
               </div>
               <div>
-                <p className="font-mono text-xl sm:text-2xl font-bold text-blue-400">11-Feature</p>
+                <p className="font-mono text-xl sm:text-2xl font-bold text-blue-400 tabular-nums">11-Feature</p>
                 <p className="text-xs text-zinc-400 font-mono">AI Behavioral Engine</p>
               </div>
               <div>
-                <p className="font-mono text-xl sm:text-2xl font-bold text-emerald-400">&lt;100ms</p>
+                <p className="font-mono text-xl sm:text-2xl font-bold text-emerald-400 tabular-nums">&lt;100ms</p>
                 <p className="text-xs text-zinc-400 font-mono">Target Interaction Latency</p>
               </div>
             </motion.div>
@@ -91,21 +91,23 @@ export function Hero() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
-              className="flex flex-wrap items-center gap-3.5 pt-2"
+              className="flex flex-col sm:flex-row w-full sm:w-auto items-stretch sm:items-center gap-3 pt-2"
             >
-              <Button size="lg" variant="default" href="#projects">
+              <Button size="lg" variant="default" href="#projects" className="w-full sm:w-auto justify-center">
                 <span>View Featured Work</span>
                 <ArrowRight className="h-4 w-4" />
               </Button>
 
-              <Button size="lg" variant="outline" href="#contact">
+              <Button size="lg" variant="outline" href="#contact" className="w-full sm:w-auto justify-center">
                 <span>Get In Touch</span>
               </Button>
 
-              <button
+              <Button
+                size="lg"
+                variant="outline"
                 type="button"
                 onClick={copyEmail}
-                className="inline-flex items-center gap-2 h-12 px-4 rounded-xl border border-white/[0.08] bg-white/[0.02] text-xs font-mono text-zinc-400 hover:text-white hover:border-white/20 transition-[border-color,background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
+                className="w-full sm:w-auto justify-center text-xs font-mono text-zinc-400 hover:text-white"
                 title="Copy email to clipboard"
                 aria-label="Copy email address"
               >
@@ -120,7 +122,7 @@ export function Hero() {
                     <span>Copy Email</span>
                   </>
                 )}
-              </button>
+              </Button>
             </motion.div>
 
             {/* Social Proof & Links */}
@@ -180,7 +182,12 @@ export function Hero() {
               </div>
 
               {/* Code / Architecture Window */}
-              <div className="p-5 font-mono text-xs text-zinc-300 space-y-3 bg-black/60 overflow-x-auto leading-relaxed">
+              <div
+                tabIndex={0}
+                role="region"
+                aria-label="Interactive architecture code snippet"
+                className="p-5 font-mono text-xs text-zinc-300 space-y-3 bg-black/60 overflow-x-auto leading-relaxed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/40 rounded-b-2xl"
+              >
                 <div className="text-zinc-500">{"// Two-Layer AI Performance Architecture"}</div>
                 
                 <div>

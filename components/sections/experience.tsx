@@ -9,7 +9,7 @@ import { experience } from "@/lib/data"
 
 export function Experience() {
   return (
-    <section id="experience" className="py-24 relative border-t border-white/[0.08]">
+    <section id="experience" className="py-24 relative border-t border-white/[0.08] scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
         <SectionHeading
           number="04"

@@ -70,10 +70,10 @@ const skillClusters: SkillGroup[] = [
 
 export function Skills() {
   return (
-    <section id="skills" className="py-24 relative border-t border-white/[0.08]">
+    <section id="skills" className="py-24 relative border-t border-white/[0.08] scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
         <SectionHeading
-          number="02"
+          number="03"
           badge="CAPABILITIES & ECOSYSTEM"
           title="Technical Capabilities Matrix"
           description="A categorized breakdown of tools, frameworks, and architecture patterns I leverage to build production web systems."

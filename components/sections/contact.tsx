@@ -50,7 +50,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 relative border-t border-white/[0.08]">
+    <section id="contact" className="py-24 relative border-t border-white/[0.08] scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
         <SectionHeading
           number="06"
@@ -202,6 +202,8 @@ export function Contact() {
                 {formSuccess ? (
                   <motion.div
                     key="success"
+                    role="status"
+                    aria-live="polite"
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.96 }}
@@ -258,6 +260,7 @@ export function Contact() {
                         id="name"
                         name="name"
                         required
+                        autoComplete="name"
                         placeholder="e.g. Alex Morgan (Acme Inc)"
                         className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans"
                       />
@@ -272,6 +275,8 @@ export function Contact() {
                         id="email"
                         name="email"
                         required
+                        autoComplete="email"
+                        spellCheck={false}
                         placeholder="alex@company.com"
                         className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans"
                       />
@@ -286,7 +291,7 @@ export function Contact() {
                         name="message"
                         rows={4}
                         required
-                        placeholder="Describe what you are looking to build, technical challenges, or timeline..."
+                        placeholder="Describe what you are looking to build, technical challenges, or timeline…"
                         className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom resize-none font-sans"
                       />
                     </div>
@@ -298,7 +303,7 @@ export function Contact() {
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
-                        <span>Transmitting Message...</span>
+                        <span>Transmitting Message&hellip;</span>
                       ) : (
                         <>
                           <span>Submit Message</span>
