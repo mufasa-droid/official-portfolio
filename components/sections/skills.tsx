@@ -1,69 +1,53 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code2, Layout, Database, Wrench, ShieldCheck, CheckCircle2 } from "lucide-react"
+import { Layout, Database, Wrench } from "lucide-react"
 import { SectionHeading } from "../ui/section-heading"
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card"
-import { Badge } from "../ui/badge"
 
-interface SkillGroup {
-  icon: typeof Code2
-  title: string
-  subtitle: string
-  skills: { name: string; tag?: string; level?: string }[]
-}
-
-const skillClusters: SkillGroup[] = [
-  {
-    icon: Code2,
-    title: "Core Languages & Runtime",
-    subtitle: "Foundational mastery of the web runtime and modern language features.",
-    skills: [
-      { name: "TypeScript", tag: "Strict", level: "Primary" },
-      { name: "JavaScript (ES2024+)", tag: "Async / OOP", level: "Expert" },
-      { name: "HTML5 Semantic DOM", tag: "A11y / SEO", level: "Expert" },
-      { name: "CSS3 & Modern Layouts", tag: "Grid / Flex", level: "Expert" },
-      { name: "Node.js Runtime", tag: "V8 Engine", level: "Proficient" },
-      { name: "SQL & Querying", tag: "Postgres", level: "Proficient" },
-    ],
-  },
+const skillCategories = [
   {
     icon: Layout,
-    title: "Frontend Systems & State",
-    subtitle: "High-performance component architecture, SSR, and reactive state management.",
+    title: "Frontend Systems & Core Web",
+    description: "Architecting responsive, type-safe client architectures with sub-100ms perceived performance.",
     skills: [
-      { name: "React 18 / 19", tag: "Hooks / Suspense", level: "Primary" },
-      { name: "Next.js (App Router)", tag: "RSC / SSR", level: "Primary" },
-      { name: "Tailwind CSS", tag: "Design Systems", level: "Primary" },
-      { name: "Framer Motion", tag: "Micro-interactions", level: "Advanced" },
-      { name: "TanStack Query", tag: "Cache & Fetch", level: "Advanced" },
-      { name: "Zustand & Redux Toolkit", tag: "Client State", level: "Advanced" },
+      "TypeScript",
+      "React 19 / 18",
+      "Next.js (App Router)",
+      "Tailwind CSS",
+      "Framer Motion",
+      "TanStack Query",
+      "Zustand",
+      "JavaScript (ES2024+)",
+      "HTML5 Semantic DOM",
     ],
   },
   {
     icon: Database,
-    title: "Backend, Database & AI",
-    subtitle: "Cloud architecture, schema design, and AI model orchestration.",
+    title: "Backend, Cloud & AI Systems",
+    description: "Building scalable serverless APIs, type-safe RPC layers, and low-latency LLM orchestration.",
     skills: [
-      { name: "Supabase & Postgres", tag: "RLS Security", level: "Primary" },
-      { name: "OpenAI GPT-4o API", tag: "AI Pipelines", level: "Advanced" },
-      { name: "Next.js Server Actions", tag: "Type-Safe RPC", level: "Primary" },
-      { name: "RESTful API Design", tag: "HTTP Spec", level: "Primary" },
-      { name: "GraphQL", tag: "Schema / Query", level: "Proficient" },
-      { name: "MetaAPI & Financial Feeds", tag: "MT4/MT5 Sync", level: "Production" },
+      "Supabase & PostgreSQL",
+      "OpenAI GPT-4o API",
+      "Next.js Server Actions",
+      "Node.js Runtime",
+      "RESTful API Design",
+      "GraphQL",
+      "MetaAPI Financial Feeds",
+      "SQL Schema Design",
     ],
   },
   {
     icon: Wrench,
-    title: "Tooling, DevOps & Craft",
-    subtitle: "Performance optimization, testing, build pipelines, and accessibility standards.",
+    title: "DevOps, Performance & Standards",
+    description: "Ensuring zero-drift deployments, WCAG accessibility, and pristine Core Web Vitals.",
     skills: [
-      { name: "Vercel & Edge Network", tag: "CI / CD", level: "Primary" },
-      { name: "Git & GitHub Actions", tag: "Workflows", level: "Primary" },
-      { name: "Docker Containerization", tag: "DevOps", level: "Proficient" },
-      { name: "Web Accessibility (WCAG AA)", tag: "ARIA / Focus", level: "Advanced" },
-      { name: "Core Web Vitals & Perf", tag: "LCP / CLS / INP", level: "Expert" },
-      { name: "Figma to Code", tag: "Pixel-Perfect", level: "Expert" },
+      "Vercel Edge Platform",
+      "Git & GitHub Actions",
+      "Docker",
+      "Core Web Vitals (LCP/INP/CLS)",
+      "Web Accessibility (WCAG AA)",
+      "CI / CD Pipelines",
+      "Figma to Pixel-Perfect Code",
     ],
   },
 ]
@@ -76,87 +60,47 @@ export function Skills() {
           number="03"
           badge="CAPABILITIES & ECOSYSTEM"
           title="Technical Capabilities Matrix"
-          description="A categorized breakdown of tools, frameworks, and architecture patterns I leverage to build production web systems."
+          description="A curated overview of technologies, frameworks, and engineering standards I leverage to build production web systems."
         />
 
-        {/* 4 Skill Clusters */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {skillClusters.map((cluster, index) => (
+        <div className="grid lg:grid-cols-3 gap-6">
+          {skillCategories.map((category, index) => (
             <motion.div
-              key={cluster.title}
+              key={category.title}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.35, delay: index * 0.08, ease: [0.23, 1, 0.32, 1] }}
             >
-              <Card hoverEffect className="h-full">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary">
-                      <cluster.icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">{cluster.title}</CardTitle>
-                      <p className="text-xs text-zinc-400 font-normal mt-1">{cluster.subtitle}</p>
-                    </div>
+              <div className="glass-card h-full p-6 sm:p-8 rounded-3xl border border-white/[0.1] hover:border-white/20 transition-[border-color,background-color] duration-200 flex flex-col justify-between">
+                <div className="space-y-4 mb-6">
+                  <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary">
+                    <category.icon className="h-5 w-5" />
                   </div>
-                </CardHeader>
-                <CardContent className="pt-2">
-                  <div className="flex flex-wrap gap-2">
-                    {cluster.skills.map((skill) => (
-                      <div
-                        key={skill.name}
-                        className="tech-chip group"
-                      >
-                        <span className="font-semibold text-zinc-100 group-hover:text-white">
-                          {skill.name}
-                        </span>
-                        {skill.tag && (
-                          <span className="text-[10px] text-zinc-500 font-mono">
-                            • {skill.tag}
-                          </span>
-                        )}
-                      </div>
-                    ))}
+                  <div>
+                    <h3 className="text-lg font-bold text-white tracking-tight">
+                      {category.title}
+                    </h3>
+                    <p className="text-xs text-zinc-400 font-normal mt-1 leading-relaxed">
+                      {category.description}
+                    </p>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+
+                <div className="flex flex-wrap gap-2 pt-4 border-t border-white/[0.06]">
+                  {category.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-zinc-300 bg-white/[0.03] border border-white/[0.08] hover:border-primary/40 hover:text-white hover:bg-white/[0.06] transition-[border-color,color,background-color] duration-150 cursor-default"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
-
-        {/* Engineering Standards Assurance Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
-          className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400"
-        >
-          <div className="flex items-center gap-2 text-white font-medium">
-            <ShieldCheck className="h-4 w-4 text-emerald-400" />
-            <span>ARCHITECTURE COMMITMENT:</span>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span className="flex items-center gap-1.5 text-zinc-300">
-              <CheckCircle2 className="h-3.5 w-3.5 text-blue-400" />
-              <span>Strict TypeScript</span>
-            </span>
-            <span className="flex items-center gap-1.5 text-zinc-300">
-              <CheckCircle2 className="h-3.5 w-3.5 text-blue-400" />
-              <span>Zero Cascading Re-renders</span>
-            </span>
-            <span className="flex items-center gap-1.5 text-zinc-300">
-              <CheckCircle2 className="h-3.5 w-3.5 text-blue-400" />
-              <span>WCAG 2.1 AA Accessible</span>
-            </span>
-            <span className="flex items-center gap-1.5 text-zinc-300">
-              <CheckCircle2 className="h-3.5 w-3.5 text-blue-400" />
-              <span>Lighthouse 95+ Score</span>
-            </span>
-          </div>
-        </motion.div>
       </div>
     </section>
   )
