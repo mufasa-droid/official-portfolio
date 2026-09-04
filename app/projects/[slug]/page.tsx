@@ -60,10 +60,10 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     <main className="min-h-screen bg-background pt-24 pb-24 bg-grid-technical">
       {/* Top Header & Breadcrumb */}
       <div className="container-custom mb-12">
-        <div className="flex items-center justify-between py-4 border-b border-white/[0.08]">
+        <div className="flex items-center justify-between py-4 border-b border-border">
           <Link
             href="/#projects"
-            className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>BACK TO ALL PROJECTS</span>
@@ -87,18 +87,18 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             )}
             <Badge variant="mono">{project.role}</Badge>
             {project.duration && (
-              <span className="text-xs font-mono text-zinc-500">• {project.duration}</span>
+              <span className="text-xs font-mono text-muted-foreground">• {project.duration}</span>
             )}
             {project.team && (
-              <span className="text-xs font-mono text-zinc-500">• {project.team}</span>
+              <span className="text-xs font-mono text-muted-foreground">• {project.team}</span>
             )}
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight">
             {project.title}
           </h1>
 
-          <p className="text-lg sm:text-xl text-zinc-300 font-normal leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground font-normal leading-relaxed">
             {project.solution}
           </p>
 
@@ -123,7 +123,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       {/* Hero Image */}
       {project.image && (
         <div className="container-custom mb-20">
-          <div className="relative h-80 sm:h-96 md:h-[480px] rounded-3xl overflow-hidden border border-white/[0.12] bg-zinc-900 shadow-2xl">
+          <div className="relative h-80 sm:h-96 md:h-[480px] rounded-3xl overflow-hidden border border-border dark:border-white/[0.12] bg-muted/40 shadow-2xl">
             <Image
               src={project.image}
               alt={project.title}
@@ -145,7 +145,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               <Cpu className="h-4 w-4" />
               <span>{"// ARCHITECTURAL BLUEPRINT"}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
               Interactive System Architecture & Engine Pipeline
             </h2>
           </div>
@@ -157,21 +157,21 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       <div className="container-custom mb-20">
         <div className="grid md:grid-cols-2 gap-8">
           <Card className="p-8 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono text-red-400">
+            <div className="flex items-center gap-2 text-xs font-mono text-red-500 dark:text-red-400">
               <span>{"// THE CHALLENGE & CONSTRAINTS"}</span>
             </div>
-            <h3 className="text-2xl font-bold text-white">The Problem</h3>
-            <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">
+            <h3 className="text-2xl font-bold text-foreground">The Problem</h3>
+            <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
               {project.problem}
             </p>
           </Card>
 
           <Card className="p-8 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-600 dark:text-emerald-400">
               <span>{"// ARCHITECTURAL RESOLUTION"}</span>
             </div>
-            <h3 className="text-2xl font-bold text-white">The Engineering Solution</h3>
-            <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">
+            <h3 className="text-2xl font-bold text-foreground">The Engineering Solution</h3>
+            <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
               {project.solution}
             </p>
           </Card>
@@ -180,19 +180,19 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
       {/* Key Features & Impact */}
       <div className="container-custom mb-20">
-        <div className="glass-card p-8 md:p-12 border border-white/[0.12] rounded-3xl space-y-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
+        <div className="glass-card p-8 md:p-12 border border-border dark:border-white/[0.12] rounded-3xl space-y-8">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
             <div>
               <span className="text-xs font-mono text-primary uppercase tracking-wider">
                 Capabilities Breakdown
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mt-1">
                 Engineered Features & Capabilities
               </h2>
             </div>
 
-            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] max-w-sm">
-              <p className="text-xs font-mono text-zinc-400 uppercase">Impact Metric</p>
+            <div className="p-4 rounded-xl bg-muted/40 border border-border max-w-sm dark:bg-white/[0.03] dark:border-white/[0.08]">
+              <p className="text-xs font-mono text-muted-foreground uppercase">Impact Metric</p>
               <p className="text-lg font-bold text-primary">{project.impact.metric}</p>
             </div>
           </div>
@@ -201,9 +201,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             {project.features.map((feature, idx) => (
               <div
                 key={idx}
-                className="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-sm text-zinc-300"
+                className="flex items-start gap-3 p-4 rounded-xl bg-muted/40 border border-border text-sm text-foreground/90 dark:bg-white/[0.02] dark:border-white/[0.06] dark:text-zinc-300"
               >
-                <CheckCircle2 className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
+                <CheckCircle2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400 mt-0.5 shrink-0" />
                 <span className="leading-relaxed">{feature}</span>
               </div>
             ))}
@@ -218,7 +218,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             <Layers className="h-4 w-4" />
             <span>{"// TECH STACK & INTEGRATIONS"}</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
             Technologies & Tools Employed
           </h2>
 
@@ -226,7 +226,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             {project.tech.map((tech) => (
               <div
                 key={tech}
-                className="px-4 py-2 rounded-xl bg-white/[0.04] border border-white/[0.1] font-mono text-xs text-zinc-200"
+                className="px-4 py-2 rounded-xl bg-muted/60 border border-border font-mono text-xs text-foreground dark:bg-white/[0.04] dark:border-white/[0.1] dark:text-zinc-200"
               >
                 {tech}
               </div>
@@ -239,14 +239,14 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       {project.gallery && project.gallery.length > 0 && (
         <div className="container-custom mb-20">
           <div className="space-y-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
               Interface & Visual Gallery
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {project.gallery.map((img, index) => (
                 <div
                   key={index}
-                  className="relative h-64 sm:h-72 rounded-2xl overflow-hidden border border-white/[0.08] bg-zinc-900"
+                  className="relative h-64 sm:h-72 rounded-2xl overflow-hidden border border-border dark:border-white/[0.08] bg-muted/40"
                 >
                   <Image
                     src={img}
@@ -263,11 +263,11 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       )}
 
       {/* Next Project & Bottom CTA */}
-      <div className="container-custom pt-12 border-t border-white/[0.08]">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 rounded-2xl bg-white/[0.02] border border-white/[0.08]">
+      <div className="container-custom pt-12 border-t border-border">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 rounded-2xl bg-muted/40 border border-border dark:bg-white/[0.02] dark:border-white/[0.08]">
           <div>
-            <p className="text-xs font-mono text-zinc-400 uppercase">NEXT CASE STUDY</p>
-            <h3 className="text-xl font-bold text-white mt-1">{nextProject.title}</h3>
+            <p className="text-xs font-mono text-muted-foreground uppercase">NEXT CASE STUDY</p>
+            <h3 className="text-xl font-bold text-foreground mt-1">{nextProject.title}</h3>
           </div>
 
           <div className="flex items-center gap-4">

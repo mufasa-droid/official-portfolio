@@ -49,7 +49,7 @@ export function SectionHeading({
             </span>
           )}
           {(badge || subtitle) && (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono uppercase tracking-widest text-zinc-300">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-muted/60 border border-border text-[11px] font-mono uppercase tracking-widest text-muted-foreground dark:bg-white/[0.04] dark:border-white/[0.08] dark:text-zinc-300">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
               {badge || subtitle}
             </span>
@@ -57,12 +57,12 @@ export function SectionHeading({
         </div>
       )}
 
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight [text-wrap:balance]">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-tight [text-wrap:balance]">
         {title}
       </h2>
 
       {description && (
-        <p className="text-base sm:text-lg text-zinc-400 font-normal leading-relaxed [text-wrap:pretty]">
+        <p className="text-base sm:text-lg text-muted-foreground font-normal leading-relaxed [text-wrap:pretty]">
           {description}
         </p>
       )}

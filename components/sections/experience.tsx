@@ -9,7 +9,7 @@ import { experience } from "@/lib/data"
 
 export function Experience() {
   return (
-    <section id="experience" className="py-24 relative border-t border-white/[0.08] scroll-mt-20 sm:scroll-mt-24">
+    <section id="experience" className="py-24 relative border-t border-border scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
         <SectionHeading
           number="04"
@@ -27,31 +27,31 @@ export function Experience() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.35, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
             >
-              <Card hoverEffect className="p-6 sm:p-8 border border-white/[0.1] relative">
+              <Card hoverEffect className="p-6 sm:p-8 relative">
                 
                 {/* Header Row */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border">
                   <div>
                     <div className="flex items-center gap-2.5 mb-1.5">
                       <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
                         <Briefcase className="h-4 w-4" />
                       </div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                      <h3 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
                         {exp.role}
                       </h3>
                     </div>
-                    <p className="text-sm font-mono text-zinc-300">
+                    <p className="text-sm font-mono text-muted-foreground font-medium">
                       {exp.company}
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap sm:flex-col sm:items-end gap-2 text-xs font-mono text-zinc-400">
-                    <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06]">
+                  <div className="flex flex-wrap sm:flex-col sm:items-end gap-2 text-xs font-mono text-muted-foreground">
+                    <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-muted/60 border border-border text-foreground dark:bg-white/[0.04] dark:border-white/[0.06] dark:text-zinc-300">
                       <Calendar className="h-3.5 w-3.5 text-primary" />
                       <span>{exp.period}</span>
                     </span>
-                    <span className="flex items-center gap-1.5 text-zinc-400">
-                      <MapPin className="h-3.5 w-3.5 text-zinc-500" />
+                    <span className="flex items-center gap-1.5 text-muted-foreground">
+                      <MapPin className="h-3.5 w-3.5 text-primary/70" />
                       <span>{exp.location}</span>
                     </span>
                   </div>
@@ -59,7 +59,7 @@ export function Experience() {
 
                 {/* Role Description */}
                 <div className="py-6 space-y-4">
-                  <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+                  <p className="text-sm sm:text-base text-foreground/85 leading-relaxed">
                     {exp.description}
                   </p>
 
@@ -74,9 +74,9 @@ export function Experience() {
                       {exp.achievements.map((achievement, idx) => (
                         <div
                           key={idx}
-                          className="flex items-start gap-2.5 p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] text-xs sm:text-sm text-zinc-300"
+                          className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/40 border border-border text-xs sm:text-sm text-foreground/90 dark:bg-white/[0.02] dark:border-white/[0.06] dark:text-zinc-300"
                         >
-                          <CheckCircle2 className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
+                          <CheckCircle2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400 mt-0.5 shrink-0" />
                           <span className="leading-relaxed">{achievement}</span>
                         </div>
                       ))}
@@ -85,8 +85,8 @@ export function Experience() {
                 </div>
 
                 {/* Footer Badges */}
-                <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center gap-2">
-                  <span className="text-[11px] font-mono text-zinc-400 mr-2">TECH FOCUS:</span>
+                <div className="pt-4 border-t border-border flex flex-wrap items-center gap-2">
+                  <span className="text-[11px] font-mono text-muted-foreground mr-2">TECH FOCUS:</span>
                   {["React", "Next.js", "TypeScript", "Tailwind CSS", "Architecture"].map((tech) => (
                     <span key={tech} className="tech-chip text-[11px] py-0.5 px-2">
                       {tech}

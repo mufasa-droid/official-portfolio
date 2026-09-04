@@ -54,13 +54,13 @@ export function Hero() {
               transition={{ duration: 0.35, delay: 0.05, ease: [0.23, 1, 0.32, 1] }}
               className="space-y-3"
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.1]">
                 Senior Frontend Engineer{" "}
                 <span className="heading-gradient">crafting resilient web systems</span>{" "}
                 & AI interfaces.
               </h1>
-              <p className="text-lg sm:text-xl text-zinc-400 font-normal leading-relaxed max-w-2xl">
-                Specialized in <span className="text-zinc-200 font-medium">React, Next.js, and TypeScript</span> architectures. 
+              <p className="text-lg sm:text-xl text-muted-foreground font-normal leading-relaxed max-w-2xl">
+                Specialized in <span className="text-foreground font-medium">React, Next.js, and TypeScript</span> architectures. 
                 I turn complex behavioral analytics and machine learning workflows into crisp, sub-100ms digital products.
               </p>
             </motion.div>
@@ -70,19 +70,19 @@ export function Hero() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
-              className="grid grid-cols-3 gap-4 pt-2 border-y border-white/[0.08] py-4 max-w-xl"
+              className="grid grid-cols-3 gap-4 pt-2 border-y border-border py-4 max-w-xl"
             >
               <div>
-                <p className="font-mono text-xl sm:text-2xl font-bold text-white tabular-nums">100%</p>
-                <p className="text-xs text-zinc-400 font-mono">TypeScript / Type-Safe</p>
+                <p className="font-mono text-xl sm:text-2xl font-bold text-foreground tabular-nums">100%</p>
+                <p className="text-xs text-muted-foreground font-mono">TypeScript / Type-Safe</p>
               </div>
               <div>
-                <p className="font-mono text-xl sm:text-2xl font-bold text-blue-400 tabular-nums">11-Feature</p>
-                <p className="text-xs text-zinc-400 font-mono">AI Behavioral Engine</p>
+                <p className="font-mono text-xl sm:text-2xl font-bold text-primary tabular-nums">11-Feature</p>
+                <p className="text-xs text-muted-foreground font-mono">AI Behavioral Engine</p>
               </div>
               <div>
-                <p className="font-mono text-xl sm:text-2xl font-bold text-emerald-400 tabular-nums">&lt;100ms</p>
-                <p className="text-xs text-zinc-400 font-mono">Target Interaction Latency</p>
+                <p className="font-mono text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">&lt;100ms</p>
+                <p className="text-xs text-muted-foreground font-mono">Target Interaction Latency</p>
               </div>
             </motion.div>
 
@@ -107,14 +107,14 @@ export function Hero() {
                 variant="outline"
                 type="button"
                 onClick={copyEmail}
-                className="w-full sm:w-auto justify-center text-xs font-mono text-zinc-400 hover:text-white"
+                className="w-full sm:w-auto justify-center text-xs font-mono text-muted-foreground hover:text-foreground"
                 title="Copy email to clipboard"
                 aria-label="Copy email address"
               >
                 {copied ? (
                   <>
-                    <Check className="h-3.5 w-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Copied!</span>
+                    <Check className="h-3.5 w-3.5 text-emerald-500" />
+                    <span className="text-emerald-500">Copied!</span>
                   </>
                 ) : (
                   <>
@@ -130,25 +130,25 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.35, delay: 0.2 }}
-              className="flex items-center gap-4 text-xs text-zinc-500 font-mono"
+              className="flex items-center gap-4 text-xs text-muted-foreground/80 font-mono"
             >
               <span>CONNECT:</span>
               <a
                 href={personalInfo.socials.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors"
+                className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="GitHub Profile"
               >
                 <Github className="h-3.5 w-3.5" />
                 <span>mufasa-droid</span>
               </a>
-              <span className="text-zinc-700">•</span>
+              <span className="text-border">•</span>
               <a
                 href={personalInfo.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors"
+                className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin className="h-3.5 w-3.5" />
@@ -164,15 +164,15 @@ export function Hero() {
             transition={{ duration: 0.4, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
             className="lg:col-span-5"
           >
-            <div className="glass-card overflow-hidden shadow-2xl border border-white/[0.12]">
+            <div className="glass-card overflow-hidden shadow-2xl border border-border dark:border-white/[0.12]">
               
               {/* Terminal Titlebar */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08] bg-black/40">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/70 dark:border-white/[0.08] dark:bg-black/40">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
-                  <span className="ml-2 font-mono text-[11px] text-zinc-400">
+                  <span className="ml-2 font-mono text-[11px] text-muted-foreground dark:text-zinc-400">
                     tradermind.architecture.ts
                   </span>
                 </div>
@@ -186,7 +186,7 @@ export function Hero() {
                 tabIndex={0}
                 role="region"
                 aria-label="Interactive architecture code snippet"
-                className="p-5 font-mono text-xs text-zinc-300 space-y-3 bg-black/60 overflow-x-auto leading-relaxed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/40 rounded-b-2xl"
+                className="p-5 font-mono text-xs text-zinc-300 space-y-3 bg-zinc-950 dark:bg-black/60 overflow-x-auto leading-relaxed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/40 rounded-b-2xl"
               >
                 <div className="text-zinc-500">{"// Two-Layer AI Performance Architecture"}</div>
                 
@@ -225,7 +225,7 @@ export function Hero() {
                 </div>
 
                 {/* Status Output Box */}
-                <div className="mt-4 p-3 rounded-lg bg-white/[0.03] border border-white/[0.08] space-y-1.5 text-[11px]">
+                <div className="mt-4 p-3 rounded-lg bg-white/[0.04] border border-white/[0.08] space-y-1.5 text-[11px]">
                   <div className="flex items-center justify-between text-zinc-400">
                     <span className="flex items-center gap-1.5">
                       <Code2 className="h-3.5 w-3.5 text-primary" />
@@ -245,12 +245,12 @@ export function Hero() {
               </div>
 
               {/* Terminal Footer */}
-              <div className="px-4 py-2.5 bg-black/40 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono text-zinc-500">
+              <div className="px-4 py-2.5 bg-muted/70 dark:bg-black/40 border-t border-border dark:border-white/[0.08] flex items-center justify-between text-[11px] font-mono text-muted-foreground">
                 <span className="flex items-center gap-1.5">
-                  <Terminal className="h-3 w-3 text-emerald-400" />
+                  <Terminal className="h-3 w-3 text-emerald-500 dark:text-emerald-400" />
                   <span>Ready for execution</span>
                 </span>
-                <span className="text-zinc-400">Abdulhammed Mustapha</span>
+                <span className="text-foreground/80 font-medium">Abdulhammed Mustapha</span>
               </div>
             </div>
           </motion.div>

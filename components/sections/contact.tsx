@@ -50,7 +50,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 relative border-t border-white/[0.08] scroll-mt-20 sm:scroll-mt-24">
+    <section id="contact" className="py-24 relative border-t border-border scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
         <SectionHeading
           number="05"
@@ -73,10 +73,10 @@ export function Contact() {
               <span className="text-xs font-mono text-primary uppercase tracking-wider">
                 Direct Channels
               </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-1 mb-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight mt-1 mb-4">
                 Fastest Way to Connect
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 I prioritize async communication, clear requirements, and fast turnaround. Feel free to copy my direct details or send an inquiry.
               </p>
             </div>
@@ -84,7 +84,7 @@ export function Contact() {
             {/* Contact Cards */}
             <div className="space-y-3">
               {/* Email Card */}
-              <div className="glass-card p-4 rounded-xl border border-white/[0.08] flex items-center justify-between group">
+              <div className="glass-card p-4 rounded-xl border border-border flex items-center justify-between group">
                 <a
                   href={`mailto:${personalInfo.email}`}
                   className="flex items-center gap-3.5 min-w-0"
@@ -93,8 +93,8 @@ export function Contact() {
                     <Mail className="h-4 w-4" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[11px] font-mono text-zinc-500 uppercase">Email</p>
-                    <p className="text-xs sm:text-sm font-medium text-zinc-200 truncate group-hover:text-primary transition-colors">
+                    <p className="text-[11px] font-mono text-muted-foreground uppercase">Email</p>
+                    <p className="text-xs sm:text-sm font-medium text-foreground truncate group-hover:text-primary transition-colors">
                       {personalInfo.email}
                     </p>
                   </div>
@@ -103,12 +103,12 @@ export function Contact() {
                 <button
                   type="button"
                   onClick={copyEmail}
-                  className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-[background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
+                  className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-[background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
                   title="Copy email address"
                   aria-label="Copy email address"
                 >
                   {copiedEmail ? (
-                    <Check className="h-4 w-4 text-emerald-400" />
+                    <Check className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
                   ) : (
                     <Copy className="h-4 w-4" />
                   )}
@@ -116,7 +116,7 @@ export function Contact() {
               </div>
 
               {/* Phone Card */}
-              <div className="glass-card p-4 rounded-xl border border-white/[0.08] flex items-center justify-between group">
+              <div className="glass-card p-4 rounded-xl border border-border flex items-center justify-between group">
                 <a
                   href={`tel:${personalInfo.phone}`}
                   className="flex items-center gap-3.5 min-w-0"
@@ -125,8 +125,8 @@ export function Contact() {
                     <Phone className="h-4 w-4" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[11px] font-mono text-zinc-500 uppercase">Phone & WhatsApp</p>
-                    <p className="text-xs sm:text-sm font-medium text-zinc-200 truncate group-hover:text-primary transition-colors">
+                    <p className="text-[11px] font-mono text-muted-foreground uppercase">Phone & WhatsApp</p>
+                    <p className="text-xs sm:text-sm font-medium text-foreground truncate group-hover:text-primary transition-colors">
                       {personalInfo.phone}
                     </p>
                   </div>
@@ -135,12 +135,12 @@ export function Contact() {
                 <button
                   type="button"
                   onClick={copyPhone}
-                  className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-[background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
+                  className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-[background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
                   title="Copy phone number"
                   aria-label="Copy phone number"
                 >
                   {copiedPhone ? (
-                    <Check className="h-4 w-4 text-emerald-400" />
+                    <Check className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
                   ) : (
                     <Copy className="h-4 w-4" />
                   )}
@@ -148,13 +148,13 @@ export function Contact() {
               </div>
 
               {/* Location Card */}
-              <div className="glass-card p-4 rounded-xl border border-white/[0.08] flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-400 shrink-0">
+              <div className="glass-card p-4 rounded-xl border border-border flex items-center gap-3.5">
+                <div className="w-10 h-10 rounded-lg bg-muted/60 border border-border flex items-center justify-center text-muted-foreground shrink-0 dark:bg-white/[0.04] dark:border-white/[0.08]">
                   <MapPin className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-mono text-zinc-500 uppercase">Location & Timezone</p>
-                  <p className="text-xs sm:text-sm font-medium text-zinc-200">
+                  <p className="text-[11px] font-mono text-muted-foreground uppercase">Location & Timezone</p>
+                  <p className="text-xs sm:text-sm font-medium text-foreground">
                     {personalInfo.location} • West Africa Time (UTC+1)
                   </p>
                 </div>
@@ -163,13 +163,13 @@ export function Contact() {
 
             {/* Social Links */}
             <div className="pt-2 space-y-2">
-              <span className="text-xs font-mono text-zinc-500 uppercase">Verified Networks:</span>
+              <span className="text-xs font-mono text-muted-foreground uppercase">Verified Networks:</span>
               <div className="flex gap-3">
                 <a
                   href={personalInfo.socials.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-zinc-300 hover:text-white hover:border-white/20 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors dark:bg-white/[0.03] dark:border-white/[0.08] dark:text-zinc-300 dark:hover:text-white"
                   aria-label="GitHub Profile"
                 >
                   <Github className="h-4 w-4" />
@@ -179,7 +179,7 @@ export function Contact() {
                   href={personalInfo.socials.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-zinc-300 hover:text-white hover:border-white/20 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors dark:bg-white/[0.03] dark:border-white/[0.08] dark:text-zinc-300 dark:hover:text-white"
                   aria-label="LinkedIn Profile"
                 >
                   <Linkedin className="h-4 w-4" />
@@ -197,7 +197,7 @@ export function Contact() {
             transition={{ duration: 0.35, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
             className="lg:col-span-7"
           >
-            <div className="glass-card p-6 sm:p-8 md:p-10 rounded-3xl border border-white/[0.12]">
+            <div className="glass-card p-6 sm:p-8 md:p-10 rounded-3xl border border-border dark:border-white/[0.12]">
               <AnimatePresence mode="wait">
                 {formSuccess ? (
                   <motion.div
@@ -209,13 +209,13 @@ export function Contact() {
                     exit={{ opacity: 0, scale: 0.96 }}
                     className="py-12 text-center space-y-4"
                   >
-                    <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 dark:text-emerald-400 mx-auto flex items-center justify-center">
                       <CheckCircle2 className="h-7 w-7" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white tracking-tight">
+                    <h3 className="text-2xl font-bold text-foreground tracking-tight">
                       Message Sent Successfully
                     </h3>
-                    <p className="text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
+                    <p className="text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
                       Thank you for reaching out! Your message has been received. I will review your requirements and respond promptly.
                     </p>
                     <div className="pt-4">
@@ -237,22 +237,22 @@ export function Contact() {
                     aria-live="polite"
                   >
                     <div className="space-y-1">
-                      <h3 className="text-xl font-bold text-white tracking-tight">
+                      <h3 className="text-xl font-bold text-foreground tracking-tight">
                         Send a Direct Message
                       </h3>
-                      <p className="text-xs text-zinc-400">
+                      <p className="text-xs text-muted-foreground">
                         Drop a line with your project details, timeline, or open role.
                       </p>
                     </div>
 
                     {formError && (
-                      <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-xs font-mono text-red-400">
+                      <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-xs font-mono text-red-500 dark:text-red-400">
                         {formError}
                       </div>
                     )}
 
                     <div className="space-y-2">
-                      <label htmlFor="name" className="block text-xs font-mono text-zinc-300">
+                      <label htmlFor="name" className="block text-xs font-mono text-muted-foreground">
                         YOUR NAME / ORGANIZATION *
                       </label>
                       <input
@@ -262,12 +262,12 @@ export function Contact() {
                         required
                         autoComplete="name"
                         placeholder="e.g. Alex Morgan (Acme Inc)"
-                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans"
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans dark:bg-black/50 dark:border-white/[0.1]"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <label htmlFor="email" className="block text-xs font-mono text-zinc-300">
+                      <label htmlFor="email" className="block text-xs font-mono text-muted-foreground">
                         YOUR EMAIL ADDRESS *
                       </label>
                       <input
@@ -278,12 +278,12 @@ export function Contact() {
                         autoComplete="email"
                         spellCheck={false}
                         placeholder="alex@company.com"
-                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans"
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans dark:bg-black/50 dark:border-white/[0.1]"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <label htmlFor="message" className="block text-xs font-mono text-zinc-300">
+                      <label htmlFor="message" className="block text-xs font-mono text-muted-foreground">
                         PROJECT SCOPE & MESSAGE *
                       </label>
                       <textarea
@@ -292,7 +292,7 @@ export function Contact() {
                         rows={4}
                         required
                         placeholder="Describe what you are looking to build, technical challenges, or timeline…"
-                        className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-sm text-white placeholder:text-zinc-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom resize-none font-sans"
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom resize-none font-sans dark:bg-black/50 dark:border-white/[0.1]"
                       />
                     </div>
 

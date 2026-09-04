@@ -33,7 +33,7 @@ export function Projects() {
   }
 
   return (
-    <section id="projects" className="py-24 relative border-t border-white/[0.08] scroll-mt-20 sm:scroll-mt-24">
+    <section id="projects" className="py-24 relative border-t border-border scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
           <SectionHeading
@@ -47,13 +47,13 @@ export function Projects() {
 
           {/* Quick Cycle Controls */}
           <div className="flex items-center gap-2 self-start md:self-end shrink-0">
-            <span className="font-mono text-xs text-zinc-400 mr-2 tabular-nums">
+            <span className="font-mono text-xs text-muted-foreground mr-2 tabular-nums">
               0{activeIndex + 1} / 0{projects.length}
             </span>
             <button
               type="button"
               onClick={handlePrev}
-              className="p-2.5 rounded-xl border border-white/[0.1] bg-white/[0.03] text-zinc-300 hover:text-white hover:bg-white/[0.08] transition-[border-color,background-color,color] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="p-2.5 rounded-xl border border-border bg-card/60 text-muted-foreground hover:text-foreground hover:bg-muted transition-[border-color,background-color,color] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/[0.1] dark:bg-white/[0.03] dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/[0.08]"
               aria-label="Previous project"
             >
               <ChevronLeft className="h-4 w-4" />
@@ -61,7 +61,7 @@ export function Projects() {
             <button
               type="button"
               onClick={handleNext}
-              className="p-2.5 rounded-xl border border-white/[0.1] bg-white/[0.03] text-zinc-300 hover:text-white hover:bg-white/[0.08] transition-[border-color,background-color,color] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="p-2.5 rounded-xl border border-border bg-card/60 text-muted-foreground hover:text-foreground hover:bg-muted transition-[border-color,background-color,color] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/[0.1] dark:bg-white/[0.03] dark:text-zinc-300 dark:hover:text-white dark:hover:bg-white/[0.08]"
               aria-label="Next project"
             >
               <ChevronRight className="h-4 w-4" />
@@ -73,7 +73,7 @@ export function Projects() {
         <div
           role="tablist"
           aria-label="Select a project case study"
-          className="flex items-center gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] mb-8 overflow-x-auto no-scrollbar scroll-smooth"
+          className="flex items-center gap-2 p-1.5 rounded-2xl bg-muted/40 border border-border mb-8 overflow-x-auto no-scrollbar scroll-smooth dark:bg-white/[0.03] dark:border-white/[0.08]"
         >
           {projects.map((project, idx) => {
             const isActive = idx === activeIndex
@@ -88,21 +88,21 @@ export function Projects() {
                 onClick={() => setActiveIndex(idx)}
                 onKeyDown={(e) => handleKeyDown(e, idx)}
                 className={`relative px-4 py-2.5 rounded-xl text-xs sm:text-sm font-mono transition-colors duration-150 shrink-0 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
-                  isActive ? "text-white font-semibold" : "text-zinc-400 hover:text-zinc-200"
+                  isActive ? "text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeProjectPill"
                     transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
-                    className="absolute inset-0 rounded-xl bg-white/[0.1] border border-white/[0.15] shadow-sm"
+                    className="absolute inset-0 rounded-xl bg-card border border-border shadow-sm dark:bg-white/[0.1] dark:border-white/[0.15]"
                   />
                 )}
                 <span className="relative z-10 flex items-center gap-2">
                   <span className="opacity-50">0{idx + 1}.</span>
                   <span>{project.title.split("—")[0].trim()}</span>
                   {project.featured && (
-                    <span className="hidden sm:inline-block text-[10px] px-1.5 py-0.2 rounded bg-primary/20 text-primary border border-primary/30">
+                    <span className="hidden sm:inline-block text-[10px] px-1.5 py-0.2 rounded bg-primary/15 text-primary border border-primary/30">
                       FLAGSHIP
                     </span>
                   )}
@@ -124,7 +124,7 @@ export function Projects() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
-              className="glass-card overflow-hidden border border-white/[0.12] rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl"
+              className="glass-card overflow-hidden border border-border rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl dark:border-white/[0.12]"
             >
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 
@@ -145,31 +145,31 @@ export function Projects() {
                       {currentProject.role || "Architect & Developer"}
                     </Badge>
                     {currentProject.duration && (
-                      <span className="text-xs font-mono text-zinc-500">
+                      <span className="text-xs font-mono text-muted-foreground">
                         {currentProject.duration}
                       </span>
                     )}
                   </div>
 
                   <div>
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white mb-3 [text-wrap:balance]">
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-3 [text-wrap:balance]">
                       {currentProject.title}
                     </h3>
-                    <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                       {currentProject.problem}
                     </p>
                   </div>
 
                   {/* Impact Highlight Box */}
-                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-1.5">
+                  <div className="p-4 rounded-2xl bg-muted/40 border border-border space-y-1.5 dark:bg-white/[0.03] dark:border-white/[0.08]">
                     <div className="flex items-center gap-2 text-xs font-mono text-primary font-semibold uppercase">
                       <Cpu className="h-3.5 w-3.5" />
                       <span>Verifiable Production Impact</span>
                     </div>
-                    <p className="text-lg font-bold text-white font-mono">
+                    <p className="text-lg font-bold text-foreground font-mono">
                       {currentProject.impact.metric}
                     </p>
-                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                       {currentProject.impact.detail}
                     </p>
                   </div>
@@ -224,7 +224,7 @@ export function Projects() {
                 <div className="lg:col-span-5">
                   <Link
                     href={`/projects/${currentProject.slug}`}
-                    className="group block relative h-64 sm:h-80 lg:h-[390px] rounded-2xl overflow-hidden border border-white/[0.12] bg-zinc-900 shadow-2xl"
+                    className="group block relative h-64 sm:h-80 lg:h-[390px] rounded-2xl overflow-hidden border border-border dark:border-white/[0.12] bg-muted/40 shadow-2xl"
                     aria-label={`Open case study for ${currentProject.title}`}
                   >
                     <Image

@@ -54,7 +54,7 @@ const skillCategories = [
 
 export function Skills() {
   return (
-    <section id="skills" className="py-24 relative border-t border-white/[0.08] scroll-mt-20 sm:scroll-mt-24">
+    <section id="skills" className="py-24 relative border-t border-border scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
         <SectionHeading
           number="03"
@@ -72,26 +72,26 @@ export function Skills() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.35, delay: index * 0.08, ease: [0.23, 1, 0.32, 1] }}
             >
-              <div className="glass-card h-full p-6 sm:p-8 rounded-3xl border border-white/[0.1] hover:border-white/20 transition-[border-color,background-color] duration-200 flex flex-col justify-between">
+              <div className="glass-card h-full p-6 sm:p-8 rounded-3xl border border-border hover:border-border/80 transition-[border-color,background-color,box-shadow] duration-200 flex flex-col justify-between dark:border-white/[0.1] dark:hover:border-white/20">
                 <div className="space-y-4 mb-6">
-                  <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary">
+                  <div className="w-11 h-11 rounded-2xl bg-muted/60 border border-border flex items-center justify-center text-primary dark:bg-white/[0.04] dark:border-white/[0.08]">
                     <category.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white tracking-tight">
+                    <h3 className="text-lg font-bold text-foreground tracking-tight">
                       {category.title}
                     </h3>
-                    <p className="text-xs text-zinc-400 font-normal mt-1 leading-relaxed">
+                    <p className="text-xs text-muted-foreground font-normal mt-1 leading-relaxed">
                       {category.description}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 pt-4 border-t border-white/[0.06]">
+                <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
                   {category.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-zinc-300 bg-white/[0.03] border border-white/[0.08] hover:border-primary/40 hover:text-white hover:bg-white/[0.06] transition-[border-color,color,background-color] duration-150 cursor-default"
+                      className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-foreground/90 bg-muted/60 border border-border hover:border-primary/40 hover:text-foreground hover:bg-muted transition-[border-color,color,background-color] duration-150 cursor-default dark:text-zinc-300 dark:bg-white/[0.03] dark:border-white/[0.08] dark:hover:text-white dark:hover:bg-white/[0.06]"
                     >
                       {skill}
                     </span>

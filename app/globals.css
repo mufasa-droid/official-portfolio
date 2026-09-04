@@ -4,6 +4,33 @@
 
 @layer base {
   :root {
+    --background: 0 0% 98.5%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.75rem;
+
+    /* Emil Kowalski custom motion curves */
+    --ease-out-custom: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out-custom: cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 5.5%;
@@ -23,11 +50,6 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 217.2 91.2% 59.8%;
-    --radius: 0.75rem;
-
-    /* Emil Kowalski custom motion curves */
-    --ease-out-custom: cubic-bezier(0.23, 1, 0.32, 1);
-    --ease-in-out-custom: cubic-bezier(0.77, 0, 0.175, 1);
   }
 }
 
@@ -38,13 +60,12 @@
   
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
   }
 
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/25 selection:text-primary;
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary transition-colors duration-200;
     font-feature-settings: "rlig" 1, "calt" 1, "cv02" 1, "cv03" 1, "cv04" 1;
-    scrollbar-color: hsl(var(--muted)) hsl(var(--background));
+    scrollbar-color: hsl(var(--muted-foreground) / 0.3) hsl(var(--background));
     scrollbar-width: thin;
   }
 
@@ -59,7 +80,7 @@
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-muted rounded-full;
+    @apply bg-muted-foreground/20 rounded-full;
   }
   
   ::-webkit-scrollbar-thumb:hover {
@@ -72,9 +93,15 @@
     @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  /* Subtle technical background grid */
+  /* Technical background grid adapted for Light and Dark */
   .bg-grid-technical {
     background-size: 32px 32px;
+    background-image: 
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  }
+
+  .dark .bg-grid-technical {
     background-image: 
       linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
@@ -82,37 +109,45 @@
 
   .bg-dot-technical {
     background-size: 20px 20px;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  }
+
+  .dark .bg-dot-technical {
     background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   }
 
   /* Premium Editorial Glass & Surface Panels */
   .glass-panel {
-    @apply bg-card/80 backdrop-blur-md border border-white/[0.08] shadow-sm;
+    @apply bg-card/85 backdrop-blur-md border border-border shadow-sm;
   }
 
   .glass-card {
-    @apply relative bg-gradient-to-b from-white/[0.04] to-white/[0.01] backdrop-blur-md border border-white/[0.08] rounded-2xl;
+    @apply relative bg-card/70 backdrop-blur-md border border-border rounded-2xl shadow-sm;
     transition-property: border-color, background-color, box-shadow, transform;
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
+  .dark .glass-card {
+    @apply bg-gradient-to-b from-white/[0.04] to-white/[0.01] border-white/[0.08];
+  }
+
   .glass-card-hover {
-    @apply hover:border-white/20 hover:bg-white/[0.06];
+    @apply hover:border-border hover:shadow-md dark:hover:border-white/20 dark:hover:bg-white/[0.06];
   }
 
   /* High-craft typography gradients */
   .heading-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-200 to-zinc-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-zinc-950 via-zinc-800 to-zinc-600 dark:from-white dark:via-zinc-200 dark:to-zinc-400;
   }
 
   .accent-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-300;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-600 dark:from-blue-400 dark:via-indigo-300 dark:to-cyan-300;
   }
 
   /* Technical code/metric badge */
   .tech-chip {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 transition-colors hover:border-white/20 hover:text-white;
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-muted/60 border border-border text-xs font-mono text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground dark:bg-white/[0.04] dark:border-white/[0.08] dark:text-zinc-300 dark:hover:border-white/20 dark:hover:text-white;
   }
 }
 

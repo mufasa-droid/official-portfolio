@@ -9,17 +9,17 @@ export function Footer() {
   }
 
   return (
-    <footer className="py-12 border-t border-white/[0.08] bg-black/40 text-xs font-mono text-zinc-400">
+    <footer className="py-12 border-t border-border bg-card/40 text-xs font-mono text-muted-foreground dark:bg-black/40">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           
           {/* Colophon & Identity */}
           <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
-            <span className="font-semibold text-white">
+            <span className="font-semibold text-foreground">
               {personalInfo.name}
             </span>
-            <span className="text-zinc-600 hidden sm:inline">•</span>
-            <span className="text-zinc-400">
+            <span className="text-border hidden sm:inline">•</span>
+            <span className="text-muted-foreground">
               Architected with Next.js 14, TypeScript & Tailwind CSS
             </span>
           </div>
@@ -30,7 +30,7 @@ export function Footer() {
               href={personalInfo.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
+              className="hover:text-foreground transition-colors"
               aria-label="GitHub Profile"
             >
               <Github className="h-4 w-4" />
@@ -39,25 +39,25 @@ export function Footer() {
               href={personalInfo.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
+              className="hover:text-foreground transition-colors"
               aria-label="LinkedIn Profile"
             >
               <Linkedin className="h-4 w-4" />
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="hover:text-white transition-colors"
+              className="hover:text-foreground transition-colors"
               aria-label="Send Email"
             >
               <Mail className="h-4 w-4" />
             </a>
 
-            <span className="text-zinc-700">|</span>
+            <span className="text-border">|</span>
 
             <button
               type="button"
               onClick={scrollToTop}
-              className="flex items-center gap-1 text-zinc-400 hover:text-white transition-colors p-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors p-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label="Scroll back to top"
             >
               <span>TOP</span>
@@ -67,7 +67,7 @@ export function Footer() {
 
         </div>
 
-        <div className="mt-6 pt-6 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-zinc-400">
+        <div className="mt-6 pt-6 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-muted-foreground">
           <p>© 2026 {personalInfo.name}. All rights reserved.</p>
           <p className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />

@@ -97,20 +97,20 @@ export function ArchitectureExplorer() {
   const currentLayer = layers.find((l) => l.id === activeTab) || layers[0]
 
   return (
-    <div className="glass-card overflow-hidden border border-white/[0.12] rounded-2xl">
+    <div className="glass-card overflow-hidden border border-border rounded-2xl dark:border-white/[0.12]">
       {/* Explorer Header / Tab Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-2 p-4 border-b border-white/[0.08] bg-black/40">
+      <div className="flex flex-wrap items-center justify-between gap-2 p-4 border-b border-border bg-muted/60 dark:border-white/[0.08] dark:bg-black/40">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
             <Zap className="h-4 w-4" />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-white tracking-tight">System Architecture Explorer</h4>
-            <p className="text-[11px] font-mono text-zinc-400">TraderMind Two-Layer AI Pipeline</p>
+            <h4 className="text-sm font-bold text-foreground tracking-tight">System Architecture Explorer</h4>
+            <p className="text-[11px] font-mono text-muted-foreground">TraderMind Two-Layer AI Pipeline</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-white/[0.04] border border-white/[0.08]">
+        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-card border border-border dark:bg-white/[0.04] dark:border-white/[0.08]">
           {layers.map((layer) => (
             <button
               key={layer.id}
@@ -118,7 +118,7 @@ export function ArchitectureExplorer() {
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-[background-color,color,border-color,box-shadow] duration-150 ease-out-custom ${
                 activeTab === layer.id
                   ? "bg-primary text-primary-foreground font-semibold shadow-sm"
-                  : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
               }`}
             >
               <layer.icon className="h-3.5 w-3.5" />
@@ -142,25 +142,25 @@ export function ArchitectureExplorer() {
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <Badge variant="accent">{currentLayer.tag}</Badge>
-                <span className="text-xs font-mono text-zinc-500">PRODUCTION ARCHITECTURE</span>
+                <span className="text-xs font-mono text-muted-foreground">PRODUCTION ARCHITECTURE</span>
               </div>
-              <h3 className="text-xl font-bold text-white">{currentLayer.title}</h3>
+              <h3 className="text-xl font-bold text-foreground">{currentLayer.title}</h3>
             </div>
           </div>
 
-          <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-3xl">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-3xl">
             {currentLayer.description}
           </p>
 
           <div className="grid lg:grid-cols-12 gap-6 items-start">
             {/* Highlights List */}
             <div className="lg:col-span-6 space-y-2.5">
-              <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-2">
+              <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-2">
                 Core Capabilities & Architecture
               </div>
               {currentLayer.highlights.map((item, idx) => (
-                <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] text-xs text-zinc-300">
-                  <CheckCircle className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
+                <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl bg-muted/40 border border-border text-xs text-foreground/90 dark:bg-white/[0.02] dark:border-white/[0.06] dark:text-zinc-300">
+                  <CheckCircle className="h-4 w-4 text-emerald-500 dark:text-emerald-400 mt-0.5 shrink-0" />
                   <span className="leading-relaxed">{item}</span>
                 </div>
               ))}
@@ -168,11 +168,11 @@ export function ArchitectureExplorer() {
 
             {/* Code / Configuration Snippet */}
             <div className="lg:col-span-6">
-              <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-2 flex items-center justify-between">
+              <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-2 flex items-center justify-between">
                 <span>Implementation Reference</span>
                 <span className="text-primary text-[10px]">TypeScript / SQL</span>
               </div>
-              <pre className="p-4 rounded-xl bg-black/70 border border-white/[0.08] font-mono text-[11px] text-zinc-300 overflow-x-auto leading-relaxed shadow-inner">
+              <pre className="p-4 rounded-xl bg-zinc-950 dark:bg-black/70 border border-border dark:border-white/[0.08] font-mono text-[11px] text-zinc-300 overflow-x-auto leading-relaxed shadow-inner">
                 <code>{currentLayer.codeSnippet}</code>
               </pre>
             </div>

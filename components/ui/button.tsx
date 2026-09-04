@@ -30,11 +30,11 @@ export const buttonVariants = ({
       // Variants
       "bg-primary text-primary-foreground font-semibold hover:bg-primary/90 shadow-sm shadow-primary/20 border border-primary/40":
         variant === "default",
-      "bg-zinc-800/90 text-zinc-100 hover:bg-zinc-700/90 hover:text-white border border-white/10":
+      "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border":
         variant === "secondary",
-      "border border-white/15 bg-white/[0.03] text-zinc-200 hover:bg-white/[0.08] hover:border-white/25 hover:text-white":
+      "border border-border bg-card/60 text-foreground hover:bg-muted hover:text-foreground dark:border-white/15 dark:bg-white/[0.03] dark:text-zinc-200 dark:hover:bg-white/[0.08] dark:hover:border-white/25 dark:hover:text-white":
         variant === "outline",
-      "text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.06]":
+      "text-muted-foreground hover:text-foreground hover:bg-muted/70 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-white/[0.06]":
         variant === "ghost",
       "bg-zinc-900 border border-emerald-500/30 font-mono text-emerald-400 hover:border-emerald-500/60 hover:bg-emerald-950/20 text-xs tracking-wide":
         variant === "terminal",

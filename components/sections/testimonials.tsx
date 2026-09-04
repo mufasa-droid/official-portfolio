@@ -37,7 +37,7 @@ const principles = [
 
 export function Testimonials() {
   return (
-    <section className="py-24 relative border-t border-white/[0.08]">
+    <section className="py-24 relative border-t border-border">
       <div className="container-custom">
         <SectionHeading
           number="05"
@@ -59,7 +59,7 @@ export function Testimonials() {
               <Card hoverEffect className="h-full flex flex-col justify-between">
                 <CardHeader>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary">
+                    <div className="w-10 h-10 rounded-xl bg-muted/60 border border-border flex items-center justify-center text-primary dark:bg-white/[0.04] dark:border-white/[0.08]">
                       <p.icon className="h-5 w-5" />
                     </div>
                     <Badge variant="mono">{p.badge}</Badge>
@@ -68,14 +68,14 @@ export function Testimonials() {
                 </CardHeader>
 
                 <CardContent className="space-y-4">
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                     {p.description}
                   </p>
 
-                  <div className="pt-2 space-y-2 border-t border-white/[0.06]">
+                  <div className="pt-2 space-y-2 border-t border-border">
                     {p.points.map((point) => (
-                      <div key={point} className="flex items-center gap-2 text-xs font-mono text-zinc-300">
-                        <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                      <div key={point} className="flex items-center gap-2 text-xs font-mono text-foreground/90 dark:text-zinc-300">
+                        <Check className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400 shrink-0" />
                         <span>{point}</span>
                       </div>
                     ))}
@@ -92,13 +92,13 @@ export function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
-          className="glass-card p-8 rounded-2xl border border-white/[0.1] flex flex-col md:flex-row items-center justify-between gap-6"
+          className="glass-card p-8 rounded-2xl border border-border flex flex-col md:flex-row items-center justify-between gap-6 dark:border-white/[0.1]"
         >
           <div className="space-y-1.5 text-center md:text-left">
-            <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+            <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight">
               Looking for a Senior Frontend Engineer who delivers with craft?
             </h3>
-            <p className="text-xs sm:text-sm text-zinc-400">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               Check out my code directly on GitHub or connect with me on LinkedIn to discuss your team&apos;s goals.
             </p>
           </div>
