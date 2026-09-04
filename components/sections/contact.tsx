@@ -251,6 +251,16 @@ export function Contact() {
                       </div>
                     )}
 
+                    {/* Honeypot field for bot spam prevention */}
+                    <input
+                      type="text"
+                      name="website_url"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      className="opacity-0 absolute -z-10 w-0 h-0 pointer-events-none"
+                    />
+
                     <div className="space-y-2">
                       <label htmlFor="name" className="block text-xs font-mono text-muted-foreground">
                         YOUR NAME / ORGANIZATION *
@@ -260,6 +270,7 @@ export function Contact() {
                         id="name"
                         name="name"
                         required
+                        maxLength={100}
                         autoComplete="name"
                         placeholder="e.g. Alex Morgan (Acme Inc)"
                         className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans dark:bg-black/50 dark:border-white/[0.1]"
@@ -275,6 +286,7 @@ export function Contact() {
                         id="email"
                         name="email"
                         required
+                        maxLength={254}
                         autoComplete="email"
                         spellCheck={false}
                         placeholder="alex@company.com"
@@ -291,6 +303,7 @@ export function Contact() {
                         name="message"
                         rows={4}
                         required
+                        maxLength={5000}
                         placeholder="Describe what you are looking to build, technical challenges, or timeline…"
                         className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom resize-none font-sans dark:bg-black/50 dark:border-white/[0.1]"
                       />
