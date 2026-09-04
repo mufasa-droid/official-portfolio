@@ -14,20 +14,17 @@ interface ThemeContextType {
 const ThemeContext = React.createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = React.useState<Theme>("system")
-  const [resolvedTheme, setResolvedTheme] = React.useState<"light" | "dark">("dark")
+  const [theme, setThemeState] = React.useState<Theme>("light")
+  const [resolvedTheme, setResolvedTheme] = React.useState<"light" | "dark">("light")
   const [mounted, setMounted] = React.useState(false)
 
-  // Initialize theme from localStorage or system preference
+  // Initialize theme from localStorage, defaulting to light
   React.useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme | null
-    const initialTheme = savedTheme || "system"
+    const initialTheme = savedTheme || "light"
     setThemeState(initialTheme)
 
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
-    const systemDark = mediaQuery.matches
-
-    const effective = initialTheme === "system" ? (systemDark ? "dark" : "light") : initialTheme
+    const effective = initialTheme === "dark" ? "dark" : "light"
     setResolvedTheme(effective)
 
     if (effective === "dark") {
@@ -39,32 +36,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
 
     setMounted(true)
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      const currentSaved = localStorage.getItem("theme") as Theme | null
-      if (!currentSaved || currentSaved === "system") {
-        const newResolved = e.matches ? "dark" : "light"
-        setResolvedTheme(newResolved)
-        if (newResolved === "dark") {
-          document.documentElement.classList.add("dark")
-          document.documentElement.style.colorScheme = "dark"
-        } else {
-          document.documentElement.classList.remove("dark")
-          document.documentElement.style.colorScheme = "light"
-        }
-      }
-    }
-
-    mediaQuery.addEventListener("change", handleChange)
-    return () => mediaQuery.removeEventListener("change", handleChange)
   }, [])
 
   const setTheme = React.useCallback((newTheme: Theme) => {
     setThemeState(newTheme)
     localStorage.setItem("theme", newTheme)
 
-    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    const effective = newTheme === "system" ? (systemDark ? "dark" : "light") : newTheme
+    const effective = newTheme === "dark" ? "dark" : "light"
     setResolvedTheme(effective)
 
     if (effective === "dark") {
