@@ -150,7 +150,7 @@ export function Navbar({ profile = personalInfo }: NavbarProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="md:hidden fixed inset-0 top-16 sm:top-20 bg-black/60 backdrop-blur-xs z-40"
+              className="md:hidden fixed inset-0 top-16 sm:top-20 bg-black/60 backdrop-blur-sm z-40"
               aria-hidden="true"
             />
 
