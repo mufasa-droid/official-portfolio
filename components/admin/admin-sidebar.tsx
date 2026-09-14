@@ -18,6 +18,7 @@ import {
   LogOut,
   Menu,
   X,
+  Award,
   Shield,
 } from 'lucide-react'
 import { logoutAdmin } from '@/app/admin/actions/auth'
@@ -27,6 +28,7 @@ export const navItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
   { name: 'Projects', href: '/admin/projects', icon: FolderGit2 },
   { name: 'Experience', href: '/admin/experience', icon: Briefcase },
+  { name: 'Certificates', href: '/admin/certificates', icon: Award },
   { name: 'Skills Matrix', href: '/admin/skills', icon: Layers },
   { name: 'Media Library', href: '/admin/media', icon: ImageIcon },
   { name: 'Profile & Bio', href: '/admin/profile', icon: User },

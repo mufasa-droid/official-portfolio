@@ -12,6 +12,7 @@ import {
   ExternalLink,
   Cpu,
   Sparkles,
+  Award,
 } from 'lucide-react'
 import {
   getPublishedProjects,
@@ -332,6 +333,17 @@ export default async function AdminDashboardPage() {
                   <span>Add Case Study</span>
                 </span>
                 <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+              </Link>
+
+              <Link
+                href="/admin/certificates"
+                className="flex items-center justify-between p-3 rounded-xl bg-muted/40 hover:bg-muted/80 border border-border text-xs font-mono font-medium text-foreground transition-colors group"
+              >
+                <span className="flex items-center gap-2">
+                  <Award className="h-4 w-4 text-emerald-500" />
+                  <span>Manage Certificates</span>
+                </span>
+                <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-emerald-500 transition-colors" />
               </Link>
 
               <Link
