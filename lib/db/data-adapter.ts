@@ -153,6 +153,7 @@ export const getPublishedProjects = unstable_cache(
         gallery: row.gallery && row.gallery.length > 0 ? row.gallery : undefined,
         liveUrl: row.live_url || undefined,
         githubUrl: row.github_url || undefined,
+        isPublished: row.is_published,
       }))
     } catch {
       return fallbackProjects
@@ -163,11 +164,64 @@ export const getPublishedProjects = unstable_cache(
 )
 
 /**
- * Fetch a single published project by slug
+ * Fetch a project by slug with optional draft preview support
  */
-export async function getProjectBySlug(slug: string): Promise<Project | null> {
+export async function getProjectBySlug(
+  slug: string,
+  options?: { allowDraft?: boolean }
+): Promise<Project | null> {
+  // If draft preview requested, attempt direct DB lookup regardless of is_published
+  if (options?.allowDraft) {
+    try {
+      const supabase = createClient()
+      if (supabase) {
+        const { data, error } = await supabase
+          .from('projects')
+          .select('*')
+          .eq('slug', slug)
+          .maybeSingle()
+
+        if (data && !error) {
+          return {
+            id: data.id,
+            title: data.title,
+            slug: data.slug,
+            featured: data.featured,
+            role: data.role,
+            duration: data.duration || undefined,
+            team: data.team || undefined,
+            problem: data.problem,
+            solution: data.solution,
+            impact: {
+              metric: data.impact?.metric || '',
+              detail: data.impact?.detail || '',
+            },
+            tech: data.tech || [],
+            features: data.features || [],
+            image: data.image,
+            gallery: data.gallery && data.gallery.length > 0 ? data.gallery : undefined,
+            liveUrl: data.live_url || undefined,
+            githubUrl: data.github_url || undefined,
+            isPublished: data.is_published,
+          }
+        }
+      }
+    } catch {
+      // Ignore error and fall through
+    }
+  }
+
+  // Fallback to published cached projects
   const projects = await getPublishedProjects()
   return projects.find((p) => p.slug === slug) || null
+}
+
+/**
+ * Fetch all published project slugs for static paths & sitemaps
+ */
+export async function getAllProjectSlugs(): Promise<string[]> {
+  const projects = await getPublishedProjects()
+  return projects.map((p) => p.slug)
 }
 
 /**

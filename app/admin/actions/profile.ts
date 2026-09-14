@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import type { Database } from '@/types/database'
 
@@ -84,6 +84,7 @@ export async function updateProfile(data: {
     }
   }
 
+  revalidateTag('profile')
   revalidatePath('/', 'layout')
   revalidatePath('/admin', 'layout')
   revalidatePath('/admin/profile')

@@ -1,10 +1,22 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowUpRight, Terminal, MapPin } from "lucide-react"
+import { ArrowUpRight, Terminal, MapPin, Flame } from "lucide-react"
 import { SectionHeading } from "../ui/section-heading"
+import { personalInfo, currentWork as fallbackCurrentWork } from "@/lib/data"
+import type { PersonalInfo, CurrentWork } from "@/types/portfolio"
 
-export function About() {
+interface AboutProps {
+  profile?: PersonalInfo
+  currentWork?: CurrentWork
+}
+
+export function About({
+  profile = personalInfo,
+  currentWork = fallbackCurrentWork,
+}: AboutProps) {
+  const currentProfile = profile || personalInfo
+  const sprint = currentWork || fallbackCurrentWork
   return (
     <section id="about" className="py-24 relative border-t border-border scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
@@ -62,7 +74,7 @@ export function About() {
                 </a>
                 <span className="text-border">•</span>
                 <a
-                  href="https://github.com/mufasa-droid"
+                  href={currentProfile.socials.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
@@ -84,21 +96,42 @@ export function About() {
               </div>
 
               <div className="space-y-3 font-mono text-xs">
+                {/* Active Sprint Widget from CMS */}
+                {sprint && (
+                  <div className="p-3.5 rounded-xl bg-primary/5 border border-primary/20 space-y-1.5">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-primary font-bold flex items-center gap-1">
+                        <Flame className="h-3 w-3" />
+                        <span>CURRENT SPRINT</span>
+                      </span>
+                      <span className="text-muted-foreground font-semibold">
+                        {sprint.status} ({sprint.progress}%)
+                      </span>
+                    </div>
+                    <div className="text-foreground font-medium truncate">
+                      {sprint.title}
+                    </div>
+                    <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-primary transition-all duration-300"
+                        style={{ width: `${sprint.progress}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+
                 <div className="p-3.5 rounded-xl bg-muted/40 border border-border dark:bg-white/[0.02] dark:border-white/[0.06] space-y-1">
                   <div className="text-muted-foreground/80">PRIMARY STACK</div>
                   <div className="text-foreground font-medium">Next.js 14/15 App Router • React 19 • TypeScript</div>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-muted/40 border border-border dark:bg-white/[0.02] dark:border-white/[0.06] space-y-1">
-                  <div className="text-muted-foreground/80">ARCHITECTURE & AI</div>
-                  <div className="text-foreground font-medium">RSC • Server Actions • LLM Pipelines • Supabase</div>
-                </div>
-
-                <div className="p-3.5 rounded-xl bg-muted/40 border border-border dark:bg-white/[0.02] dark:border-white/[0.06] space-y-1">
                   <div className="text-muted-foreground/80">LOCATION & AVAILABILITY</div>
                   <div className="text-foreground flex items-center gap-1.5 font-medium">
                     <MapPin className="h-3.5 w-3.5 text-primary" />
-                    <span>Lagos, Nigeria (UTC+1) • Global Remote Roles</span>
+                    <span>
+                      {currentProfile.location} • {currentProfile.availableForWork ? 'Available for Roles' : 'Committed'}
+                    </span>
                   </div>
                 </div>
 

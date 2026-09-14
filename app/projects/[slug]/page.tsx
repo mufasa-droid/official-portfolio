@@ -2,8 +2,8 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, ArrowRight, ExternalLink, Github, CheckCircle2, Cpu, Layers, Sparkles } from "lucide-react"
-import { projects, personalInfo } from "@/lib/data"
+import { ArrowLeft, ArrowRight, ExternalLink, Github, CheckCircle2, Cpu, Layers, Sparkles, AlertCircle } from "lucide-react"
+import { getProjectBySlug, getPublishedProjects, getPortfolioProfile } from "@/lib/db/data-adapter"
 import { Project } from "@/types/portfolio"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -12,16 +12,25 @@ import { ArchitectureExplorer } from "@/components/projects/architecture-explore
 
 interface ProjectPageProps {
   params: { slug: string }
+  searchParams?: { preview?: string }
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const projects = await getPublishedProjects()
   return projects.map((project) => ({
     slug: project.slug,
   }))
 }
 
-export function generateMetadata({ params }: ProjectPageProps): Metadata {
-  const project = projects.find((p) => p.slug === params.slug)
+export async function generateMetadata({
+  params,
+  searchParams,
+}: ProjectPageProps): Promise<Metadata> {
+  const isPreview = searchParams?.preview === "true"
+  const [project, profile] = await Promise.all([
+    getProjectBySlug(params.slug, { allowDraft: isPreview }),
+    getPortfolioProfile(),
+  ])
 
   if (!project) {
     return {
@@ -30,7 +39,7 @@ export function generateMetadata({ params }: ProjectPageProps): Metadata {
   }
 
   return {
-    title: `${project.title} — Case Study | ${personalInfo.name}`,
+    title: `${project.title} — Case Study | ${profile.name}`,
     description: project.problem,
     openGraph: {
       title: `${project.title} — Case Study`,
@@ -47,17 +56,54 @@ export function generateMetadata({ params }: ProjectPageProps): Metadata {
   }
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const projectIndex = projects.findIndex((p) => p.slug === params.slug)
-  if (projectIndex === -1) {
+export default async function ProjectPage({
+  params,
+  searchParams,
+}: ProjectPageProps) {
+  const isPreview = searchParams?.preview === "true"
+  const [project, publishedProjects] = await Promise.all([
+    getProjectBySlug(params.slug, { allowDraft: isPreview }),
+    getPublishedProjects(),
+  ])
+
+  if (!project) {
     notFound()
   }
 
-  const project = projects[projectIndex]
-  const nextProject = projects[(projectIndex + 1) % projects.length]
+  const projectIndex = publishedProjects.findIndex((p) => p.slug === params.slug)
+  const nextProject =
+    publishedProjects.length > 0
+      ? publishedProjects[(Math.max(0, projectIndex) + 1) % publishedProjects.length]
+      : null
 
   return (
     <main className="min-h-screen bg-background pt-24 pb-24 bg-grid-technical">
+      {/* Draft Preview Banner */}
+      {project.isPublished === false && (
+        <div className="container-custom pt-6 pb-2">
+          <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 font-mono text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg backdrop-blur-sm">
+            <span className="flex items-center gap-2.5 font-medium">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+              </span>
+              <span>CMS DRAFT PREVIEW MODE — This case study is currently an unpublished draft.</span>
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-md bg-amber-500/20 border border-amber-500/30">
+                Draft Preview
+              </span>
+              <Link
+                href="/admin/projects"
+                className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-md bg-foreground/5 hover:bg-foreground/10 border border-border transition-colors text-foreground"
+              >
+                Back to CMS
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Top Header & Breadcrumb */}
       <div className="container-custom mb-12">
         <div className="flex items-center justify-between py-4 border-b border-border">
@@ -70,7 +116,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           </Link>
 
           <span className="font-mono text-xs text-primary font-semibold">
-            CASE STUDY // 0{projectIndex + 1}
+            CASE STUDY // 0{projectIndex >= 0 ? projectIndex + 1 : 1}
           </span>
         </div>
       </div>
@@ -264,22 +310,31 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
       {/* Next Project & Bottom CTA */}
       <div className="container-custom pt-12 border-t border-border">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 rounded-2xl bg-muted/40 border border-border dark:bg-white/[0.02] dark:border-white/[0.08]">
-          <div>
-            <p className="text-xs font-mono text-muted-foreground uppercase">NEXT CASE STUDY</p>
-            <h3 className="text-xl font-bold text-foreground mt-1">{nextProject.title}</h3>
-          </div>
+        {nextProject ? (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 rounded-2xl bg-muted/40 border border-border dark:bg-white/[0.02] dark:border-white/[0.08]">
+            <div>
+              <p className="text-xs font-mono text-muted-foreground uppercase">NEXT CASE STUDY</p>
+              <h3 className="text-xl font-bold text-foreground mt-1">{nextProject.title}</h3>
+            </div>
 
-          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4">
+              <Button variant="outline" href="/#projects">
+                <span>All Projects</span>
+              </Button>
+              <Button variant="default" href={`/projects/${nextProject.slug}`}>
+                <span>Next Study</span>
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center p-8 rounded-2xl bg-muted/40 border border-border">
             <Button variant="outline" href="/#projects">
-              <span>All Projects</span>
-            </Button>
-            <Button variant="default" href={`/projects/${nextProject.slug}`}>
-              <span>Next Study</span>
-              <ArrowRight className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              <span>Back to All Projects</span>
             </Button>
           </div>
-        </div>
+        )}
       </div>
     </main>
   )

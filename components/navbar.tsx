@@ -7,6 +7,7 @@ import { Menu, X, ArrowUpRight, Github } from "lucide-react"
 import { Button } from "./ui/button"
 import { ThemeToggle } from "./theme-toggle"
 import { personalInfo } from "@/lib/data"
+import type { PersonalInfo } from "@/types/portfolio"
 
 const navItems = [
   { name: "About", href: "#about" },
@@ -16,7 +17,12 @@ const navItems = [
   { name: "Contact", href: "#contact" },
 ]
 
-export function Navbar() {
+interface NavbarProps {
+  profile?: PersonalInfo
+}
+
+export function Navbar({ profile = personalInfo }: NavbarProps) {
+  const currentProfile = profile || personalInfo
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -91,7 +97,7 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-2">
             <ThemeToggle />
             <a
-              href={personalInfo.socials.github}
+              href={currentProfile.socials.github}
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 border border-transparent hover:border-border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"

@@ -4,9 +4,16 @@ import { motion } from "framer-motion"
 import { Briefcase, Calendar, MapPin, CheckCircle2, TrendingUp } from "lucide-react"
 import { SectionHeading } from "../ui/section-heading"
 import { Card } from "../ui/card"
-import { experience } from "@/lib/data"
+import { experience as fallbackExperience } from "@/lib/data"
+import type { ExperienceItem } from "@/types/portfolio"
 
-export function Experience() {
+interface ExperienceProps {
+  initialExperiences?: ExperienceItem[]
+}
+
+export function Experience({ initialExperiences = fallbackExperience }: ExperienceProps) {
+  const experiences = initialExperiences && initialExperiences.length > 0 ? initialExperiences : fallbackExperience
+
   return (
     <section id="experience" className="py-24 relative border-t border-border scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
@@ -19,7 +26,7 @@ export function Experience() {
 
         {/* Vertical Stacking Cards Container */}
         <div className="max-w-4xl mx-auto space-y-8 relative">
-          {experience.map((exp, index) => (
+          {experiences.map((exp, index) => (
             <motion.div
               key={exp.company + exp.period}
               initial={{ opacity: 0, y: 24, scale: 0.98 }}

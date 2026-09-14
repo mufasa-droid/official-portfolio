@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import type { Database } from '@/types/database'
 
@@ -65,6 +65,7 @@ export async function updateSiteSettings(data: {
     }
   }
 
+  revalidateTag('settings')
   revalidatePath('/', 'layout')
   revalidatePath('/sitemap.xml')
   revalidatePath('/robots.txt')

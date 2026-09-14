@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Layout, Database, Wrench } from "lucide-react"
 import { SectionHeading } from "../ui/section-heading"
 
-const skillCategories = [
+const fallbackSkillCategories = [
   {
     icon: Layout,
     title: "Frontend Systems & Core Web",
@@ -52,7 +52,27 @@ const skillCategories = [
   },
 ]
 
-export function Skills() {
+import type { SkillCategoryWithSkills } from "@/lib/db/data-adapter"
+
+const ICON_MAP: Record<string, typeof Layout> = {
+  Layout,
+  Database,
+  Wrench,
+}
+
+interface SkillsProps {
+  initialCategories?: SkillCategoryWithSkills[]
+}
+
+export function Skills({ initialCategories }: SkillsProps) {
+  const categories = initialCategories && initialCategories.length > 0
+    ? initialCategories.map((c) => ({
+        icon: ICON_MAP[c.iconName] || Layout,
+        title: c.name,
+        description: c.description,
+        skills: c.skills,
+      }))
+    : fallbackSkillCategories
   return (
     <section id="skills" className="py-24 relative border-t border-border scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
@@ -64,7 +84,7 @@ export function Skills() {
         />
 
         <div className="grid lg:grid-cols-3 gap-6">
-          {skillCategories.map((category, index) => (
+          {categories.map((category, index) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 16 }}

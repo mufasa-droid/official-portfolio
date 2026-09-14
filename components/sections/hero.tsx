@@ -6,8 +6,14 @@ import { ArrowRight, Github, Linkedin, Terminal, Sparkles, ExternalLink } from "
 import { Button } from "../ui/button"
 import { Badge } from "../ui/badge"
 import { personalInfo } from "@/lib/data"
+import type { PersonalInfo } from "@/types/portfolio"
 
-export function Hero() {
+interface HeroProps {
+  profile?: PersonalInfo
+}
+
+export function Hero({ profile = personalInfo }: HeroProps) {
+  const currentProfile = profile || personalInfo
   return (
     <section className="relative min-h-[88vh] sm:min-h-[92vh] flex items-center justify-center pt-24 sm:pt-28 pb-16 overflow-hidden bg-grid-technical">
       {/* Subtle radial spotlight (pure CSS, no CPU animation loops) */}
@@ -31,11 +37,15 @@ export function Hero() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                <span>Available for high-impact roles & contracts</span>
+                <span>
+                  {currentProfile.availableForWork
+                    ? 'Available for high-impact roles & contracts'
+                    : 'Currently engaged in focused engineering'}
+                </span>
               </div>
 
               <span className="text-xs font-mono text-muted-foreground/80 hidden sm:inline-block">
-                Lagos, NG (UTC+1)
+                {currentProfile.location}
               </span>
             </motion.div>
 
@@ -79,7 +89,7 @@ export function Hero() {
               <div className="flex items-center gap-4 text-xs text-muted-foreground font-mono pt-1">
                 <span className="text-muted-foreground/60">CONNECT:</span>
                 <a
-                  href={personalInfo.socials.github}
+                  href={currentProfile.socials.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
@@ -90,7 +100,7 @@ export function Hero() {
                 </a>
                 <span className="text-border">•</span>
                 <a
-                  href={personalInfo.socials.linkedin}
+                  href={currentProfile.socials.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"

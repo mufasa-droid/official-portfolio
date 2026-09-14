@@ -8,27 +8,33 @@ import { ArrowRight, ExternalLink, Github, Sparkles, Cpu, ChevronLeft, ChevronRi
 import { SectionHeading } from "../ui/section-heading"
 import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
-import { projects } from "@/lib/data"
+import { projects as fallbackProjects } from "@/lib/data"
+import type { Project } from "@/types/portfolio"
 
-export function Projects() {
+interface ProjectsProps {
+  initialProjects?: Project[]
+}
+
+export function Projects({ initialProjects = fallbackProjects }: ProjectsProps) {
+  const projectList = initialProjects && initialProjects.length > 0 ? initialProjects : fallbackProjects
   const [activeIndex, setActiveIndex] = useState(0)
-  const currentProject = projects[activeIndex] || projects[0]
+  const currentProject = projectList[activeIndex] || projectList[0]
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % projects.length)
+    setActiveIndex((prev) => (prev + 1) % projectList.length)
   }
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length)
+    setActiveIndex((prev) => (prev - 1 + projectList.length) % projectList.length)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
     if (e.key === "ArrowRight") {
       e.preventDefault()
-      setActiveIndex((index + 1) % projects.length)
+      setActiveIndex((index + 1) % projectList.length)
     } else if (e.key === "ArrowLeft") {
       e.preventDefault()
-      setActiveIndex((index - 1 + projects.length) % projects.length)
+      setActiveIndex((index - 1 + projectList.length) % projectList.length)
     }
   }
 
@@ -48,7 +54,7 @@ export function Projects() {
           {/* Quick Cycle Controls */}
           <div className="flex items-center gap-2 self-start md:self-end shrink-0">
             <span className="font-mono text-xs text-muted-foreground mr-2 tabular-nums">
-              0{activeIndex + 1} / 0{projects.length}
+              0{activeIndex + 1} / 0{projectList.length}
             </span>
             <button
               type="button"
@@ -75,7 +81,7 @@ export function Projects() {
           aria-label="Select a project case study"
           className="flex items-center gap-2 p-1.5 rounded-2xl bg-muted/40 border border-border mb-8 overflow-x-auto no-scrollbar scroll-smooth dark:bg-white/[0.03] dark:border-white/[0.08]"
         >
-          {projects.map((project, idx) => {
+          {projectList.map((project, idx) => {
             const isActive = idx === activeIndex
             return (
               <button

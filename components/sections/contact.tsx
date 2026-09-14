@@ -7,10 +7,16 @@ import { SectionHeading } from "../ui/section-heading"
 import { Button } from "../ui/button"
 import { Card, CardContent } from "../ui/card"
 import { Badge } from "../ui/badge"
-import { personalInfo } from "@/lib/data"
+import { personalInfo as fallbackPersonalInfo } from "@/lib/data"
+import type { PersonalInfo } from "@/types/portfolio"
 import { submitContactMessage } from "@/app/actions/contact"
 
-export function Contact() {
+interface ContactProps {
+  profile?: PersonalInfo
+}
+
+export function Contact({ profile = fallbackPersonalInfo }: ContactProps) {
+  const currentProfile = profile || fallbackPersonalInfo
   const [copiedEmail, setCopiedEmail] = useState(false)
   const [copiedPhone, setCopiedPhone] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -18,13 +24,13 @@ export function Contact() {
   const [formError, setFormError] = useState<string | null>(null)
 
   const copyEmail = () => {
-    navigator.clipboard.writeText(personalInfo.email)
+    navigator.clipboard.writeText(currentProfile.email)
     setCopiedEmail(true)
     setTimeout(() => setCopiedEmail(false), 2000)
   }
 
   const copyPhone = () => {
-    navigator.clipboard.writeText(personalInfo.phone)
+    navigator.clipboard.writeText(currentProfile.phone)
     setCopiedPhone(true)
     setTimeout(() => setCopiedPhone(false), 2000)
   }
@@ -86,7 +92,7 @@ export function Contact() {
               {/* Email Card */}
               <div className="glass-card p-4 rounded-xl border border-border flex items-center justify-between group">
                 <a
-                  href={`mailto:${personalInfo.email}`}
+                  href={`mailto:${currentProfile.email}`}
                   className="flex items-center gap-3.5 min-w-0"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
@@ -95,7 +101,7 @@ export function Contact() {
                   <div className="min-w-0">
                     <p className="text-[11px] font-mono text-muted-foreground uppercase">Email</p>
                     <p className="text-xs sm:text-sm font-medium text-foreground truncate group-hover:text-primary transition-colors">
-                      {personalInfo.email}
+                      {currentProfile.email}
                     </p>
                   </div>
                 </a>
@@ -118,7 +124,7 @@ export function Contact() {
               {/* Phone Card */}
               <div className="glass-card p-4 rounded-xl border border-border flex items-center justify-between group">
                 <a
-                  href={`tel:${personalInfo.phone}`}
+                  href={`tel:${currentProfile.phone}`}
                   className="flex items-center gap-3.5 min-w-0"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
@@ -127,7 +133,7 @@ export function Contact() {
                   <div className="min-w-0">
                     <p className="text-[11px] font-mono text-muted-foreground uppercase">Phone & WhatsApp</p>
                     <p className="text-xs sm:text-sm font-medium text-foreground truncate group-hover:text-primary transition-colors">
-                      {personalInfo.phone}
+                      {currentProfile.phone}
                     </p>
                   </div>
                 </a>
@@ -155,7 +161,7 @@ export function Contact() {
                 <div>
                   <p className="text-[11px] font-mono text-muted-foreground uppercase">Location & Timezone</p>
                   <p className="text-xs sm:text-sm font-medium text-foreground">
-                    {personalInfo.location} • West Africa Time (UTC+1)
+                    {currentProfile.location} • West Africa Time (UTC+1)
                   </p>
                 </div>
               </div>
@@ -166,7 +172,7 @@ export function Contact() {
               <span className="text-xs font-mono text-muted-foreground uppercase">Verified Networks:</span>
               <div className="flex gap-3">
                 <a
-                  href={personalInfo.socials.github}
+                  href={currentProfile.socials.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-3 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors dark:bg-white/[0.03] dark:border-white/[0.08] dark:text-zinc-300 dark:hover:text-white"
@@ -176,7 +182,7 @@ export function Contact() {
                   <span>GitHub</span>
                 </a>
                 <a
-                  href={personalInfo.socials.linkedin}
+                  href={currentProfile.socials.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-3 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors dark:bg-white/[0.03] dark:border-white/[0.08] dark:text-zinc-300 dark:hover:text-white"

@@ -2,8 +2,15 @@
 
 import { Github, Linkedin, Mail, ArrowUp } from "lucide-react"
 import { personalInfo } from "@/lib/data"
+import type { PersonalInfo } from "@/types/portfolio"
 
-export function Footer() {
+interface FooterProps {
+  profile?: PersonalInfo
+}
+
+export function Footer({ profile = personalInfo }: FooterProps) {
+  const currentProfile = profile || personalInfo
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
@@ -16,7 +23,7 @@ export function Footer() {
           {/* Colophon & Identity */}
           <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
             <span className="font-semibold text-foreground">
-              {personalInfo.name}
+              {currentProfile.name}
             </span>
             <span className="text-border hidden sm:inline">•</span>
             <span className="text-muted-foreground">
@@ -27,7 +34,7 @@ export function Footer() {
           {/* Social Links & Back to Top */}
           <div className="flex items-center gap-4">
             <a
-              href={personalInfo.socials.github}
+              href={currentProfile.socials.github}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-foreground transition-colors"
@@ -36,7 +43,7 @@ export function Footer() {
               <Github className="h-4 w-4" />
             </a>
             <a
-              href={personalInfo.socials.linkedin}
+              href={currentProfile.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-foreground transition-colors"
@@ -45,7 +52,7 @@ export function Footer() {
               <Linkedin className="h-4 w-4" />
             </a>
             <a
-              href={`mailto:${personalInfo.email}`}
+              href={`mailto:${currentProfile.email}`}
               className="hover:text-foreground transition-colors"
               aria-label="Send Email"
             >

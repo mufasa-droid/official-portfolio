@@ -39,6 +39,7 @@ export interface Project {
   title: string
   slug: string
   featured: boolean
+  isPublished?: boolean
   problem: string
   solution: string
   role: string
