@@ -78,3 +78,15 @@ export interface CurrentWork {
   status: string
   progress: number
 }
+
+export interface CertificateItem {
+  id: string
+  title: string
+  issuer: string
+  issueDate: string
+  credentialUrl?: string | null
+  imageUrl: string
+  description?: string | null
+  displayOrder: number
+  isVisible: boolean
+}

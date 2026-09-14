@@ -5,12 +5,14 @@ import {
   projects as fallbackProjects,
   experience as fallbackExperience,
   currentWork as fallbackCurrentWork,
+  certificates as fallbackCertificates,
 } from '@/lib/data'
 import type {
   PersonalInfo,
   Project,
   ExperienceItem,
   CurrentWork,
+  CertificateItem,
 } from '@/types/portfolio'
 
 export interface SkillCategoryWithSkills {
@@ -335,3 +337,40 @@ export const getCurrentWork = unstable_cache(
   ['portfolio-current-work'],
   { tags: ['current-work'], revalidate: 86400 }
 )
+
+/**
+ * Fetch all visible certificates from Supabase with fallback to lib/data.ts
+ */
+export const getCertificates = unstable_cache(
+  async (): Promise<CertificateItem[]> => {
+    try {
+      const supabase = createClient()
+      if (!supabase) return fallbackCertificates
+
+      const { data, error } = await supabase
+        .from('certificates')
+        .select('id, title, issuer, issue_date, credential_url, image_url, description, display_order, is_visible')
+        .eq('is_visible', true)
+        .order('display_order', { ascending: true })
+
+      if (error || !data || data.length === 0) return fallbackCertificates
+
+      return data.map((row) => ({
+        id: row.id,
+        title: row.title,
+        issuer: row.issuer,
+        issueDate: row.issue_date,
+        credentialUrl: row.credential_url,
+        imageUrl: row.image_url,
+        description: row.description,
+        displayOrder: row.display_order,
+        isVisible: row.is_visible,
+      }))
+    } catch {
+      return fallbackCertificates
+    }
+  },
+  ['portfolio-certificates'],
+  { tags: ['certificates'], revalidate: 86400 }
+)
+

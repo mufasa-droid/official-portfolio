@@ -5,6 +5,7 @@ import {
   ExperienceItem,
   TestimonialItem,
   CurrentWork,
+  CertificateItem,
 } from "@/types/portfolio"
 
 export const personalInfo: PersonalInfo = {
@@ -207,3 +208,51 @@ export const currentWork: CurrentWork = {
   status: "In Progress",
   progress: 75
 }
+
+export const certificates: CertificateItem[] = [
+  {
+    id: "cert-1",
+    title: "Meta Frontend Developer Professional Certificate",
+    issuer: "Meta / Coursera",
+    issueDate: "2023",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/professional-cert/",
+    imageUrl: "https://images.unsplash.com/photo-1589330694653-dad6d3240a2b?w=800&h=600&fit=crop",
+    description: "Comprehensive multi-course specialization covering advanced React, JavaScript architectures, UI/UX engineering, automated testing, and web standards.",
+    displayOrder: 1,
+    isVisible: true,
+  },
+  {
+    id: "cert-2",
+    title: "AWS Certified Cloud Practitioner",
+    issuer: "Amazon Web Services",
+    issueDate: "2024",
+    credentialUrl: "https://aws.amazon.com/verification",
+    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop",
+    description: "Cloud computing infrastructure, serverless architecture, AWS security protocols, resilience patterns, and billing models.",
+    displayOrder: 2,
+    isVisible: true,
+  },
+  {
+    id: "cert-3",
+    title: "Advanced React & Next.js Architecture",
+    issuer: "Vercel / EpicWeb",
+    issueDate: "2024",
+    credentialUrl: "https://epicweb.dev",
+    imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop",
+    description: "Mastery of React Server Components, Streaming SSR, Next.js App Router performance optimization, and distributed data caching.",
+    displayOrder: 3,
+    isVisible: true,
+  },
+  {
+    id: "cert-4",
+    title: "TypeScript Pro & Type-Level Engineering",
+    issuer: "Total TypeScript",
+    issueDate: "2023",
+    credentialUrl: "https://totaltypescript.com",
+    imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&fit=crop",
+    description: "Advanced conditional typing, generics, template literals, type narrowing, and enterprise library design.",
+    displayOrder: 4,
+    isVisible: true,
+  },
+]
+
