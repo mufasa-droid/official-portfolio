@@ -138,7 +138,7 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
                 required
                 value={formData.site_title}
                 onChange={(e) => setFormData({ ...formData, site_title: e.target.value })}
-                className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
               />
             </div>
 
@@ -163,7 +163,7 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
                 onChange={(e) =>
                   setFormData({ ...formData, site_description: e.target.value })
                 }
-                className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground resize-y leading-relaxed"
+                className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground resize-y leading-relaxed"
               />
             </div>
 
@@ -174,7 +174,7 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
                   Canonical Base URL *
                 </label>
                 <div className="relative">
-                  <Globe className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                  <Globe className="absolute left-3 top-3 sm:top-2.5 h-3.5 w-3.5 text-muted-foreground" />
                   <input
                     type="url"
                     required
@@ -182,7 +182,7 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
                     onChange={(e) =>
                       setFormData({ ...formData, canonical_url: e.target.value })
                     }
-                    className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full pl-9 pr-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
@@ -192,7 +192,7 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
                   Admin Notification Email *
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                  <Mail className="absolute left-3 top-3 sm:top-2.5 h-3.5 w-3.5 text-muted-foreground" />
                   <input
                     type="email"
                     required
@@ -200,7 +200,7 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
                     onChange={(e) =>
                       setFormData({ ...formData, admin_email: e.target.value })
                     }
-                    className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full pl-9 pr-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
@@ -218,7 +218,7 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
                   setFormData({ ...formData, og_image_url: e.target.value })
                 }
                 placeholder="Leave blank to use dynamic /opengraph-image endpoint"
-                className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
 
@@ -232,15 +232,16 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
                 {formData.keywords.map((kw, idx) => (
                   <span
                     key={idx}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono bg-primary/10 text-primary border border-primary/20"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono bg-primary/10 text-primary border border-primary/20 min-h-[36px]"
                   >
                     <span>{kw}</span>
                     <button
                       type="button"
                       onClick={() => handleRemoveKeyword(idx)}
-                      className="text-primary/70 hover:text-primary focus:outline-none"
+                      className="text-primary/70 hover:text-primary focus:outline-none min-h-[32px] min-w-[32px] flex items-center justify-center -mr-1"
+                      aria-label={`Remove ${kw}`}
                     >
-                      <X className="h-3 w-3" />
+                      <X className="h-3.5 w-3.5" />
                     </button>
                   </span>
                 ))}
@@ -258,14 +259,14 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
                       handleAddKeyword()
                     }
                   }}
-                  className="flex-1 px-3 py-1.5 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground"
+                  className="flex-1 px-3.5 py-2.5 sm:py-1.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground"
                 />
                 <button
                   type="button"
                   onClick={handleAddKeyword}
-                  className="px-3 py-1.5 rounded-xl border border-border text-xs font-mono text-foreground hover:bg-muted/50 flex items-center gap-1 transition-colors"
+                  className="min-h-[44px] px-3.5 py-2 rounded-xl border border-border text-xs font-mono text-foreground hover:bg-muted/50 flex items-center gap-1.5 transition-colors font-medium shrink-0"
                 >
-                  <Plus className="h-3.5 w-3.5" />
+                  <Plus className="h-4 w-4" />
                   <span>Add</span>
                 </button>
               </div>
@@ -333,7 +334,7 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
             <button
               type="submit"
               disabled={isPending}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary text-primary-foreground font-mono text-xs font-bold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-all shadow-sm"
+              className="w-full min-h-[48px] flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary text-primary-foreground font-mono text-xs font-bold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-all shadow-sm"
             >
               <Save className="h-4 w-4" />
               <span>{isPending ? 'Publishing SEO...' : 'Save Site Settings'}</span>
@@ -343,7 +344,7 @@ export function SeoForm({ initialSettings }: SeoFormProps) {
               href="/sitemap.xml"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-border font-mono text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
+              className="w-full min-h-[44px] flex items-center justify-between px-4 py-2.5 rounded-xl border border-border font-mono text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
             >
               <span>View Sitemap Feed</span>
               <ExternalLink className="h-3.5 w-3.5" />

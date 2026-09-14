@@ -137,18 +137,20 @@ export function CategoryCard({ category, onEdit }: CategoryCardProps) {
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => onEdit(category)}
-              className="p-1.5 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
+              className="min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 flex items-center justify-center rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
               title="Edit domain metadata"
+              aria-label="Edit domain metadata"
             >
-              <Edit3 className="h-3.5 w-3.5" />
+              <Edit3 className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
             </button>
             <button
               onClick={handleDeleteCategory}
               disabled={isPending}
-              className="p-1.5 rounded-lg border border-border text-muted-foreground hover:text-red-500 hover:border-red-500/30 hover:bg-red-500/10 transition-colors"
+              className="min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 flex items-center justify-center rounded-xl border border-border text-muted-foreground hover:text-red-500 hover:border-red-500/30 hover:bg-red-500/10 transition-colors"
               title="Delete domain and all skills"
+              aria-label="Delete domain"
             >
-              <Trash2 className="h-3.5 w-3.5" />
+              <Trash2 className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
             </button>
           </div>
         </div>
@@ -178,7 +180,7 @@ export function CategoryCard({ category, onEdit }: CategoryCardProps) {
               return (
                 <div
                   key={skill.id}
-                  className={`group relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono transition-all ${
+                  className={`group relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono transition-all min-h-[36px] ${
                     skill.is_published
                       ? 'bg-card border-border text-foreground'
                       : 'bg-muted/40 border-border/40 text-muted-foreground/60 line-through opacity-60'
@@ -189,26 +191,28 @@ export function CategoryCard({ category, onEdit }: CategoryCardProps) {
                   ) : null}
                   <span>{skill.name}</span>
 
-                  <div className="flex items-center gap-1 ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-1 ml-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                     <button
                       type="button"
                       onClick={() => handleTogglePublish(skill)}
-                      className="text-muted-foreground hover:text-foreground"
+                      className="text-muted-foreground hover:text-foreground min-h-[32px] min-w-[32px] flex items-center justify-center p-1"
                       title={skill.is_published ? 'Unpublish' : 'Publish'}
+                      aria-label={skill.is_published ? 'Unpublish skill' : 'Publish skill'}
                     >
                       {skill.is_published ? (
-                        <Eye className="h-3 w-3" />
+                        <Eye className="h-3.5 w-3.5" />
                       ) : (
-                        <EyeOff className="h-3 w-3" />
+                        <EyeOff className="h-3.5 w-3.5" />
                       )}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDeleteSkill(skill.id)}
-                      className="text-muted-foreground hover:text-red-500"
+                      className="text-muted-foreground hover:text-red-500 min-h-[32px] min-w-[32px] flex items-center justify-center p-1"
                       title="Remove skill"
+                      aria-label="Remove skill"
                     >
-                      <X className="h-3 w-3" />
+                      <X className="h-3.5 w-3.5" />
                     </button>
                   </div>
                 </div>
@@ -225,17 +229,17 @@ export function CategoryCard({ category, onEdit }: CategoryCardProps) {
           value={newSkillName}
           onChange={(e) => setNewSkillName(e.target.value)}
           placeholder="Add skill (e.g. Next.js 14)..."
-          className="flex-1 px-3.5 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none dark:bg-black/50"
+          className="flex-1 px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none dark:bg-black/50"
         />
         <button
           type="submit"
           disabled={!newSkillName.trim() || isPending}
-          className="px-3 py-2 rounded-xl bg-foreground text-background text-xs font-mono font-medium hover:opacity-90 disabled:opacity-40 transition-opacity flex items-center gap-1 shrink-0"
+          className="min-h-[44px] px-3.5 py-2 rounded-xl bg-foreground text-background text-xs font-mono font-medium hover:opacity-90 disabled:opacity-40 transition-opacity flex items-center gap-1.5 shrink-0"
         >
           {isPending && !actionSkillId ? (
-            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            <Loader2 className="h-4 w-4 animate-spin" />
           ) : (
-            <Plus className="h-3.5 w-3.5" />
+            <Plus className="h-4 w-4" />
           )}
           <span>Add</span>
         </button>

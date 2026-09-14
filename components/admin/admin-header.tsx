@@ -17,7 +17,7 @@ export function AdminHeader() {
   const title = currentItem ? currentItem.name : 'CMS Control Center'
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-6 sm:px-8 border-b border-border bg-background/80 backdrop-blur-md">
+    <header className="hidden md:flex sticky top-0 z-30 items-center justify-between h-16 px-6 sm:px-8 border-b border-border bg-background/80 backdrop-blur-md">
       {/* Breadcrumb / Section Header */}
       <div className="flex items-center gap-3">
         <span className="font-mono text-xs text-muted-foreground hidden sm:inline-block">

@@ -75,9 +75,9 @@ export function MediaUploader({
         <button
           type="button"
           onClick={() => setUseDirectUrl(!useDirectUrl)}
-          className="text-[11px] font-mono text-primary hover:underline flex items-center gap-1"
+          className="text-xs sm:text-[11px] font-mono text-primary hover:underline flex items-center gap-1 min-h-[44px] px-2"
         >
-          <LinkIcon className="h-3 w-3" />
+          <LinkIcon className="h-3.5 w-3.5" />
           <span>{useDirectUrl ? 'Switch to File Upload' : 'Paste External URL'}</span>
         </button>
       </div>
@@ -96,7 +96,7 @@ export function MediaUploader({
             value={value || ''}
             onChange={(e) => onChange(e.target.value)}
             placeholder="https://images.unsplash.com/... or CDN link"
-            className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
       ) : value ? (
@@ -118,25 +118,25 @@ export function MediaUploader({
               className="object-cover transition-transform group-hover:scale-105 duration-300"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
-            {/* Overlay Actions */}
-            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 p-4">
+            {/* Actions: Always visible on touch, hover on desktop */}
+            <div className="absolute inset-0 bg-black/50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 p-4">
               <button
                 type="button"
                 onClick={handleCopyUrl}
-                className="p-2 rounded-xl bg-background/90 text-foreground hover:bg-background border border-border text-xs font-mono flex items-center gap-1.5 shadow-md"
+                className="min-h-[44px] px-3.5 py-2 rounded-xl bg-background/90 text-foreground hover:bg-background border border-border text-xs font-mono flex items-center gap-1.5 shadow-md font-medium"
                 title="Copy public URL"
               >
-                {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
-                <span className="text-[11px]">{copied ? 'Copied' : 'Copy URL'}</span>
+                {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
+                <span>{copied ? 'Copied' : 'Copy URL'}</span>
               </button>
               <button
                 type="button"
                 onClick={() => onChange('')}
-                className="p-2 rounded-xl bg-red-600 text-white hover:bg-red-700 text-xs font-mono flex items-center gap-1.5 shadow-md"
+                className="min-h-[44px] px-3.5 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 text-xs font-mono flex items-center gap-1.5 shadow-md font-medium"
                 title="Remove image"
               >
-                <Trash2 className="h-3.5 w-3.5" />
-                <span className="text-[11px]">Remove</span>
+                <Trash2 className="h-4 w-4" />
+                <span>Remove</span>
               </button>
             </div>
           </div>

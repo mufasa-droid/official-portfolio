@@ -113,7 +113,8 @@ export function ExperienceFormModal({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground border border-border"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-muted-foreground hover:text-foreground border border-border"
+            aria-label="Close modal"
           >
             <X className="h-4 w-4" />
           </button>
@@ -140,7 +141,7 @@ export function ExperienceFormModal({
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label htmlFor="company" className="block text-xs font-mono text-muted-foreground">
                 ORGANIZATION / COMPANY *
@@ -152,7 +153,7 @@ export function ExperienceFormModal({
                 required
                 defaultValue={initialData?.company || ''}
                 placeholder="e.g. TechCorp / Freelance"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
               />
             </div>
 
@@ -167,12 +168,12 @@ export function ExperienceFormModal({
                 required
                 defaultValue={initialData?.role || 'Senior Frontend Developer'}
                 placeholder="e.g. Senior Frontend Developer"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
               />
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label htmlFor="period" className="block text-xs font-mono text-muted-foreground">
                 PERIOD / TIMELINE *
@@ -184,7 +185,7 @@ export function ExperienceFormModal({
                 required
                 defaultValue={initialData?.period || '2023 - Present'}
                 placeholder="e.g. 2023 - Present"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
               />
             </div>
 
@@ -199,7 +200,7 @@ export function ExperienceFormModal({
                 required
                 defaultValue={initialData?.location || 'Remote'}
                 placeholder="e.g. Remote / Lagos, Nigeria"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
               />
             </div>
           </div>
@@ -215,7 +216,7 @@ export function ExperienceFormModal({
               required
               defaultValue={initialData?.description || ''}
               placeholder="Describe core responsibilities and technical architectural scope..."
-              className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-xs text-foreground focus:border-primary focus:outline-none dark:bg-black/50 resize-y"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs text-foreground focus:border-primary focus:outline-none dark:bg-black/50 resize-y"
             />
           </div>
 
@@ -238,15 +239,16 @@ export function ExperienceFormModal({
                   <button
                     type="button"
                     onClick={() => removeAchievement(idx)}
-                    className="text-muted-foreground hover:text-red-500 p-1"
+                    className="text-muted-foreground hover:text-red-500 min-h-[36px] min-w-[36px] flex items-center justify-center p-1 rounded-lg"
+                    aria-label="Remove achievement"
                   >
-                    <X className="h-3 w-3" />
+                    <X className="h-3.5 w-3.5" />
                   </button>
                 </div>
               ))}
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="text"
                 value={newAchievement}
@@ -258,16 +260,16 @@ export function ExperienceFormModal({
                   }
                 }}
                 placeholder="Add verifiable achievement bullet..."
-                className="flex-1 px-3 py-2 rounded-xl bg-muted/40 border border-border text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
+                className="flex-1 px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
               />
-              <Button type="button" size="sm" variant="outline" onClick={addAchievement}>
+              <Button type="button" size="sm" variant="outline" onClick={addAchievement} className="min-h-[44px] sm:min-h-0">
                 <Plus className="h-3.5 w-3.5 mr-1" />
                 <span>Add</span>
               </Button>
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-4 pt-2 border-t border-border">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-border">
             <div className="space-y-1.5">
               <label htmlFor="displayOrder" className="block text-xs font-mono text-muted-foreground">
                 DISPLAY ORDER
@@ -278,7 +280,7 @@ export function ExperienceFormModal({
                 type="number"
                 defaultValue={initialData?.display_order ?? 1}
                 min={0}
-                className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50"
               />
             </div>
 
@@ -290,7 +292,7 @@ export function ExperienceFormModal({
                 id="isPublished"
                 name="isPublished"
                 defaultValue={initialData?.is_published === false ? 'false' : 'true'}
-                className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 min-h-[44px]"
               >
                 <option value="true">Published (Live)</option>
                 <option value="false">Draft (Hidden)</option>
@@ -299,11 +301,11 @@ export function ExperienceFormModal({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
-            <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-border">
+            <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting} className="min-h-[44px]">
               <span>Cancel</span>
             </Button>
-            <Button type="submit" variant="default" disabled={isSubmitting} className="gap-1.5">
+            <Button type="submit" variant="default" disabled={isSubmitting} className="min-h-[44px] gap-1.5">
               <Save className="h-4 w-4" />
               <span>{isSubmitting ? 'Saving...' : isEditing ? 'Update Entry' : 'Create Entry'}</span>
             </Button>

@@ -154,7 +154,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                  className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                 />
               </div>
 
@@ -167,7 +167,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                   required
                   value={formData.role}
                   onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                  className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                 />
               </div>
             </div>
@@ -180,7 +180,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                 type="text"
                 value={formData.tagline}
                 onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
-                className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                 placeholder="Building fast, scalable web applications with React & Next.js"
               />
             </div>
@@ -193,7 +193,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                 rows={4}
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground resize-y leading-relaxed"
+                className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground resize-y leading-relaxed"
                 placeholder="Specialized in crafting high-performance user interfaces..."
               />
             </div>
@@ -214,13 +214,13 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                   Email Address *
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                  <Mail className="absolute left-3 top-3 sm:top-2.5 h-3.5 w-3.5 text-muted-foreground" />
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                    className="w-full pl-9 pr-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                   />
                 </div>
               </div>
@@ -230,12 +230,12 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                   Phone / WhatsApp
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                  <Phone className="absolute left-3 top-3 sm:top-2.5 h-3.5 w-3.5 text-muted-foreground" />
                   <input
                     type="text"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                    className="w-full pl-9 pr-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                   />
                 </div>
               </div>
@@ -245,12 +245,12 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                   Location
                 </label>
                 <div className="relative">
-                  <MapPin className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                  <MapPin className="absolute left-3 top-3 sm:top-2.5 h-3.5 w-3.5 text-muted-foreground" />
                   <input
                     type="text"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                    className="w-full pl-9 pr-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                   />
                 </div>
               </div>
@@ -258,34 +258,34 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
 
             {/* Visibility Toggles */}
             <div className="pt-2 border-t border-border/60 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <label className="flex items-center gap-2 text-xs font-mono text-foreground cursor-pointer p-2.5 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors">
+              <label className="flex items-center gap-2.5 text-xs font-mono text-foreground cursor-pointer min-h-[44px] p-3 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors">
                 <input
                   type="checkbox"
                   checked={formData.available_for_work}
                   onChange={(e) =>
                     setFormData({ ...formData, available_for_work: e.target.checked })
                   }
-                  className="rounded border-border text-primary focus:ring-primary h-3.5 w-3.5"
+                  className="rounded border-border text-primary focus:ring-primary h-4 w-4 shrink-0"
                 />
                 <span>Available for Work</span>
               </label>
 
-              <label className="flex items-center gap-2 text-xs font-mono text-foreground cursor-pointer p-2.5 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors">
+              <label className="flex items-center gap-2.5 text-xs font-mono text-foreground cursor-pointer min-h-[44px] p-3 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors">
                 <input
                   type="checkbox"
                   checked={formData.show_email}
                   onChange={(e) => setFormData({ ...formData, show_email: e.target.checked })}
-                  className="rounded border-border text-primary focus:ring-primary h-3.5 w-3.5"
+                  className="rounded border-border text-primary focus:ring-primary h-4 w-4 shrink-0"
                 />
                 <span>Show Email in Public</span>
               </label>
 
-              <label className="flex items-center gap-2 text-xs font-mono text-foreground cursor-pointer p-2.5 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors">
+              <label className="flex items-center gap-2.5 text-xs font-mono text-foreground cursor-pointer min-h-[44px] p-3 rounded-xl border border-border bg-muted/20 hover:bg-muted/40 transition-colors">
                 <input
                   type="checkbox"
                   checked={formData.show_phone}
                   onChange={(e) => setFormData({ ...formData, show_phone: e.target.checked })}
-                  className="rounded border-border text-primary focus:ring-primary h-3.5 w-3.5"
+                  className="rounded border-border text-primary focus:ring-primary h-4 w-4 shrink-0"
                 />
                 <span>Show Phone in Public</span>
               </label>
@@ -311,7 +311,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                   GitHub Profile URL
                 </label>
                 <div className="relative">
-                  <Github className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                  <Github className="absolute left-3 top-3 sm:top-2.5 h-3.5 w-3.5 text-muted-foreground" />
                   <input
                     type="url"
                     value={formData.socials.github || ''}
@@ -321,7 +321,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                         socials: { ...formData.socials, github: e.target.value },
                       })
                     }
-                    className="w-full pl-9 pr-3.5 py-1.5 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                    className="w-full pl-9 pr-3.5 py-2.5 sm:py-1.5 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                     placeholder="https://github.com/..."
                   />
                 </div>
@@ -333,7 +333,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                   LinkedIn Profile URL
                 </label>
                 <div className="relative">
-                  <Linkedin className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                  <Linkedin className="absolute left-3 top-3 sm:top-2.5 h-3.5 w-3.5 text-muted-foreground" />
                   <input
                     type="url"
                     value={formData.socials.linkedin || ''}
@@ -343,7 +343,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                         socials: { ...formData.socials, linkedin: e.target.value },
                       })
                     }
-                    className="w-full pl-9 pr-3.5 py-1.5 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                    className="w-full pl-9 pr-3.5 py-2.5 sm:py-1.5 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                     placeholder="https://linkedin.com/in/..."
                   />
                 </div>
@@ -355,7 +355,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                   Twitter / X Profile URL
                 </label>
                 <div className="relative">
-                  <Twitter className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
+                  <Twitter className="absolute left-3 top-3 sm:top-2.5 h-3.5 w-3.5 text-muted-foreground" />
                   <input
                     type="url"
                     value={formData.socials.twitter || ''}
@@ -365,7 +365,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                         socials: { ...formData.socials, twitter: e.target.value },
                       })
                     }
-                    className="w-full pl-9 pr-3.5 py-1.5 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                    className="w-full pl-9 pr-3.5 py-2.5 sm:py-1.5 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                     placeholder="https://twitter.com/..."
                   />
                 </div>
@@ -389,49 +389,49 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                             socials: { ...formData.socials, [key]: e.target.value },
                           })
                         }
-                        className="w-full px-2.5 py-1.5 rounded-lg bg-muted/40 border border-border text-xs font-mono text-foreground"
+                        className="w-full px-3 py-2.5 sm:py-1.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground"
                       />
                     </div>
                     <button
                       type="button"
                       onClick={() => handleRemoveSocial(key)}
-                      className="p-1.5 rounded-lg text-red-500 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 mt-4"
+                      className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-red-500 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 mt-4"
                       aria-label={`Remove ${key}`}
                     >
-                      <Trash2 className="h-3.5 w-3.5" />
+                      <Trash2 className="h-4 w-4" />
                     </button>
                   </div>
                 )
               })}
 
               {/* Add Custom Social */}
-              <div className="pt-3 border-t border-border/60 space-y-2">
+              <div className="pt-3 border-t border-border/60 space-y-2.5">
                 <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-semibold">
                   Add Custom Platform
                 </p>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <input
                     type="text"
                     placeholder="Platform (e.g. Bluesky)"
                     value={customPlatform}
                     onChange={(e) => setCustomPlatform(e.target.value)}
-                    className="px-2.5 py-1.5 rounded-lg bg-muted/40 border border-border text-xs font-mono text-foreground"
+                    className="px-3 py-2.5 sm:py-1.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground"
                   />
                   <input
                     type="url"
                     placeholder="https://..."
                     value={customUrl}
                     onChange={(e) => setCustomUrl(e.target.value)}
-                    className="px-2.5 py-1.5 rounded-lg bg-muted/40 border border-border text-xs font-mono text-foreground"
+                    className="px-3 py-2.5 sm:py-1.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground"
                   />
                 </div>
                 <button
                   type="button"
                   onClick={handleAddCustomSocial}
                   disabled={!customPlatform || !customUrl}
-                  className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded-lg border border-border text-xs font-mono text-foreground hover:bg-muted/50 disabled:opacity-40 transition-colors"
+                  className="w-full min-h-[44px] flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl border border-border text-xs font-mono text-foreground hover:bg-muted/50 disabled:opacity-40 transition-colors font-medium"
                 >
-                  <Plus className="h-3 w-3" />
+                  <Plus className="h-4 w-4" />
                   <span>Attach Platform</span>
                 </button>
               </div>
@@ -443,7 +443,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
             <button
               type="submit"
               disabled={isPending}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary text-primary-foreground font-mono text-xs font-bold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-all shadow-sm"
+              className="w-full min-h-[48px] flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary text-primary-foreground font-mono text-xs font-bold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-all shadow-sm"
             >
               <Save className="h-4 w-4" />
               <span>{isPending ? 'Publishing Changes...' : 'Save Profile Settings'}</span>
@@ -453,7 +453,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
               href="/#about"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl border border-border font-mono text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
+              className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2 px-4 rounded-xl border border-border font-mono text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
             >
               <Eye className="h-3.5 w-3.5" />
               <span>Preview Live Profile</span>

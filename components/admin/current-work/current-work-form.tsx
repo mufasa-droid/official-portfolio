@@ -114,12 +114,12 @@ export function CurrentWorkForm({ initialWork }: CurrentWorkFormProps) {
               </div>
 
               {/* Active Switch */}
-              <label className="flex items-center gap-2 text-xs font-mono text-foreground cursor-pointer">
+              <label className="flex items-center gap-2 text-xs font-mono text-foreground cursor-pointer min-h-[44px] px-2 rounded-xl hover:bg-muted/30 transition-colors">
                 <input
                   type="checkbox"
                   checked={formData.is_active}
                   onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
-                  className="rounded border-border text-primary focus:ring-primary h-3.5 w-3.5"
+                  className="rounded border-border text-primary focus:ring-primary h-4 w-4"
                 />
                 <span className={formData.is_active ? 'text-primary font-semibold' : 'text-muted-foreground'}>
                   {formData.is_active ? 'Widget Active' : 'Widget Hidden'}
@@ -137,7 +137,7 @@ export function CurrentWorkForm({ initialWork }: CurrentWorkFormProps) {
                 required
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                 placeholder="e.g. Building a Developer Portfolio Template"
               />
             </div>
@@ -152,7 +152,7 @@ export function CurrentWorkForm({ initialWork }: CurrentWorkFormProps) {
                 required
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground resize-y leading-relaxed"
+                className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground resize-y leading-relaxed"
                 placeholder="Briefly describe what challenges and systems are currently being engineered..."
               />
             </div>
@@ -168,17 +168,17 @@ export function CurrentWorkForm({ initialWork }: CurrentWorkFormProps) {
                     type="text"
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-xs font-mono text-foreground"
+                    className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-muted/40 border border-border focus:outline-none focus:ring-2 focus:ring-primary text-base sm:text-xs font-mono text-foreground"
                     placeholder="Custom status..."
                   />
                   {/* Preset Pills */}
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5 pt-1">
                     {STATUS_PRESETS.map((preset) => (
                       <button
                         key={preset}
                         type="button"
                         onClick={() => setFormData({ ...formData, status: preset })}
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded-md border transition-colors ${
+                        className={`text-xs sm:text-[10px] font-mono min-h-[36px] px-2.5 py-1.5 rounded-lg border transition-colors flex items-center ${
                           formData.status === preset
                             ? 'bg-primary/15 border-primary/30 text-primary font-semibold'
                             : 'bg-muted/30 border-border text-muted-foreground hover:text-foreground'
@@ -209,7 +209,7 @@ export function CurrentWorkForm({ initialWork }: CurrentWorkFormProps) {
                     onChange={(e) =>
                       setFormData({ ...formData, progress: Number(e.target.value) })
                     }
-                    className="w-full accent-primary cursor-pointer"
+                    className="w-full accent-primary cursor-pointer h-6"
                   />
                   <div className="h-2 w-full bg-muted/60 rounded-full overflow-hidden border border-border">
                     <div
@@ -231,15 +231,16 @@ export function CurrentWorkForm({ initialWork }: CurrentWorkFormProps) {
                 {formData.tech.map((tech, idx) => (
                   <span
                     key={idx}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono bg-primary/10 text-primary border border-primary/20"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono bg-primary/10 text-primary border border-primary/20 min-h-[36px]"
                   >
                     <span>{tech}</span>
                     <button
                       type="button"
                       onClick={() => handleRemoveTech(idx)}
-                      className="text-primary/70 hover:text-primary focus:outline-none"
+                      className="text-primary/70 hover:text-primary focus:outline-none min-h-[32px] min-w-[32px] flex items-center justify-center -mr-1"
+                      aria-label={`Remove ${tech}`}
                     >
-                      <X className="h-3 w-3" />
+                      <X className="h-3.5 w-3.5" />
                     </button>
                   </span>
                 ))}
@@ -257,14 +258,14 @@ export function CurrentWorkForm({ initialWork }: CurrentWorkFormProps) {
                       handleAddTech()
                     }
                   }}
-                  className="flex-1 px-3 py-1.5 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground"
+                  className="flex-1 px-3.5 py-2.5 sm:py-1.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground"
                 />
                 <button
                   type="button"
                   onClick={handleAddTech}
-                  className="px-3 py-1.5 rounded-xl border border-border text-xs font-mono text-foreground hover:bg-muted/50 flex items-center gap-1 transition-colors"
+                  className="min-h-[44px] px-3.5 py-2 rounded-xl border border-border text-xs font-mono text-foreground hover:bg-muted/50 flex items-center gap-1.5 transition-colors font-medium shrink-0"
                 >
-                  <Plus className="h-3.5 w-3.5" />
+                  <Plus className="h-4 w-4" />
                   <span>Add</span>
                 </button>
               </div>
@@ -326,7 +327,7 @@ export function CurrentWorkForm({ initialWork }: CurrentWorkFormProps) {
             <button
               type="submit"
               disabled={isPending}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary text-primary-foreground font-mono text-xs font-bold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-all shadow-sm"
+              className="w-full min-h-[48px] flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary text-primary-foreground font-mono text-xs font-bold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 transition-all shadow-sm"
             >
               <Save className="h-4 w-4" />
               <span>{isPending ? 'Publishing Focus...' : 'Save Current Sprint'}</span>
@@ -336,7 +337,7 @@ export function CurrentWorkForm({ initialWork }: CurrentWorkFormProps) {
               href="/#about"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl border border-border font-mono text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
+              className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2 px-4 rounded-xl border border-border font-mono text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
             >
               <Eye className="h-3.5 w-3.5" />
               <span>Preview On Live Site</span>

@@ -76,18 +76,18 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
               onClick={handleTogglePublish}
               disabled={isPublishing}
               title={experience.is_published ? 'Hide from public portfolio' : 'Publish live'}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-colors ${
+              className={`inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-0 rounded-xl border transition-colors ${
                 experience.is_published
                   ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
                   : 'bg-zinc-500/10 text-zinc-500 border-zinc-500/20 hover:bg-zinc-500/20'
               }`}
             >
               {isPublishing ? (
-                <Loader2 className="h-3 w-3 animate-spin" />
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
               ) : experience.is_published ? (
-                <CheckCircle2 className="h-3 w-3" />
+                <CheckCircle2 className="h-3.5 w-3.5" />
               ) : (
-                <EyeOff className="h-3 w-3" />
+                <EyeOff className="h-3.5 w-3.5" />
               )}
               <span>{experience.is_published ? 'Live' : 'Draft'}</span>
             </button>
@@ -96,8 +96,9 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
             <button
               type="button"
               onClick={() => setIsEditing(true)}
-              className="p-1.5 rounded-xl border border-border hover:bg-muted/60 text-muted-foreground hover:text-foreground transition-colors"
+              className="min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 flex items-center justify-center rounded-xl border border-border hover:bg-muted/60 text-muted-foreground hover:text-foreground transition-colors"
               title="Edit experience"
+              aria-label="Edit experience"
             >
               <Edit className="h-4 w-4" />
             </button>
@@ -107,8 +108,9 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
               type="button"
               onClick={handleDelete}
               disabled={isDeleting}
-              className="p-1.5 rounded-xl border border-transparent hover:border-red-500/20 hover:bg-red-500/10 text-muted-foreground hover:text-red-500 transition-colors"
+              className="min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 flex items-center justify-center rounded-xl border border-transparent hover:border-red-500/20 hover:bg-red-500/10 text-muted-foreground hover:text-red-500 transition-colors"
               title="Delete experience"
+              aria-label="Delete experience"
             >
               {isDeleting ? (
                 <Loader2 className="h-4 w-4 animate-spin" />

@@ -193,7 +193,8 @@ export default async function AdminDashboardPage() {
           </div>
 
           <div className="glass-card rounded-2xl border border-border overflow-hidden dark:border-white/[0.1]">
-            <div className="overflow-x-auto">
+            {/* Desktop Table (>= 768px) */}
+            <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left text-xs font-mono">
                 <thead className="bg-muted/60 border-b border-border text-muted-foreground dark:bg-white/[0.03]">
                   <tr>
@@ -251,6 +252,7 @@ export default async function AdminDashboardPage() {
                             target="_blank"
                             className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                             title="Preview live case study"
+                            aria-label={`Preview live case study for ${project.title}`}
                           >
                             <ExternalLink className="h-3.5 w-3.5" />
                           </Link>
@@ -260,6 +262,54 @@ export default async function AdminDashboardPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* Mobile Card List (< 768px) */}
+            <div className="md:hidden divide-y divide-border">
+              {projects.map((project, idx) => (
+                <div key={project.slug} className="p-4 space-y-2.5">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1 space-y-0.5">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[10px] font-mono text-muted-foreground font-bold">
+                          0{idx + 1}.
+                        </span>
+                        <span className="font-mono font-bold text-foreground text-xs truncate">
+                          {project.title.split('—')[0].trim()}
+                        </span>
+                        {project.featured && (
+                          <Badge variant="accent" className="text-[9px] py-0 px-1.5 shrink-0">
+                            FLAGSHIP
+                          </Badge>
+                        )}
+                      </div>
+                      <span className="text-[11px] text-muted-foreground font-mono block truncate">
+                        /projects/{project.slug}
+                      </span>
+                    </div>
+
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      target="_blank"
+                      className="min-h-[40px] min-w-[40px] flex items-center justify-center p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0"
+                      title="Preview live case study"
+                      aria-label={`Preview ${project.title}`}
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs font-mono pt-1">
+                    <span className="text-muted-foreground text-[11px]">
+                      {project.role}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold text-[11px]">
+                      <CheckCircle2 className="h-3 w-3" />
+                      <span>Live</span>
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -21,6 +21,7 @@ import {
   Shield,
 } from 'lucide-react'
 import { logoutAdmin } from '@/app/admin/actions/auth'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export const navItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
@@ -43,6 +44,17 @@ export function AdminSidebar() {
     setIsMobileOpen(false)
   }, [pathname])
 
+  // Lock body scroll when mobile drawer is open to prevent background scrolling leakage
+  useEffect(() => {
+    if (isMobileOpen) {
+      const originalOverflow = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      return () => {
+        document.body.style.overflow = originalOverflow
+      }
+    }
+  }, [isMobileOpen])
+
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -56,6 +68,11 @@ export function AdminSidebar() {
     if (item.exact) return pathname === item.href
     return pathname.startsWith(item.href)
   }
+
+  const currentItem = navItems.find((item) =>
+    item.exact ? pathname === item.href : pathname.startsWith(item.href)
+  )
+  const currentTitle = currentItem ? currentItem.name : 'Dashboard'
 
   const navContent = (
     <div className="flex flex-col justify-between h-full p-4 sm:p-5">
@@ -83,7 +100,7 @@ export function AdminSidebar() {
             <button
               type="button"
               onClick={() => setIsMobileOpen(false)}
-              className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground border border-border"
+              className="min-w-[44px] min-h-[44px] p-2 rounded-xl text-muted-foreground hover:text-foreground border border-border flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="Close admin menu"
             >
               <X className="h-4 w-4" />
@@ -100,16 +117,16 @@ export function AdminSidebar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-mono font-medium transition-colors ${
+                className={`relative flex items-center gap-3 px-3 py-3 min-h-[44px] rounded-xl text-xs font-mono font-medium transition-colors ${
                   isActive
                     ? 'text-primary font-semibold bg-primary/10 border border-primary/20 dark:bg-primary/15'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/60 border border-transparent'
                 }`}
               >
-                <Icon className={`h-4 w-4 ${isActive ? 'text-primary' : 'text-muted-foreground'}`} />
+                <Icon className={`h-4 w-4 shrink-0 ${isActive ? 'text-primary' : 'text-muted-foreground'}`} />
                 <span>{item.name}</span>
                 {isActive && (
-                  <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                 )}
               </Link>
             )
@@ -124,7 +141,7 @@ export function AdminSidebar() {
           href="/"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-mono text-muted-foreground hover:text-foreground hover:bg-muted/40 border border-border transition-colors"
+          className="flex items-center justify-between px-3 py-2.5 min-h-[44px] rounded-xl text-xs font-mono text-muted-foreground hover:text-foreground hover:bg-muted/40 border border-border transition-colors"
         >
           <span className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -153,7 +170,7 @@ export function AdminSidebar() {
         <form action={logoutAdmin}>
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-mono text-red-500 dark:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2.5 min-h-[44px] rounded-xl text-xs font-mono text-red-500 dark:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
           >
             <LogOut className="h-3.5 w-3.5" />
             <span>Terminate Session</span>
@@ -170,20 +187,30 @@ export function AdminSidebar() {
         {navContent}
       </aside>
 
-      {/* Mobile Menu Trigger Header */}
-      <div className="md:hidden sticky top-0 z-40 flex items-center justify-between p-4 bg-background/90 backdrop-blur-md border-b border-border">
-        <Link href="/admin" className="flex items-center gap-2 font-mono text-xs font-bold text-foreground">
-          <span className="bg-primary/15 text-primary border border-primary/30 px-2 py-0.5 rounded">CMS</span>
-          <span>Abdulhammed.dev</span>
-        </Link>
-        <button
-          type="button"
-          onClick={() => setIsMobileOpen(true)}
-          className="p-2 rounded-lg text-foreground border border-border"
-          aria-label="Open CMS Navigation Menu"
-        >
-          <Menu className="h-4 w-4" />
-        </button>
+      {/* Mobile Unified Top Header (< 768px) */}
+      <div className="md:hidden sticky top-0 z-40 flex items-center justify-between h-14 px-4 bg-background/95 backdrop-blur-md border-b border-border">
+        <div className="flex items-center gap-2 min-w-0">
+          <Link href="/admin" className="flex items-center gap-1.5 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded">
+            <span className="font-mono text-xs font-bold bg-primary/15 text-primary border border-primary/30 px-2 py-0.5 rounded">CMS</span>
+          </Link>
+          <span className="text-border">/</span>
+          <span className="font-mono text-xs font-bold text-foreground truncate">
+            {currentTitle}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-1.5 shrink-0">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setIsMobileOpen(true)}
+            className="min-w-[44px] min-h-[44px] p-2 rounded-xl text-foreground hover:bg-muted/70 border border-border flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            aria-label="Open CMS Navigation Menu"
+            aria-expanded={isMobileOpen}
+          >
+            <Menu className="h-4 w-4" />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer Overlay */}
@@ -197,6 +224,7 @@ export function AdminSidebar() {
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileOpen(false)}
               className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+              aria-hidden="true"
             />
 
             {/* Drawer */}
@@ -205,7 +233,7 @@ export function AdminSidebar() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
-              className="relative w-4/5 max-w-xs bg-background border-r border-border h-full z-10 shadow-2xl"
+              className="relative w-4/5 max-w-xs bg-background border-r border-border h-full z-10 shadow-2xl overflow-y-auto"
             >
               {navContent}
             </motion.div>

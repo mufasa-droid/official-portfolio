@@ -172,12 +172,13 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
           <Button
             type="button"
             variant="outline"
             href="/admin/projects"
             disabled={isSubmitting}
+            className="flex-1 sm:flex-initial justify-center min-h-[44px]"
           >
             <span>Cancel</span>
           </Button>
@@ -185,7 +186,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
             type="submit"
             variant="default"
             disabled={isSubmitting}
-            className="gap-2"
+            className="flex-1 sm:flex-initial justify-center min-h-[44px] gap-2"
           >
             {isSubmitting ? (
               <span>Saving Changes&hellip;</span>
@@ -231,7 +232,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
         {/* Left 8 Cols: Main Case Study Content */}
         <div className="lg:col-span-8 space-y-6">
           {/* Card 1: Core Identification */}
-          <div className="glass-card p-6 sm:p-8 rounded-3xl border border-border space-y-5 dark:border-white/[0.12]">
+          <div className="glass-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-border space-y-5 dark:border-white/[0.12]">
             <h2 className="text-sm font-bold font-mono text-primary uppercase tracking-wider flex items-center gap-2">
               <Sparkles className="h-4 w-4" />
               <span>1. Title & URL Routing</span>
@@ -249,7 +250,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                 value={title}
                 onChange={handleTitleChange}
                 placeholder="e.g. TraderMind — AI Trading Performance Coach"
-                className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans dark:bg-black/50 dark:border-white/[0.1]"
+                className="w-full px-4 py-3 rounded-xl bg-background border border-border text-base sm:text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans dark:bg-black/50 dark:border-white/[0.1]"
               />
             </div>
 
@@ -272,12 +273,12 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                     setSlug(e.target.value.toLowerCase().replace(/[^\w-]/g, ''))
                   }}
                   placeholder="tradermind-ai-trading-coach"
-                  className="w-full px-4 py-3 bg-transparent text-sm font-mono text-foreground focus:outline-none"
+                  className="w-full px-4 py-3 bg-transparent text-base sm:text-sm font-mono text-foreground focus:outline-none"
                 />
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-3 gap-4 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
               <div className="space-y-2">
                 <label htmlFor="role" className="block text-xs font-mono text-muted-foreground">
                   ROLE ASSIGNED *
@@ -289,7 +290,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                   required
                   defaultValue={initialData?.role || 'Full-Stack Developer & Architect'}
                   placeholder="e.g. Lead Frontend Architect"
-                  className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-xs text-foreground focus:border-primary focus:outline-none font-mono dark:bg-black/50 dark:border-white/[0.1]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-base sm:text-xs text-foreground focus:border-primary focus:outline-none font-mono dark:bg-black/50 dark:border-white/[0.1]"
                 />
               </div>
 
@@ -303,7 +304,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                   type="text"
                   defaultValue={initialData?.duration || '6 weeks'}
                   placeholder="e.g. 6 weeks"
-                  className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-xs text-foreground focus:border-primary focus:outline-none font-mono dark:bg-black/50 dark:border-white/[0.1]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-base sm:text-xs text-foreground focus:border-primary focus:outline-none font-mono dark:bg-black/50 dark:border-white/[0.1]"
                 />
               </div>
 
@@ -317,14 +318,14 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                   type="text"
                   defaultValue={initialData?.team || 'Solo Project'}
                   placeholder="e.g. Solo Project"
-                  className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-xs text-foreground focus:border-primary focus:outline-none font-mono dark:bg-black/50 dark:border-white/[0.1]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-base sm:text-xs text-foreground focus:border-primary focus:outline-none font-mono dark:bg-black/50 dark:border-white/[0.1]"
                 />
               </div>
             </div>
           </div>
 
           {/* Card 2: Technical Narrative (Problem & Solution) */}
-          <div className="glass-card p-6 sm:p-8 rounded-3xl border border-border space-y-5 dark:border-white/[0.12]">
+          <div className="glass-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-border space-y-5 dark:border-white/[0.12]">
             <h2 className="text-sm font-bold font-mono text-primary uppercase tracking-wider flex items-center gap-2">
               <Cpu className="h-4 w-4" />
               <span>2. Technical Narrative & Impact</span>
@@ -341,7 +342,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                 required
                 defaultValue={initialData?.problem || ''}
                 placeholder="Describe the architectural challenge, user pain-point, or bottleneck..."
-                className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans dark:bg-black/50 dark:border-white/[0.1] resize-y"
+                className="w-full px-4 py-3 rounded-xl bg-background border border-border text-base sm:text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans dark:bg-black/50 dark:border-white/[0.1] resize-y"
               />
             </div>
 
@@ -356,7 +357,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                 required
                 defaultValue={initialData?.solution || ''}
                 placeholder="Explain what was architected, why specific tools were selected, and how performance goals were achieved..."
-                className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans dark:bg-black/50 dark:border-white/[0.1] resize-y"
+                className="w-full px-4 py-3 rounded-xl bg-background border border-border text-base sm:text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans dark:bg-black/50 dark:border-white/[0.1] resize-y"
               />
             </div>
 
@@ -376,7 +377,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                   required
                   defaultValue={initialData?.impact?.metric || ''}
                   placeholder="e.g. 11-feature behavioral engine"
-                  className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-base sm:text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
                 />
               </div>
 
@@ -391,14 +392,14 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                   required
                   defaultValue={initialData?.impact?.detail || ''}
                   placeholder="Describe verifiable business or technical outcomes..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-xs text-foreground font-sans focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-base sm:text-xs text-foreground font-sans focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
                 />
               </div>
             </div>
           </div>
 
           {/* Card 3: Technologies & Features Builders */}
-          <div className="glass-card p-6 sm:p-8 rounded-3xl border border-border space-y-5 dark:border-white/[0.12]">
+          <div className="glass-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-border space-y-5 dark:border-white/[0.12]">
             <h2 className="text-sm font-bold font-mono text-primary uppercase tracking-wider flex items-center gap-2">
               <Layers className="h-4 w-4" />
               <span>3. Tech Stack & Key Capabilities</span>
@@ -441,9 +442,9 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                     }
                   }}
                   placeholder="Add technology (e.g. Supabase, Tailwind CSS)..."
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-background border border-border text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
+                  className="flex-1 px-4 py-2.5 rounded-xl bg-background border border-border text-base sm:text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
                 />
-                <Button type="button" size="sm" variant="outline" onClick={addTechTag}>
+                <Button type="button" size="sm" variant="outline" onClick={addTechTag} className="min-h-[42px]">
                   <Plus className="h-3.5 w-3.5 mr-1" />
                   <span>Add Tech</span>
                 </Button>
@@ -478,15 +479,15 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                 ))}
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <textarea
                   rows={2}
                   value={newFeatureInput}
                   onChange={(e) => setNewFeatureInput(e.target.value)}
                   placeholder="Describe a key capability or engineered feature..."
-                  className="flex-1 px-4 py-2 rounded-xl bg-background border border-border text-xs text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
+                  className="flex-1 px-4 py-2 rounded-xl bg-background border border-border text-base sm:text-xs text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
                 />
-                <Button type="button" size="sm" variant="outline" onClick={addFeature} className="self-end">
+                <Button type="button" size="sm" variant="outline" onClick={addFeature} className="sm:self-end min-h-[42px] justify-center">
                   <Plus className="h-3.5 w-3.5 mr-1" />
                   <span>Add Feature</span>
                 </Button>
@@ -498,7 +499,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
         {/* Right 4 Cols: Media, URLs & Publishing Controls */}
         <div className="lg:col-span-4 space-y-6">
           {/* Card 4: Publication & Flagship Status */}
-          <div className="glass-card p-6 rounded-3xl border border-border space-y-4 dark:border-white/[0.12]">
+          <div className="glass-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-border space-y-4 dark:border-white/[0.12]">
             <h3 className="text-xs font-mono font-bold uppercase text-muted-foreground tracking-wider">
               Visibility & Ordering
             </h3>
@@ -568,13 +569,13 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                 type="number"
                 defaultValue={initialData?.display_order ?? 1}
                 min={0}
-                className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
+                className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-base sm:text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
               />
             </div>
           </div>
 
           {/* Card 5: External URLs */}
-          <div className="glass-card p-6 rounded-3xl border border-border space-y-4 dark:border-white/[0.12]">
+          <div className="glass-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-border space-y-4 dark:border-white/[0.12]">
             <h3 className="text-xs font-mono font-bold uppercase text-muted-foreground tracking-wider">
               External Production Links
             </h3>
@@ -589,7 +590,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                 type="url"
                 defaultValue={initialData?.live_url || ''}
                 placeholder="https://trader-mind-kohl.vercel.app"
-                className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
+                className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-base sm:text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
               />
             </div>
 
@@ -603,13 +604,13 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                 type="url"
                 defaultValue={initialData?.github_url || ''}
                 placeholder="https://github.com/mufasa-droid/TraderMind"
-                className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
+                className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-base sm:text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
               />
             </div>
           </div>
 
           {/* Card 6: Visual Media & Gallery */}
-          <div className="glass-card p-6 rounded-3xl border border-border space-y-4 dark:border-white/[0.12]">
+          <div className="glass-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-border space-y-4 dark:border-white/[0.12]">
             <h3 className="text-xs font-mono font-bold uppercase text-muted-foreground tracking-wider flex items-center gap-2">
               <ImageIcon className="h-4 w-4" />
               <span>Hero Image & Gallery</span>
@@ -638,9 +639,9 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                   value={galleryInput}
                   onChange={(e) => setGalleryInput(e.target.value)}
                   placeholder="https://images.unsplash.com/..."
-                  className="flex-1 px-3 py-2 rounded-xl bg-background border border-border text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
+                  className="flex-1 px-3 py-2 rounded-xl bg-background border border-border text-base sm:text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
                 />
-                <Button type="button" size="sm" variant="outline" onClick={addGalleryImage}>
+                <Button type="button" size="sm" variant="outline" onClick={addGalleryImage} className="min-h-[42px]">
                   <Plus className="h-3.5 w-3.5" />
                 </Button>
               </div>
@@ -656,7 +657,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                       <button
                         type="button"
                         onClick={() => removeGalleryImage(idx)}
-                        className="absolute top-1 right-1 p-1 rounded-md bg-black/70 text-white hover:bg-red-500 transition-colors"
+                        className="absolute top-1 right-1 p-1.5 rounded-md bg-black/70 text-white hover:bg-red-500 transition-colors min-w-[32px] min-h-[32px] flex items-center justify-center"
                         aria-label={`Remove gallery image ${idx + 1}`}
                       >
                         <X className="h-3 w-3" />
@@ -668,6 +669,25 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Mobile Dedicated Bottom Save Bar (< 768px) */}
+      <div className="block sm:hidden pt-4 pb-2">
+        <Button
+          type="submit"
+          variant="default"
+          disabled={isSubmitting}
+          className="w-full justify-center min-h-[48px] gap-2 shadow-lg"
+        >
+          {isSubmitting ? (
+            <span>Saving Changes&hellip;</span>
+          ) : (
+            <>
+              <Save className="h-4 w-4" />
+              <span>{isEditing ? 'Update Case Study' : 'Publish Case Study'}</span>
+            </>
+          )}
+        </Button>
       </div>
     </form>
   )

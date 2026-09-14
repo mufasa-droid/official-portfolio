@@ -70,9 +70,10 @@ export default async function AdminProjectsPage() {
         </Button>
       </div>
 
-      {/* Projects Table */}
+      {/* Projects Display: Dual Responsive Presentation */}
       <div className="glass-card rounded-3xl border border-border overflow-hidden shadow-xl dark:border-white/[0.12]">
-        <div className="overflow-x-auto">
+        {/* Desktop Table View (>= 768px) */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left text-xs font-mono">
             <thead className="bg-muted/60 border-b border-border text-muted-foreground dark:bg-white/[0.04]">
               <tr>
@@ -189,6 +190,97 @@ export default async function AdminProjectsPage() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile Dedicated Card View (< 768px) */}
+        <div className="md:hidden divide-y divide-border">
+          {projectsList.map((project, idx) => (
+            <div key={project.slug} className="p-4 space-y-3.5">
+              {/* Card Top: Thumbnail + Title + Badges */}
+              <div className="flex items-start gap-3">
+                <div className="relative w-14 h-14 rounded-2xl overflow-hidden border border-border bg-muted/40 shrink-0">
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                      <FolderGit2 className="h-6 w-6" />
+                    </div>
+                  )}
+                </div>
+
+                <div className="min-w-0 flex-1 space-y-1">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-[10px] font-mono font-bold text-muted-foreground bg-muted/50 px-1.5 py-0.5 rounded">
+                      #{project.display_order || idx + 1}
+                    </span>
+                    {project.featured && (
+                      <Badge variant="accent" className="text-[9px] py-0 px-1.5 shrink-0">
+                        <Sparkles className="h-2.5 w-2.5 mr-0.5" />
+                        FLAGSHIP
+                      </Badge>
+                    )}
+                  </div>
+                  <Link
+                    href={`/admin/projects/${project.id}`}
+                    className="font-bold text-foreground hover:text-primary transition-colors text-sm font-mono block line-clamp-1"
+                  >
+                    {project.title}
+                  </Link>
+                  <span className="text-[11px] text-muted-foreground font-mono block truncate">
+                    /projects/{project.slug}
+                  </span>
+                </div>
+              </div>
+
+              {/* Card Middle: Role & Tech Pills */}
+              <div className="space-y-1.5 text-xs font-mono">
+                <p className="text-muted-foreground text-[11px]">
+                  Role: <span className="text-foreground font-medium">{project.role}</span>
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2 py-0.5 rounded-md bg-muted/60 text-[10px] text-foreground/80 border border-border/50"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Card Bottom: Status & Touch-Optimized Actions */}
+              <div className="flex items-center justify-between pt-2 border-t border-border/60">
+                <div>
+                  {project.is_published ? (
+                    <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold text-xs font-mono">
+                      <CheckCircle2 className="h-3.5 w-3.5" />
+                      <span>Published</span>
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-zinc-500 font-medium text-xs font-mono">
+                      <EyeOff className="h-3.5 w-3.5" />
+                      <span>Draft</span>
+                    </span>
+                  )}
+                </div>
+
+                <ProjectRowActions
+                  id={project.id}
+                  slug={project.slug}
+                  title={project.title}
+                  featured={project.featured}
+                  isPublished={project.is_published}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

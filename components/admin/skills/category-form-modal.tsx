@@ -94,7 +94,8 @@ export function CategoryFormModal({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground border border-border"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-muted-foreground hover:text-foreground border border-border"
+            aria-label="Close modal"
           >
             <X className="h-4 w-4" />
           </button>
@@ -124,7 +125,7 @@ export function CategoryFormModal({
                 }
               }}
               placeholder="e.g. Frontend Systems & Core Web"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
             />
           </div>
 
@@ -140,7 +141,7 @@ export function CategoryFormModal({
               value={slug}
               onChange={(e) => setSlug(e.target.value.toLowerCase())}
               placeholder="frontend"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs text-foreground font-mono focus:border-primary focus:outline-none dark:bg-black/50"
             />
           </div>
 
@@ -155,11 +156,11 @@ export function CategoryFormModal({
               required
               defaultValue={initialData?.description || ''}
               placeholder="Architecting responsive, type-safe client architectures..."
-              className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-xs text-foreground focus:border-primary focus:outline-none dark:bg-black/50"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs text-foreground focus:border-primary focus:outline-none dark:bg-black/50"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label htmlFor="iconName" className="block text-xs font-mono text-muted-foreground">
                 LUCIDE ICON
@@ -168,7 +169,7 @@ export function CategoryFormModal({
                 id="iconName"
                 name="iconName"
                 defaultValue={initialData?.icon_name || 'Layout'}
-                className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 min-h-[44px]"
               >
                 {AVAILABLE_ICONS.map((ic) => (
                   <option key={ic} value={ic}>
@@ -188,16 +189,16 @@ export function CategoryFormModal({
                 type="number"
                 defaultValue={initialData?.display_order ?? 1}
                 min={0}
-                className="w-full px-3 py-2 rounded-xl bg-muted/40 border border-border text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-muted/40 border border-border text-base sm:text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
-            <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-border">
+            <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting} className="min-h-[44px]">
               <span>Cancel</span>
             </Button>
-            <Button type="submit" variant="default" disabled={isSubmitting} className="gap-1.5">
+            <Button type="submit" variant="default" disabled={isSubmitting} className="min-h-[44px] gap-1.5">
               <Save className="h-4 w-4" />
               <span>{isSubmitting ? 'Saving...' : isEditing ? 'Update Domain' : 'Create Domain'}</span>
             </Button>

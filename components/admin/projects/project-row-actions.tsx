@@ -65,16 +65,17 @@ export function ProjectRowActions({
         onClick={handleToggleFeatured}
         disabled={isFeaturing}
         title={featured ? 'Remove Flagship status' : 'Make Flagship case study'}
-        className={`p-1.5 rounded-lg border transition-colors ${
+        aria-label={featured ? 'Remove Flagship status' : 'Make Flagship case study'}
+        className={`min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 flex items-center justify-center rounded-xl border transition-colors ${
           featured
             ? 'bg-primary/15 text-primary border-primary/30 hover:bg-primary/25'
             : 'text-muted-foreground border-transparent hover:border-border hover:text-foreground'
         }`}
       >
         {isFeaturing ? (
-          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          <Loader2 className="h-4 w-4 sm:h-3.5 sm:w-3.5 animate-spin" />
         ) : (
-          <Sparkles className="h-3.5 w-3.5" />
+          <Sparkles className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
         )}
       </button>
 
@@ -84,18 +85,19 @@ export function ProjectRowActions({
         onClick={handleTogglePublish}
         disabled={isPublishing}
         title={isPublished ? 'Unpublish (hide from public site)' : 'Publish live'}
-        className={`p-1.5 rounded-lg border transition-colors ${
+        aria-label={isPublished ? 'Unpublish (hide from public site)' : 'Publish live'}
+        className={`min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 flex items-center justify-center rounded-xl border transition-colors ${
           isPublished
             ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20'
             : 'bg-zinc-500/10 text-zinc-500 border-zinc-500/20 hover:bg-zinc-500/20'
         }`}
       >
         {isPublishing ? (
-          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          <Loader2 className="h-4 w-4 sm:h-3.5 sm:w-3.5 animate-spin" />
         ) : isPublished ? (
-          <CheckCircle2 className="h-3.5 w-3.5" />
+          <CheckCircle2 className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
         ) : (
-          <EyeOff className="h-3.5 w-3.5" />
+          <EyeOff className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
         )}
       </button>
 
@@ -104,18 +106,20 @@ export function ProjectRowActions({
         href={`/projects/${slug}`}
         target="_blank"
         title="View live case study"
-        className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/60 border border-transparent hover:border-border transition-colors"
+        aria-label={`View live case study for ${title}`}
+        className="min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 flex items-center justify-center rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/60 border border-transparent hover:border-border transition-colors"
       >
-        <ExternalLink className="h-3.5 w-3.5" />
+        <ExternalLink className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
       </Link>
 
       {/* Edit Page Link */}
       <Link
         href={`/admin/projects/${id}`}
         title="Edit case study"
-        className="p-1.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 border border-transparent hover:border-primary/30 transition-colors"
+        aria-label={`Edit case study for ${title}`}
+        className="min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 flex items-center justify-center rounded-xl text-muted-foreground hover:text-primary hover:bg-primary/10 border border-transparent hover:border-primary/30 transition-colors"
       >
-        <Edit className="h-3.5 w-3.5" />
+        <Edit className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
       </Link>
 
       {/* Delete Button */}
@@ -124,12 +128,13 @@ export function ProjectRowActions({
         onClick={handleDelete}
         disabled={isDeleting}
         title="Delete case study"
-        className="p-1.5 rounded-lg text-muted-foreground hover:text-red-500 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-colors"
+        aria-label={`Delete case study for ${title}`}
+        className="min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 flex items-center justify-center rounded-xl text-muted-foreground hover:text-red-500 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-colors"
       >
         {isDeleting ? (
-          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          <Loader2 className="h-4 w-4 sm:h-3.5 sm:w-3.5 animate-spin" />
         ) : (
-          <Trash2 className="h-3.5 w-3.5" />
+          <Trash2 className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
         )}
       </button>
     </div>
