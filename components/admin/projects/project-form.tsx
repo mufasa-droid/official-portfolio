@@ -20,6 +20,7 @@ import {
   Check,
 } from 'lucide-react'
 import { createProject, updateProject, type ProjectFormState } from '@/app/admin/actions/projects'
+import { MediaUploader } from '@/components/admin/media/media-uploader'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import type { Database } from '@/types/database'
@@ -614,34 +615,16 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
               <span>Hero Image & Gallery</span>
             </h3>
 
-            <div className="space-y-2">
-              <label htmlFor="image" className="block text-xs font-mono text-muted-foreground">
-                HERO IMAGE URL *
-              </label>
-              <input
-                id="image"
-                name="image"
-                type="url"
-                required
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                placeholder="https://images.unsplash.com/..."
-                className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
-              />
-            </div>
+            {/* Hidden Input for Server Action */}
+            <input type="hidden" name="image" value={image} />
 
-            {/* Live Hero Preview */}
-            {image && (
-              <div className="relative h-44 rounded-2xl overflow-hidden border border-border bg-muted/40">
-                <Image
-                  src={image}
-                  alt="Hero Preview"
-                  fill
-                  className="object-cover"
-                  unoptimized
-                />
-              </div>
-            )}
+            <MediaUploader
+              value={image}
+              onChange={(url) => setImage(url)}
+              label="HERO COVER IMAGE *"
+              description="Upload high-res screenshot (PNG, WebP, JPEG, max 5MB)"
+              aspectRatio="video"
+            />
 
             {/* Gallery Manager */}
             <div className="space-y-2 pt-3 border-t border-border">
