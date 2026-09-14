@@ -2,6 +2,7 @@
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 import type { Database } from '@/types/database'
 
 type CurrentWorkInsert = Database['public']['Tables']['current_work']['Insert']
@@ -15,6 +16,14 @@ export async function updateCurrentWork(data: {
   progress: number
   is_active: boolean
 }) {
+  const admin = await getAuthenticatedAdmin()
+  if (!admin) {
+    return {
+      success: false,
+      error: 'Unauthorized. Owner session required.',
+    }
+  }
+
   const supabase = createClient()
   if (!supabase) {
     return {

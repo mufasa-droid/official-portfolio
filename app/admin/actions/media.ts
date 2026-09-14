@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 
 const BUCKET_NAME = 'portfolio-assets'
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
@@ -28,6 +29,14 @@ export interface MediaFileItem {
 }
 
 export async function uploadMedia(formData: FormData) {
+  const admin = await getAuthenticatedAdmin()
+  if (!admin) {
+    return {
+      success: false,
+      error: 'Unauthorized. Owner session required.',
+    }
+  }
+
   const supabase = createClient()
   if (!supabase) {
     return {
@@ -93,6 +102,14 @@ export async function uploadMedia(formData: FormData) {
 }
 
 export async function deleteMedia(filename: string) {
+  const admin = await getAuthenticatedAdmin()
+  if (!admin) {
+    return {
+      success: false,
+      error: 'Unauthorized. Owner session required.',
+    }
+  }
+
   const supabase = createClient()
   if (!supabase) {
     return {

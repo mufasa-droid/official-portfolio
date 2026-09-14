@@ -2,8 +2,17 @@
 
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 
 export async function markMessageRead(id: string, isRead: boolean) {
+  const admin = await getAuthenticatedAdmin()
+  if (!admin) {
+    return {
+      success: false,
+      error: 'Unauthorized. Owner session required.',
+    }
+  }
+
   const supabase = createClient()
   if (!supabase) {
     return {
@@ -27,6 +36,14 @@ export async function markMessageRead(id: string, isRead: boolean) {
 }
 
 export async function deleteMessage(id: string) {
+  const admin = await getAuthenticatedAdmin()
+  if (!admin) {
+    return {
+      success: false,
+      error: 'Unauthorized. Owner session required.',
+    }
+  }
+
   const supabase = createClient()
   if (!supabase) {
     return {

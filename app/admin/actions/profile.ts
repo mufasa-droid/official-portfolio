@@ -2,6 +2,7 @@
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 import type { Database } from '@/types/database'
 
 type ProfileInsert = Database['public']['Tables']['portfolio_profile']['Insert']
@@ -25,6 +26,14 @@ export async function updateProfile(data: {
     [key: string]: string
   }
 }) {
+  const admin = await getAuthenticatedAdmin()
+  if (!admin) {
+    return {
+      success: false,
+      error: 'Unauthorized. Owner session required.',
+    }
+  }
+
   const supabase = createClient()
   if (!supabase) {
     return {

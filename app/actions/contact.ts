@@ -56,11 +56,27 @@ export async function submitContactMessage(
     }
   }
 
+  // Persist message to Supabase database if configured
+  try {
+    const { createClient } = await import('@/lib/supabase/server')
+    const { revalidatePath } = await import('next/cache')
+    const supabase = createClient()
+    if (supabase) {
+      await supabase.from('contact_messages').insert({
+        name,
+        email,
+        message,
+        is_read: false,
+      })
+      revalidatePath('/admin/messages')
+    }
+  } catch (err) {
+    // If Supabase is unconfigured or offline, gracefully continue so the user is not blocked
+    console.warn('Notice: Could not persist contact message to database:', err)
+  }
+
   // Artificial async delay to simulate network latency for responsive UX state
   await new Promise((resolve) => setTimeout(resolve, 600))
-
-  // In production, configure RESEND_API_KEY or mailer here
-  // e.g., await resend.emails.send({ from: '...', to: 'Abdulhammedmustapha@gmail.com', ... })
 
   return {
     success: true,
