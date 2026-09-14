@@ -110,21 +110,36 @@ export function ArchitectureExplorer() {
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-card border border-border dark:bg-white/[0.04] dark:border-white/[0.08]">
-          {layers.map((layer) => (
-            <button
-              key={layer.id}
-              onClick={() => setActiveTab(layer.id)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-[background-color,color,border-color,box-shadow] duration-150 ease-out-custom ${
-                activeTab === layer.id
-                  ? "bg-primary text-primary-foreground font-semibold shadow-sm"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
-            >
-              <layer.icon className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline-block">{layer.short}</span>
-            </button>
-          ))}
+        <div
+          role="tablist"
+          aria-label="System Architecture Layers"
+          className="flex items-center gap-1.5 p-1 rounded-xl bg-card border border-border dark:bg-white/[0.04] dark:border-white/[0.08]"
+        >
+          {layers.map((layer) => {
+            const isActive = activeTab === layer.id
+            const layerNumber = layer.id.replace("layer-", "0")
+            return (
+              <button
+                key={layer.id}
+                role="tab"
+                id={`arch-tab-${layer.id}`}
+                aria-selected={isActive}
+                aria-controls={`arch-panel-${layer.id}`}
+                aria-label={layer.title}
+                title={layer.title}
+                onClick={() => setActiveTab(layer.id)}
+                className={`flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[42px] sm:min-h-[36px] rounded-lg text-xs font-mono transition-[background-color,color,border-color,box-shadow] duration-150 ease-out-custom active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                  isActive
+                    ? "bg-primary text-primary-foreground font-semibold shadow-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                <layer.icon className="h-3.5 w-3.5 shrink-0" />
+                <span className="sm:hidden font-semibold">{layerNumber}</span>
+                <span className="hidden sm:inline-block">{layer.short}</span>
+              </button>
+            )
+          })}
         </div>
       </div>
 
@@ -132,6 +147,9 @@ export function ArchitectureExplorer() {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentLayer.id}
+          id={`arch-panel-${currentLayer.id}`}
+          role="tabpanel"
+          aria-labelledby={`arch-tab-${currentLayer.id}`}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}

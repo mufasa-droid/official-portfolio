@@ -32,12 +32,12 @@ export function Footer({ profile = personalInfo }: FooterProps) {
           </div>
 
           {/* Social Links & Back to Top */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1 sm:gap-2">
             <a
               href={currentProfile.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
+              className="min-w-[44px] min-h-[44px] p-2.5 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
               aria-label="GitHub Profile"
             >
               <Github className="h-4 w-4" />
@@ -46,25 +46,25 @@ export function Footer({ profile = personalInfo }: FooterProps) {
               href={currentProfile.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
+              className="min-w-[44px] min-h-[44px] p-2.5 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
               aria-label="LinkedIn Profile"
             >
               <Linkedin className="h-4 w-4" />
             </a>
             <a
               href={`mailto:${currentProfile.email}`}
-              className="hover:text-foreground transition-colors"
+              className="min-w-[44px] min-h-[44px] p-2.5 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
               aria-label="Send Email"
             >
               <Mail className="h-4 w-4" />
             </a>
 
-            <span className="text-border">|</span>
+            <span className="text-border px-1">|</span>
 
             <button
               type="button"
               onClick={scrollToTop}
-              className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors p-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="min-h-[44px] px-3 py-2 rounded-lg flex items-center gap-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="Scroll back to top"
             >
               <span>TOP</span>
@@ -75,7 +75,7 @@ export function Footer({ profile = personalInfo }: FooterProps) {
         </div>
 
         <div className="mt-6 pt-6 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-muted-foreground">
-          <p>© 2026 {personalInfo.name}. All rights reserved.</p>
+          <p>© 2026 {currentProfile.name}. All rights reserved.</p>
           <p className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
             <span>Operational in Lagos, Nigeria (WAT / UTC+1)</span>

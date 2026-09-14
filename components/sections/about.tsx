@@ -33,9 +33,9 @@ export function About({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-          className="glass-card p-8 md:p-12 border border-border rounded-3xl"
+          className="glass-card p-5 sm:p-8 md:p-12 border border-border rounded-2xl sm:rounded-3xl"
         >
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* Story & Approach */}
             <div className="lg:col-span-7 space-y-6">
@@ -44,11 +44,40 @@ export function About({
                 <span>{"// WHO I AM & HOW I BUILD"}</span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground leading-snug [text-wrap:balance]">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-foreground leading-snug [text-wrap:balance]">
                 Senior Frontend Engineer dedicated to turning complex domains into effortless interfaces.
               </h3>
 
-              <div className="space-y-4 text-muted-foreground text-sm sm:text-base leading-relaxed">
+              {/* Mobile View: Concise summary + 3 Core Engineering Pillars (< 768px) */}
+              <div className="block md:hidden space-y-4">
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Specialized in <span className="text-foreground font-medium">React, Next.js, and TypeScript</span> architectures. 
+                  I build web systems where reliability meets delight, treating software craftsmanship as making every state transition and data query feel intentional.
+                </p>
+
+                <div className="space-y-2.5 pt-1">
+                  <div className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">
+                    Core Engineering Pillars
+                  </div>
+                  <div className="grid gap-2 font-mono text-xs">
+                    <div className="p-3 rounded-xl bg-muted/40 border border-border flex items-center justify-between dark:bg-white/[0.02] dark:border-white/[0.06]">
+                      <span className="font-semibold text-foreground">01 &nbsp;System Architecture</span>
+                      <span className="text-[11px] text-muted-foreground">Type Safety & Modular State</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-muted/40 border border-border flex items-center justify-between dark:bg-white/[0.02] dark:border-white/[0.06]">
+                      <span className="font-semibold text-foreground">02 &nbsp;Performance Engineering</span>
+                      <span className="text-[11px] text-muted-foreground">Sub-100ms INP & Zero CLS</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-muted/40 border border-border flex items-center justify-between dark:bg-white/[0.02] dark:border-white/[0.06]">
+                      <span className="font-semibold text-foreground">03 &nbsp;AI Product Engineering</span>
+                      <span className="text-[11px] text-muted-foreground">Low-Latency Context Pipelines</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Desktop View: Full Narrative Case Study (>= 768px) */}
+              <div className="hidden md:block space-y-4 text-muted-foreground text-sm sm:text-base leading-relaxed">
                 <p>
                   With years of specialized experience across <span className="text-foreground font-medium">React, Next.js, and TypeScript</span>, 
                   I build web systems where reliability meets delight. I treat software craftsmanship not merely as making things work, 
@@ -64,20 +93,20 @@ export function About({
                 </p>
               </div>
 
-              <div className="pt-2 flex flex-wrap gap-4">
+              <div className="pt-2 flex flex-wrap items-center gap-4">
                 <a
                   href="#projects"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono text-primary hover:text-primary/80 transition-colors"
+                  className="inline-flex items-center gap-1.5 min-h-[44px] py-2 text-xs font-mono text-primary hover:text-primary/80 transition-colors"
                 >
                   <span>Explore Case Studies</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </a>
-                <span className="text-border">•</span>
+                <span className="text-border hidden sm:inline">•</span>
                 <a
                   href={currentProfile.socials.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
+                  className="inline-flex items-center gap-1.5 min-h-[44px] py-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <span>View GitHub Repositories</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />

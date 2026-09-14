@@ -90,10 +90,10 @@ export function Contact({ profile = fallbackPersonalInfo }: ContactProps) {
             {/* Contact Cards */}
             <div className="space-y-3">
               {/* Email Card */}
-              <div className="glass-card p-4 rounded-xl border border-border flex items-center justify-between group">
+              <div className="glass-card p-3.5 sm:p-4 rounded-xl border border-border flex items-center justify-between group gap-2">
                 <a
                   href={`mailto:${currentProfile.email}`}
-                  className="flex items-center gap-3.5 min-w-0"
+                  className="flex items-center gap-3 min-w-0 flex-1"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
                     <Mail className="h-4 w-4" />
@@ -109,7 +109,7 @@ export function Contact({ profile = fallbackPersonalInfo }: ContactProps) {
                 <button
                   type="button"
                   onClick={copyEmail}
-                  className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-[background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
+                  className="min-w-[44px] min-h-[44px] p-2 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-[background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
                   title="Copy email address"
                   aria-label="Copy email address"
                 >
@@ -122,10 +122,10 @@ export function Contact({ profile = fallbackPersonalInfo }: ContactProps) {
               </div>
 
               {/* Phone Card */}
-              <div className="glass-card p-4 rounded-xl border border-border flex items-center justify-between group">
+              <div className="glass-card p-3.5 sm:p-4 rounded-xl border border-border flex items-center justify-between group gap-2">
                 <a
                   href={`tel:${currentProfile.phone}`}
-                  className="flex items-center gap-3.5 min-w-0"
+                  className="flex items-center gap-3 min-w-0 flex-1"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
                     <Phone className="h-4 w-4" />
@@ -141,7 +141,7 @@ export function Contact({ profile = fallbackPersonalInfo }: ContactProps) {
                 <button
                   type="button"
                   onClick={copyPhone}
-                  className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-[background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
+                  className="min-w-[44px] min-h-[44px] p-2 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-[background-color,color,transform] duration-150 ease-out-custom active:scale-[0.97]"
                   title="Copy phone number"
                   aria-label="Copy phone number"
                 >
@@ -203,7 +203,7 @@ export function Contact({ profile = fallbackPersonalInfo }: ContactProps) {
             transition={{ duration: 0.35, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
             className="lg:col-span-7"
           >
-            <div className="glass-card p-6 sm:p-8 md:p-10 rounded-3xl border border-border dark:border-white/[0.12]">
+            <div className="glass-card p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-border dark:border-white/[0.12]">
               <AnimatePresence mode="wait">
                 {formSuccess ? (
                   <motion.div
@@ -279,7 +279,7 @@ export function Contact({ profile = fallbackPersonalInfo }: ContactProps) {
                         maxLength={100}
                         autoComplete="name"
                         placeholder="e.g. Alex Morgan (Acme Inc)"
-                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans dark:bg-black/50 dark:border-white/[0.1]"
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-base sm:text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans dark:bg-black/50 dark:border-white/[0.1]"
                       />
                     </div>
 
@@ -296,7 +296,7 @@ export function Contact({ profile = fallbackPersonalInfo }: ContactProps) {
                         autoComplete="email"
                         spellCheck={false}
                         placeholder="alex@company.com"
-                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans dark:bg-black/50 dark:border-white/[0.1]"
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-base sm:text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom font-sans dark:bg-black/50 dark:border-white/[0.1]"
                       />
                     </div>
 
@@ -311,7 +311,7 @@ export function Contact({ profile = fallbackPersonalInfo }: ContactProps) {
                         required
                         maxLength={5000}
                         placeholder="Describe what you are looking to build, technical challenges, or timeline…"
-                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom resize-none font-sans dark:bg-black/50 dark:border-white/[0.1]"
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-base sm:text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-[border-color,box-shadow] duration-150 ease-out-custom resize-none font-sans dark:bg-black/50 dark:border-white/[0.1]"
                       />
                     </div>
 

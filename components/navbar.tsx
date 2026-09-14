@@ -57,10 +57,21 @@ export function Navbar({ profile = personalInfo }: NavbarProps) {
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [isMobileMenuOpen])
 
+  // Lock body scroll when mobile menu is open to prevent scroll leakage
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      const originalOverflow = document.body.style.overflow
+      document.body.style.overflow = "hidden"
+      return () => {
+        document.body.style.overflow = originalOverflow
+      }
+    }
+  }, [isMobileMenuOpen])
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-200 ${
-        isScrolled
+        isScrolled || isMobileMenuOpen
           ? "bg-background/85 backdrop-blur-md border-b border-border shadow-sm"
           : "bg-transparent border-b border-transparent"
       }`}
@@ -116,10 +127,11 @@ export function Navbar({ profile = personalInfo }: NavbarProps) {
             <ThemeToggle />
             <button
               type="button"
-              className="p-2 rounded-lg text-foreground hover:bg-muted/70 border border-border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="min-h-[44px] min-w-[44px] p-2.5 rounded-xl text-foreground hover:bg-muted/70 border border-border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary flex items-center justify-center"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -130,56 +142,73 @@ export function Navbar({ profile = personalInfo }: NavbarProps) {
       {/* Mobile Menu Overlay & Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98, y: -4 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.98, y: -4 }}
-            transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
-            className="md:hidden border-b border-border bg-background/95 backdrop-blur-xl px-4 py-6 shadow-xl origin-top"
-          >
-            <nav className="flex flex-col space-y-3" aria-label="Mobile Navigation">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="flex items-center justify-between text-sm font-medium text-foreground/85 hover:text-foreground py-2 px-3 rounded-lg hover:bg-muted/70 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <span>{item.name}</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground" />
-                </a>
-              ))}
-              <div className="pt-4 border-t border-border flex flex-col gap-3">
-                <Button
-                  className="w-full justify-center"
-                  href="#contact"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <span>Let&apos;s Talk</span>
-                  <ArrowUpRight className="h-4 w-4" />
-                </Button>
-                <div className="flex items-center justify-center gap-4 pt-2">
+          <>
+            {/* Backdrop Dimmer */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="md:hidden fixed inset-0 top-16 sm:top-20 bg-black/60 backdrop-blur-xs z-40"
+              aria-hidden="true"
+            />
+
+            {/* Menu Panel */}
+            <motion.div
+              id="mobile-navigation"
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+              className="md:hidden fixed top-16 sm:top-20 left-0 right-0 z-50 border-b border-border bg-background/95 backdrop-blur-2xl px-5 py-6 shadow-2xl origin-top max-h-[calc(100vh-4.5rem)] overflow-y-auto"
+            >
+              <nav className="flex flex-col space-y-1.5" aria-label="Mobile Navigation">
+                {navItems.map((item) => (
                   <a
-                    href={personalInfo.socials.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                    key={item.name}
+                    href={item.href}
+                    className="flex items-center justify-between text-sm font-medium text-foreground/90 hover:text-foreground min-h-[44px] py-2.5 px-3.5 rounded-xl hover:bg-muted/70 transition-colors active:scale-[0.99]"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    GitHub
+                    <span>{item.name}</span>
+                    <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
                   </a>
-                  <span className="text-muted-foreground/60">•</span>
-                  <a
-                    href={personalInfo.socials.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                ))}
+                <div className="pt-4 border-t border-border flex flex-col gap-3">
+                  <Button
+                    size="lg"
+                    className="w-full justify-center min-h-[48px]"
+                    href="#contact"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    LinkedIn
-                  </a>
+                    <span>Let&apos;s Talk</span>
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Button>
+                  <div className="flex items-center justify-center gap-4 pt-1">
+                    <a
+                      href={currentProfile.socials.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="min-h-[44px] px-3 py-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
+                    >
+                      <Github className="h-3.5 w-3.5" />
+                      <span>GitHub</span>
+                    </a>
+                    <span className="text-muted-foreground/40">•</span>
+                    <a
+                      href={currentProfile.socials.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="min-h-[44px] px-3 py-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors flex items-center"
+                    >
+                      <span>LinkedIn</span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </nav>
-          </motion.div>
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

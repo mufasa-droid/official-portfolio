@@ -54,14 +54,14 @@ export function Hero({ profile = personalInfo }: HeroProps) {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.05, ease: [0.23, 1, 0.32, 1] }}
-              className="space-y-4"
+              className="space-y-3.5 sm:space-y-4"
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.1] [text-wrap:balance]">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.12] [text-wrap:balance]">
                 Senior Frontend Engineer{" "}
                 <span className="heading-gradient">crafting resilient web systems</span>{" "}
                 & AI interfaces.
               </h1>
-              <p className="text-base sm:text-lg text-muted-foreground font-normal leading-relaxed max-w-2xl [text-wrap:pretty]">
+              <p className="text-sm sm:text-base lg:text-lg text-muted-foreground font-normal leading-relaxed max-w-2xl [text-wrap:pretty]">
                 Specialized in <span className="text-foreground font-medium">React, Next.js, and TypeScript</span> architectures. 
                 I turn complex behavioral analytics and machine learning workflows into crisp, sub-100ms digital products.
               </p>
@@ -72,27 +72,27 @@ export function Hero({ profile = personalInfo }: HeroProps) {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.12, ease: [0.23, 1, 0.32, 1] }}
-              className="space-y-5 pt-1"
+              className="space-y-4 sm:space-y-5 pt-1"
             >
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <Button size="lg" variant="default" href="#projects" className="justify-center">
+                <Button size="lg" variant="default" href="#projects" className="justify-center min-h-[48px]">
                   <span>View Featured Work</span>
                   <ArrowRight className="h-4 w-4" />
                 </Button>
 
-                <Button size="lg" variant="outline" href="#contact" className="justify-center">
+                <Button size="lg" variant="outline" href="#contact" className="justify-center min-h-[48px]">
                   <span>Get In Touch</span>
                 </Button>
               </div>
 
               {/* Verified Connect Links */}
-              <div className="flex items-center gap-4 text-xs text-muted-foreground font-mono pt-1">
-                <span className="text-muted-foreground/60">CONNECT:</span>
+              <div className="flex items-center gap-3 text-xs text-muted-foreground font-mono pt-1">
+                <span className="text-muted-foreground/60 text-[11px]">CONNECT:</span>
                 <a
                   href={currentProfile.socials.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                  className="min-h-[44px] px-2.5 py-2 -my-2 rounded-lg inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="GitHub Profile"
                 >
                   <Github className="h-3.5 w-3.5" />
@@ -103,7 +103,7 @@ export function Hero({ profile = personalInfo }: HeroProps) {
                   href={currentProfile.socials.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                  className="min-h-[44px] px-2.5 py-2 -my-2 rounded-lg inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="LinkedIn Profile"
                 >
                   <Linkedin className="h-3.5 w-3.5" />
@@ -113,15 +113,42 @@ export function Hero({ profile = personalInfo }: HeroProps) {
             </motion.div>
           </div>
 
-          {/* Right Column: Sleek Flagship Code & Architecture Showcase */}
+          {/* Right Column: Flagship Architecture Showcase (Optimized Mobile Card & Full Desktop Terminal) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
             className="lg:col-span-5"
           >
-            <div className="glass-card overflow-hidden shadow-2xl border border-border dark:border-white/[0.12]">
-              
+            {/* Mobile Streamlined Flagship Card (< 1024px) */}
+            <div className="block lg:hidden">
+              <Link
+                href="/projects/tradermind-ai-trading-coach"
+                className="block glass-card overflow-hidden shadow-xl border border-border dark:border-white/[0.12] p-5 space-y-3 group active:scale-[0.99] transition-transform"
+                aria-label="Explore TraderMind AI Flagship Case Study"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                    <span className="font-mono text-xs font-bold text-foreground">tradermind.engine.ts</span>
+                  </div>
+                  <Badge variant="accent" className="text-[10px] py-0 px-2 font-mono">
+                    <Sparkles className="h-2.5 w-2.5 mr-1" />
+                    FLAGSHIP
+                  </Badge>
+                </div>
+                <p className="text-xs font-mono text-muted-foreground leading-relaxed">
+                  Deterministic 11-feature calculation engine paired with a GPT-4o interpretation layer for trader psychology analysis.
+                </p>
+                <div className="pt-2 border-t border-border flex items-center justify-between text-xs font-mono text-primary font-semibold">
+                  <span>Explore Case Study & Pipeline</span>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            </div>
+
+            {/* Desktop Full Interactive Terminal (>= 1024px) */}
+            <div className="hidden lg:block glass-card overflow-hidden shadow-2xl border border-border dark:border-white/[0.12]">
               {/* Terminal Titlebar */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/60 dark:border-white/[0.08] dark:bg-black/40">
                 <div className="flex items-center gap-2">
@@ -182,7 +209,6 @@ export function Hero({ profile = personalInfo }: HeroProps) {
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </Link>
-
             </div>
           </motion.div>
 

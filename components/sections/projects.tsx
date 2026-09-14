@@ -51,8 +51,8 @@ export function Projects({ initialProjects = fallbackProjects }: ProjectsProps) 
             className="mb-0 max-w-2xl"
           />
 
-          {/* Quick Cycle Controls */}
-          <div className="flex items-center gap-2 self-start md:self-end shrink-0">
+          {/* Quick Cycle Controls - Desktop only */}
+          <div className="hidden md:flex items-center gap-2 self-start md:self-end shrink-0">
             <span className="font-mono text-xs text-muted-foreground mr-2 tabular-nums">
               0{activeIndex + 1} / 0{projectList.length}
             </span>
@@ -75,11 +75,150 @@ export function Projects({ initialProjects = fallbackProjects }: ProjectsProps) 
           </div>
         </div>
 
-        {/* Interactive Segmented Switcher */}
+        {/* Mobile-First Project Experience (< 768px) */}
+        {(() => {
+          const featuredProject = projectList.find((p) => p.featured) || projectList[0]
+          const secondaryProjects = projectList.filter((p) => p.slug !== featuredProject.slug)
+
+          return (
+            <div className="block md:hidden space-y-8">
+              {/* Flagship Visual Priority Card */}
+              <div className="glass-card overflow-hidden border border-border rounded-2xl p-5 shadow-xl dark:border-white/[0.12] space-y-4">
+                <div className="flex items-center justify-between">
+                  <Badge variant="accent" className="font-mono text-[10px]">
+                    <Sparkles className="h-3 w-3 mr-1" />
+                    FEATURED PROJECT
+                  </Badge>
+                  <span className="text-[11px] font-mono text-muted-foreground">
+                    {featuredProject.duration || "Flagship"}
+                  </span>
+                </div>
+
+                {/* Large Project Visual */}
+                <Link
+                  href={`/projects/${featuredProject.slug}`}
+                  className="block relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-border dark:border-white/[0.1] bg-muted/40 shadow-md group active:scale-[0.99] transition-transform"
+                  aria-label={`View case study for ${featuredProject.title}`}
+                >
+                  <Image
+                    src={featuredProject.image}
+                    alt={featuredProject.title}
+                    fill
+                    className="object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out-custom"
+                    priority
+                    sizes="(max-width: 768px) 100vw, 500px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                  <div className="absolute bottom-3 right-3">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-mono text-white">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+                      LIVE PLATFORM
+                    </span>
+                  </div>
+                </Link>
+
+                {/* Title & Concise Value Prop */}
+                <div className="space-y-1.5">
+                  <h3 className="text-xl font-bold tracking-tight text-foreground">
+                    {featuredProject.title.split("—")[0].trim()}
+                  </h3>
+                  <p className="text-xs font-mono text-primary font-semibold">
+                    {featuredProject.title.includes("—")
+                      ? featuredProject.title.split("—")[1].trim()
+                      : "AI Trading Performance Coach"}
+                  </p>
+                  <p className="text-xs text-muted-foreground leading-relaxed pt-1">
+                    {featuredProject.solution || featuredProject.problem}
+                  </p>
+                </div>
+
+                {/* Technology Summary Chips */}
+                <div className="flex flex-wrap gap-1.5 pt-0.5">
+                  {featuredProject.tech.slice(0, 5).map((t) => (
+                    <span key={t} className="tech-chip text-[11px] py-0.5 px-2">
+                      {t}
+                    </span>
+                  ))}
+                  {featuredProject.tech.length > 5 && (
+                    <span className="text-[11px] font-mono text-muted-foreground self-center px-1">
+                      +{featuredProject.tech.length - 5}
+                    </span>
+                  )}
+                </div>
+
+                {/* Primary Action Button */}
+                <div className="pt-2">
+                  <Button
+                    size="default"
+                    variant="default"
+                    href={`/projects/${featuredProject.slug}`}
+                    className="w-full justify-center min-h-[44px]"
+                  >
+                    <span>View Case Study</span>
+                    <ArrowRight className="h-4 w-4 ml-1.5" />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Secondary Projects - Visually Lighter Cards */}
+              {secondaryProjects.length > 0 && (
+                <div className="space-y-3 pt-1">
+                  <div className="flex items-center justify-between px-1">
+                    <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                      Other Production Systems
+                    </span>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      0{secondaryProjects.length}
+                    </span>
+                  </div>
+
+                  <div className="space-y-3">
+                    {secondaryProjects.map((project) => (
+                      <Link
+                        key={project.slug}
+                        href={`/projects/${project.slug}`}
+                        className="block glass-card p-4 rounded-xl border border-border dark:border-white/[0.08] hover:border-primary/40 active:scale-[0.99] transition-all group"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="space-y-1.5 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <h4 className="text-sm font-bold text-foreground truncate group-hover:text-primary transition-colors">
+                                {project.title.split("—")[0].trim()}
+                              </h4>
+                              <span className="text-[10px] font-mono text-muted-foreground px-1.5 py-0.5 rounded bg-muted/60 border border-border shrink-0">
+                                {project.role || "Full-Stack"}
+                              </span>
+                            </div>
+                            <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                              {project.problem}
+                            </p>
+                            <div className="flex flex-wrap gap-1 pt-1">
+                              {project.tech.slice(0, 3).map((t) => (
+                                <span key={t} className="tech-chip text-[10px] py-0 px-1.5">
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="min-w-[44px] min-h-[44px] flex items-center justify-center shrink-0 text-muted-foreground group-hover:text-primary transition-colors">
+                            <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )
+        })()}
+
+        {/* Desktop Interactive Segmented Switcher (>= 768px) */}
         <div
           role="tablist"
           aria-label="Select a project case study"
-          className="flex items-center gap-2 p-1.5 rounded-2xl bg-muted/40 border border-border mb-8 overflow-x-auto no-scrollbar scroll-smooth dark:bg-white/[0.03] dark:border-white/[0.08]"
+          className="hidden md:flex items-center gap-2 p-1.5 rounded-2xl bg-muted/40 border border-border mb-8 overflow-x-auto no-scrollbar scroll-smooth dark:bg-white/[0.03] dark:border-white/[0.08]"
         >
           {projectList.map((project, idx) => {
             const isActive = idx === activeIndex
@@ -118,8 +257,8 @@ export function Projects({ initialProjects = fallbackProjects }: ProjectsProps) 
           })}
         </div>
 
-        {/* Animated Project Stage */}
-        <div className="relative min-h-[520px]">
+        {/* Animated Project Stage (Desktop Only >= 768px) */}
+        <div className="hidden md:block relative min-h-[520px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentProject.slug}

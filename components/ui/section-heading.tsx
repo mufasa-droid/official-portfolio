@@ -31,7 +31,7 @@ export function SectionHeading({
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
       className={cn(
-        "space-y-3 mb-16",
+        "space-y-2.5 sm:space-y-3 mb-8 sm:mb-12 md:mb-16",
         isCenter ? "text-center max-w-3xl mx-auto" : "text-left max-w-2xl",
         className
       )}
@@ -57,12 +57,12 @@ export function SectionHeading({
         </div>
       )}
 
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-tight [text-wrap:balance]">
+      <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-tight [text-wrap:balance]">
         {title}
       </h2>
 
       {description && (
-        <p className="text-base sm:text-lg text-muted-foreground font-normal leading-relaxed [text-wrap:pretty]">
+        <p className="text-sm sm:text-base md:text-lg text-muted-foreground font-normal leading-relaxed [text-wrap:pretty]">
           {description}
         </p>
       )}

@@ -92,7 +92,7 @@ export function Skills({ initialCategories }: SkillsProps) {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.35, delay: index * 0.08, ease: [0.23, 1, 0.32, 1] }}
             >
-              <div className="glass-card h-full p-6 sm:p-8 rounded-3xl border border-border hover:border-border/80 transition-[border-color,background-color,box-shadow] duration-200 flex flex-col justify-between dark:border-white/[0.1] dark:hover:border-white/20">
+              <div className="glass-card h-full p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-border hover:border-border/80 transition-[border-color,background-color,box-shadow] duration-200 flex flex-col justify-between dark:border-white/[0.1] dark:hover:border-white/20">
                 <div className="space-y-4 mb-6">
                   <div className="w-11 h-11 rounded-2xl bg-muted/60 border border-border flex items-center justify-center text-primary dark:bg-white/[0.04] dark:border-white/[0.08]">
                     <category.icon className="h-5 w-5" />
@@ -107,11 +107,11 @@ export function Skills({ initialCategories }: SkillsProps) {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-4 border-t border-border">
                   {category.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-foreground/90 bg-muted/60 border border-border hover:border-primary/40 hover:text-foreground hover:bg-muted transition-[border-color,color,background-color] duration-150 cursor-default dark:text-zinc-300 dark:bg-white/[0.03] dark:border-white/[0.08] dark:hover:text-white dark:hover:bg-white/[0.06]"
+                      className="inline-flex items-center px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-mono font-medium text-foreground/90 bg-muted/60 border border-border hover:border-primary/40 hover:text-foreground hover:bg-muted transition-[border-color,color,background-color] duration-150 cursor-default dark:text-zinc-300 dark:bg-white/[0.03] dark:border-white/[0.08] dark:hover:text-white dark:hover:bg-white/[0.06]"
                     >
                       {skill}
                     </span>

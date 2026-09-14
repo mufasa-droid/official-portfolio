@@ -140,24 +140,24 @@ export default async function ProjectPage({
             )}
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight [text-wrap:balance]">
             {project.title}
           </h1>
 
-          <p className="text-lg sm:text-xl text-muted-foreground font-normal leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground font-normal leading-relaxed">
             {project.solution}
           </p>
 
           {/* Action Row */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
             {project.liveUrl && (
-              <Button size="lg" variant="default" href={project.liveUrl} external>
+              <Button size="lg" variant="default" href={project.liveUrl} external className="min-h-[48px] justify-center">
                 <ExternalLink className="h-4 w-4" />
                 <span>Visit Live Platform</span>
               </Button>
             )}
             {project.githubUrl && (
-              <Button size="lg" variant="outline" href={project.githubUrl} external>
+              <Button size="lg" variant="outline" href={project.githubUrl} external className="min-h-[48px] justify-center">
                 <Github className="h-4 w-4" />
                 <span>View Source Code</span>
               </Button>
@@ -168,8 +168,8 @@ export default async function ProjectPage({
 
       {/* Hero Image */}
       {project.image && (
-        <div className="container-custom mb-20">
-          <div className="relative h-80 sm:h-96 md:h-[480px] rounded-3xl overflow-hidden border border-border dark:border-white/[0.12] bg-muted/40 shadow-2xl">
+        <div className="container-custom mb-16 sm:mb-20">
+          <div className="relative h-60 sm:h-96 md:h-[480px] rounded-2xl sm:rounded-3xl overflow-hidden border border-border dark:border-white/[0.12] bg-muted/40 shadow-2xl">
             <Image
               src={project.image}
               alt={project.title}
@@ -200,23 +200,23 @@ export default async function ProjectPage({
       )}
 
       {/* Problem & Solution Deep Dive */}
-      <div className="container-custom mb-20">
-        <div className="grid md:grid-cols-2 gap-8">
-          <Card className="p-8 space-y-4">
+      <div className="container-custom mb-16 sm:mb-20">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+          <Card className="p-5 sm:p-8 space-y-4 rounded-2xl sm:rounded-3xl">
             <div className="flex items-center gap-2 text-xs font-mono text-red-500 dark:text-red-400">
               <span>{"// THE CHALLENGE & CONSTRAINTS"}</span>
             </div>
-            <h3 className="text-2xl font-bold text-foreground">The Problem</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-foreground">The Problem</h3>
             <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
               {project.problem}
             </p>
           </Card>
 
-          <Card className="p-8 space-y-4">
+          <Card className="p-5 sm:p-8 space-y-4 rounded-2xl sm:rounded-3xl">
             <div className="flex items-center gap-2 text-xs font-mono text-emerald-600 dark:text-emerald-400">
               <span>{"// ARCHITECTURAL RESOLUTION"}</span>
             </div>
-            <h3 className="text-2xl font-bold text-foreground">The Engineering Solution</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-foreground">The Engineering Solution</h3>
             <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
               {project.solution}
             </p>
@@ -225,29 +225,29 @@ export default async function ProjectPage({
       </div>
 
       {/* Key Features & Impact */}
-      <div className="container-custom mb-20">
-        <div className="glass-card p-8 md:p-12 border border-border dark:border-white/[0.12] rounded-3xl space-y-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
+      <div className="container-custom mb-16 sm:mb-20">
+        <div className="glass-card p-5 sm:p-8 md:p-12 border border-border dark:border-white/[0.12] rounded-2xl sm:rounded-3xl space-y-6 sm:space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border">
             <div>
               <span className="text-xs font-mono text-primary uppercase tracking-wider">
                 Capabilities Breakdown
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mt-1">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight mt-1">
                 Engineered Features & Capabilities
               </h2>
             </div>
 
-            <div className="p-4 rounded-xl bg-muted/40 border border-border max-w-sm dark:bg-white/[0.03] dark:border-white/[0.08]">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-muted/40 border border-border max-w-sm dark:bg-white/[0.03] dark:border-white/[0.08]">
               <p className="text-xs font-mono text-muted-foreground uppercase">Impact Metric</p>
-              <p className="text-lg font-bold text-primary">{project.impact.metric}</p>
+              <p className="text-base sm:text-lg font-bold text-primary">{project.impact.metric}</p>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
             {project.features.map((feature, idx) => (
               <div
                 key={idx}
-                className="flex items-start gap-3 p-4 rounded-xl bg-muted/40 border border-border text-sm text-foreground/90 dark:bg-white/[0.02] dark:border-white/[0.06] dark:text-zinc-300"
+                className="flex items-start gap-3 p-3.5 sm:p-4 rounded-xl bg-muted/40 border border-border text-xs sm:text-sm text-foreground/90 dark:bg-white/[0.02] dark:border-white/[0.06] dark:text-zinc-300"
               >
                 <CheckCircle2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400 mt-0.5 shrink-0" />
                 <span className="leading-relaxed">{feature}</span>
@@ -311,17 +311,17 @@ export default async function ProjectPage({
       {/* Next Project & Bottom CTA */}
       <div className="container-custom pt-12 border-t border-border">
         {nextProject ? (
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 rounded-2xl bg-muted/40 border border-border dark:bg-white/[0.02] dark:border-white/[0.08]">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-5 sm:p-8 rounded-2xl bg-muted/40 border border-border dark:bg-white/[0.02] dark:border-white/[0.08]">
             <div>
               <p className="text-xs font-mono text-muted-foreground uppercase">NEXT CASE STUDY</p>
-              <h3 className="text-xl font-bold text-foreground mt-1">{nextProject.title}</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-foreground mt-1">{nextProject.title}</h3>
             </div>
 
-            <div className="flex items-center gap-4">
-              <Button variant="outline" href="/#projects">
+            <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+              <Button variant="outline" href="/#projects" className="flex-1 sm:flex-initial justify-center min-h-[44px]">
                 <span>All Projects</span>
               </Button>
-              <Button variant="default" href={`/projects/${nextProject.slug}`}>
+              <Button variant="default" href={`/projects/${nextProject.slug}`} className="flex-1 sm:flex-initial justify-center min-h-[44px]">
                 <span>Next Study</span>
                 <ArrowRight className="h-4 w-4" />
               </Button>

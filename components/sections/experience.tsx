@@ -24,8 +24,8 @@ export function Experience({ initialExperiences = fallbackExperience }: Experien
           description="A track record of architecting scalable web applications, optimizing performance, and delivering verifiable business value."
         />
 
-        {/* Vertical Stacking Cards Container */}
-        <div className="max-w-4xl mx-auto space-y-8 relative">
+        {/* Natural Document Flow on Mobile (< 768px), Stacking Sticky Cards on Desktop (>= 768px) */}
+        <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 relative">
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.company + exp.period}
@@ -38,12 +38,13 @@ export function Experience({ initialExperiences = fallbackExperience }: Experien
                 ease: [0.23, 1, 0.32, 1],
               }}
               style={{
-                top: `calc(5.5rem + ${index * 1.5}rem)`,
                 zIndex: index + 1,
+                // On desktop, we apply sticky top offset via CSS variable
+                ['--stack-top' as string]: `calc(5.5rem + ${index * 1.5}rem)`,
               }}
-              className="sticky transition-[transform,box-shadow] duration-200"
+              className="relative md:sticky md:[top:var(--stack-top)] transition-[transform,box-shadow] duration-200"
             >
-              <Card className="p-6 sm:p-8 relative bg-card/95 backdrop-blur-xl border border-border shadow-xl hover:shadow-2xl dark:bg-card/90 dark:border-white/[0.12] rounded-3xl overflow-hidden">
+              <Card className="p-5 sm:p-8 relative bg-card/95 backdrop-blur-xl border border-border shadow-xl hover:shadow-2xl dark:bg-card/90 dark:border-white/[0.12] rounded-2xl sm:rounded-3xl overflow-hidden">
                 
                 {/* Index & Role Header Row */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border">
