@@ -59,7 +59,7 @@ export function Contact({ profile = fallbackPersonalInfo }: ContactProps) {
     <section id="contact" className="py-24 relative border-t border-border scroll-mt-20 sm:scroll-mt-24">
       <div className="container-custom">
         <SectionHeading
-          number="05"
+          number="06"
           badge="GET IN TOUCH"
           title="Let's Build Something Exceptional"
           description="Have a high-impact role, full-stack application, or architectural problem to solve? Send a message or reach out directly."
