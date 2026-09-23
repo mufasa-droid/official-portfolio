@@ -3,6 +3,7 @@
 import { z } from 'zod'
 import { revalidateTag, revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 
 const CertificateSchema = z.object({
@@ -59,7 +60,7 @@ export async function createCertificate(
   }
 
   const val = parseResult.data
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return { success: false, message: 'Database client is unavailable.' }
   }
@@ -121,7 +122,7 @@ export async function updateCertificate(
   }
 
   const val = parseResult.data
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return { success: false, message: 'Database client is unavailable.' }
   }
@@ -161,7 +162,7 @@ export async function deleteCertificate(id: string): Promise<{ success: boolean;
     return { success: false, message: 'Unauthorized. Admin session required.' }
   }
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return { success: false, message: 'Database client is unavailable.' }
   }
@@ -191,7 +192,7 @@ export async function toggleCertificateVisibility(
     return { success: false, message: 'Unauthorized. Admin session required.' }
   }
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return { success: false, message: 'Database client is unavailable.' }
   }
@@ -224,7 +225,7 @@ export async function reorderCertificates(
     return { success: false, message: 'Unauthorized. Admin session required.' }
   }
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return { success: false, message: 'Database client is unavailable.' }
   }

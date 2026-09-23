@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 
 const BUCKET_NAME = 'portfolio-assets'
@@ -37,7 +38,7 @@ export async function uploadMedia(formData: FormData) {
     }
   }
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return {
       success: false,
@@ -73,8 +74,9 @@ export async function uploadMedia(formData: FormData) {
     .replace(/-+/g, '-')
   const uniqueFilename = `${Date.now()}-${cleanName}`
 
-  // Convert File to ArrayBuffer for Supabase Storage
-  const buffer = await file.arrayBuffer()
+  // Convert File to Buffer for Supabase Storage
+  const arrayBuffer = await file.arrayBuffer()
+  const buffer = Buffer.from(arrayBuffer)
   const { error: uploadError } = await supabase.storage
     .from(BUCKET_NAME)
     .upload(uniqueFilename, buffer, {
@@ -110,7 +112,7 @@ export async function deleteMedia(filename: string) {
     }
   }
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return {
       success: false,
@@ -132,7 +134,7 @@ export async function listMedia(): Promise<{
   files: MediaFileItem[]
   error?: string
 }> {
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return {
       success: false,

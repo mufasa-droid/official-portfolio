@@ -3,6 +3,7 @@
 import { z } from 'zod'
 import { revalidateTag, revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 
 const CategorySchema = z.object({
@@ -47,7 +48,7 @@ export async function createSkillCategory(
   }
 
   const val = parseResult.data
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) return { success: false, message: 'Database unavailable.' }
 
   const { error } = await supabase.from('skill_categories').insert({
@@ -96,7 +97,7 @@ export async function updateSkillCategory(
   }
 
   const val = parseResult.data
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) return { success: false, message: 'Database unavailable.' }
 
   const { error } = await supabase
@@ -126,7 +127,7 @@ export async function deleteSkillCategory(id: string) {
   const admin = await getAuthenticatedAdmin()
   if (!admin) throw new Error('Unauthorized')
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
   const { error } = await supabase.from('skill_categories').delete().eq('id', id)
@@ -147,7 +148,7 @@ export async function addSkillToCategory(categoryId: string, skillName: string) 
   const trimmed = skillName.trim()
   if (!trimmed) throw new Error('Skill name cannot be empty.')
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
   const { error } = await supabase.from('skills').insert({
@@ -171,7 +172,7 @@ export async function deleteSkill(skillId: string) {
   const admin = await getAuthenticatedAdmin()
   if (!admin) throw new Error('Unauthorized')
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
   const { error } = await supabase.from('skills').delete().eq('id', skillId)
@@ -189,7 +190,7 @@ export async function toggleSkillPublish(skillId: string, currentPublished: bool
   const admin = await getAuthenticatedAdmin()
   if (!admin) throw new Error('Unauthorized')
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
   const { error } = await supabase

@@ -2,6 +2,7 @@
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 import type { Database } from '@/types/database'
 
@@ -24,7 +25,7 @@ export async function updateCurrentWork(data: {
     }
   }
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return {
       success: false,

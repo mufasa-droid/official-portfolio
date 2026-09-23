@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { revalidateTag, revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 
 const ProjectSchema = z.object({
@@ -85,7 +86,7 @@ export async function createProject(
   }
 
   const val = parseResult.data
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return { success: false, message: 'Database client is not available.' }
   }
@@ -202,7 +203,7 @@ export async function updateProject(
   }
 
   const val = parseResult.data
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return { success: false, message: 'Database client is not available.' }
   }
@@ -278,7 +279,7 @@ export async function toggleProjectPublish(id: string, currentPublished: boolean
   const admin = await getAuthenticatedAdmin()
   if (!admin) throw new Error('Unauthorized')
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
   const { error } = await supabase
@@ -301,7 +302,7 @@ export async function toggleProjectFeatured(id: string, currentFeatured: boolean
   const admin = await getAuthenticatedAdmin()
   if (!admin) throw new Error('Unauthorized')
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
   const { error } = await supabase
@@ -323,7 +324,7 @@ export async function deleteProject(id: string) {
   const admin = await getAuthenticatedAdmin()
   if (!admin) throw new Error('Unauthorized')
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
   const { error } = await supabase.from('projects').delete().eq('id', id)

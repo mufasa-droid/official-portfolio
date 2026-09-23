@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState, useEffect, useTransition } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import {
@@ -16,14 +16,14 @@ import {
   Clock,
   HardDrive,
 } from 'lucide-react'
-import { deleteMedia, uploadMedia, type MediaFileItem } from '@/app/admin/actions/media'
+import { deleteMedia, uploadMedia, listMedia, type MediaFileItem } from '@/app/admin/actions/media'
 import { MediaUploader } from './media-uploader'
 
 interface MediaLibraryViewProps {
   initialFiles: MediaFileItem[]
 }
 
-export function MediaLibraryView({ initialFiles }: MediaLibraryViewProps) {
+export function MediaLibraryView({ initialFiles = [] }: MediaLibraryViewProps) {
   const router = useRouter()
   const [files, setFiles] = useState<MediaFileItem[]>(initialFiles)
   const [searchQuery, setSearchQuery] = useState('')
@@ -31,6 +31,10 @@ export function MediaLibraryView({ initialFiles }: MediaLibraryViewProps) {
   const [deleteConfirmName, setDeleteConfirmName] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    setFiles(initialFiles)
+  }, [initialFiles])
 
   const handleCopyUrl = (url: string, name: string) => {
     navigator.clipboard.writeText(url)
@@ -52,8 +56,14 @@ export function MediaLibraryView({ initialFiles }: MediaLibraryViewProps) {
     })
   }
 
-  const handleUploadedNew = (url: string) => {
-    router.refresh()
+  const handleUploadedNew = async () => {
+    startTransition(async () => {
+      const res = await listMedia()
+      if (res.success && res.files) {
+        setFiles(res.files)
+      }
+      router.refresh()
+    })
   }
 
   const filteredFiles = files.filter((f) =>

@@ -3,6 +3,7 @@
 import { z } from 'zod'
 import { revalidateTag, revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 
 const ExperienceSchema = z.object({
@@ -60,7 +61,7 @@ export async function createExperience(
   }
 
   const val = parseResult.data
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return { success: false, message: 'Database client is unavailable.' }
   }
@@ -127,7 +128,7 @@ export async function updateExperience(
   }
 
   const val = parseResult.data
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return { success: false, message: 'Database client is unavailable.' }
   }
@@ -165,7 +166,7 @@ export async function toggleExperiencePublish(id: string, currentPublished: bool
   const admin = await getAuthenticatedAdmin()
   if (!admin) throw new Error('Unauthorized')
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
   const { error } = await supabase
@@ -187,7 +188,7 @@ export async function deleteExperience(id: string) {
   const admin = await getAuthenticatedAdmin()
   if (!admin) throw new Error('Unauthorized')
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
   const { error } = await supabase.from('experiences').delete().eq('id', id)

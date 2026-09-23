@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
 
 export async function markMessageRead(id: string, isRead: boolean) {
@@ -13,7 +14,7 @@ export async function markMessageRead(id: string, isRead: boolean) {
     }
   }
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return {
       success: false,
@@ -44,7 +45,7 @@ export async function deleteMessage(id: string) {
     }
   }
 
-  const supabase = createClient()
+  const supabase = createAdminClient() || createClient()
   if (!supabase) {
     return {
       success: false,
