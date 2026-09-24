@@ -103,6 +103,95 @@ export async function uploadMedia(formData: FormData) {
   }
 }
 
+export async function uploadMultipleMedia(formData: FormData): Promise<{
+  success: boolean
+  urls: string[]
+  errors?: string[]
+}> {
+  const admin = await getAuthenticatedAdmin()
+  if (!admin) {
+    return {
+      success: false,
+      urls: [],
+      errors: ['Unauthorized. Owner session required.'],
+    }
+  }
+
+  const supabase = createAdminClient() || createClient()
+  if (!supabase) {
+    return {
+      success: false,
+      urls: [],
+      errors: ['Supabase client is offline or environment variables are missing.'],
+    }
+  }
+
+  const files = formData.getAll('files') as File[]
+  if (!files || files.length === 0) {
+    return { success: false, urls: [], errors: ['No files were provided for upload.'] }
+  }
+
+  const uploadedUrls: string[] = []
+  const errorMessages: string[] = []
+
+  for (const file of files) {
+    // Validate MIME type
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+      errorMessages.push(`${file.name}: Unsupported file format (${file.type}). Allowed: PNG, JPEG, WebP, GIF, SVG.`)
+      continue
+    }
+
+    // Validate File Size
+    if (file.size > MAX_FILE_SIZE) {
+      errorMessages.push(`${file.name}: Exceeds 5MB limit (${(file.size / (1024 * 1024)).toFixed(2)}MB).`)
+      continue
+    }
+
+    // Sanitize filename
+    const cleanName = file.name
+      .toLowerCase()
+      .replace(/[^a-z0-9.]/g, '-')
+      .replace(/-+/g, '-')
+    const uniqueFilename = `${Date.now()}-${Math.random().toString(36).substring(2, 7)}-${cleanName}`
+
+    try {
+      const arrayBuffer = await file.arrayBuffer()
+      const buffer = Buffer.from(arrayBuffer)
+      const { error: uploadError } = await supabase.storage
+        .from(BUCKET_NAME)
+        .upload(uniqueFilename, buffer, {
+          contentType: file.type,
+          cacheControl: '31536000',
+          upsert: false,
+        })
+
+      if (uploadError) {
+        errorMessages.push(`${file.name}: ${uploadError.message}`)
+        continue
+      }
+
+      const { data: publicUrlData } = supabase.storage
+        .from(BUCKET_NAME)
+        .getPublicUrl(uniqueFilename)
+
+      uploadedUrls.push(publicUrlData.publicUrl)
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Upload failed'
+      errorMessages.push(`${file.name}: ${msg}`)
+    }
+  }
+
+  if (uploadedUrls.length > 0) {
+    revalidatePath('/admin/media')
+  }
+
+  return {
+    success: uploadedUrls.length > 0,
+    urls: uploadedUrls,
+    errors: errorMessages.length > 0 ? errorMessages : undefined,
+  }
+}
+
 export async function deleteMedia(filename: string) {
   const admin = await getAuthenticatedAdmin()
   if (!admin) {

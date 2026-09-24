@@ -21,6 +21,7 @@ import {
 } from 'lucide-react'
 import { createProject, updateProject, type ProjectFormState } from '@/app/admin/actions/projects'
 import { MediaUploader } from '@/components/admin/media/media-uploader'
+import { GalleryUploader } from '@/components/admin/media/gallery-uploader'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import type { Database } from '@/types/database'
@@ -60,7 +61,6 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
 
   // Gallery URLs list
   const [galleryList, setGalleryList] = useState<string[]>(initialData?.gallery || [])
-  const [galleryInput, setGalleryInput] = useState('')
 
   // Auto-generate slug from title if not manually edited
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,19 +101,6 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
 
   const removeFeature = (idx: number) => {
     setFeaturesList(featuresList.filter((_, i) => i !== idx))
-  }
-
-  // Gallery helper
-  const addGalleryImage = () => {
-    const trimmed = galleryInput.trim()
-    if (trimmed && !galleryList.includes(trimmed)) {
-      setGalleryList([...galleryList, trimmed])
-      setGalleryInput('')
-    }
-  }
-
-  const removeGalleryImage = (idx: number) => {
-    setGalleryList(galleryList.filter((_, i) => i !== idx))
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -627,45 +614,15 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
               aspectRatio="video"
             />
 
-            {/* Gallery Manager */}
-            <div className="space-y-2 pt-3 border-t border-border">
-              <label className="block text-xs font-mono text-muted-foreground">
-                VISUAL GALLERY URLS ({galleryList.length})
-              </label>
-
-              <div className="flex gap-2">
-                <input
-                  type="url"
-                  value={galleryInput}
-                  onChange={(e) => setGalleryInput(e.target.value)}
-                  placeholder="https://images.unsplash.com/..."
-                  className="flex-1 px-3 py-2 rounded-xl bg-background border border-border text-base sm:text-xs font-mono text-foreground focus:border-primary focus:outline-none dark:bg-black/50 dark:border-white/[0.1]"
-                />
-                <Button type="button" size="sm" variant="outline" onClick={addGalleryImage} className="min-h-[42px]">
-                  <Plus className="h-3.5 w-3.5" />
-                </Button>
-              </div>
-
-              {galleryList.length > 0 && (
-                <div className="grid grid-cols-2 gap-2 pt-2">
-                  {galleryList.map((gUrl, idx) => (
-                    <div
-                      key={idx}
-                      className="relative h-20 rounded-xl overflow-hidden border border-border group"
-                    >
-                      <Image src={gUrl} alt={`Gallery ${idx + 1}`} fill className="object-cover" unoptimized />
-                      <button
-                        type="button"
-                        onClick={() => removeGalleryImage(idx)}
-                        className="absolute top-1 right-1 p-1.5 rounded-md bg-black/70 text-white hover:bg-red-500 transition-colors min-w-[32px] min-h-[32px] flex items-center justify-center"
-                        aria-label={`Remove gallery image ${idx + 1}`}
-                      >
-                        <X className="h-3 w-3" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
+            {/* Visual Gallery Manager */}
+            <div className="pt-3 border-t border-border">
+              <GalleryUploader
+                images={galleryList}
+                onChange={setGalleryList}
+                onSetAsCover={(url) => setImage(url)}
+                label="VISUAL GALLERY SCREENSHOTS"
+                description="Drag & drop multiple screenshots or click to browse (PNG, WebP, JPEG, max 5MB each)"
+              />
             </div>
           </div>
         </div>

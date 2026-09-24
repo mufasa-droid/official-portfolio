@@ -11,8 +11,11 @@ import {
   AlertCircle,
   Loader2,
   Link as LinkIcon,
+  FolderOpen,
+  X,
 } from 'lucide-react'
-import { uploadMedia } from '@/app/admin/actions/media'
+import { uploadMedia, listMedia, type MediaFileItem } from '@/app/admin/actions/media'
+import { Button } from '@/components/ui/button'
 
 interface MediaUploaderProps {
   value?: string
@@ -34,6 +37,10 @@ export function MediaUploader({
   const [copied, setCopied] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const [useDirectUrl, setUseDirectUrl] = useState(false)
+  const [showLibraryModal, setShowLibraryModal] = useState(false)
+  const [libraryFiles, setLibraryFiles] = useState<MediaFileItem[]>([])
+  const [isLoadingLibrary, setIsLoadingLibrary] = useState(false)
+  const [librarySearch, setLibrarySearch] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFile = async (file: File) => {
@@ -53,10 +60,24 @@ export function MediaUploader({
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault()
+    e.stopPropagation()
     setIsDragging(false)
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFile(e.dataTransfer.files[0])
     }
+  }
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(true)
+  }
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (e.currentTarget.contains(e.relatedTarget as Node)) return
+    setIsDragging(false)
   }
 
   const handleCopyUrl = () => {
@@ -66,20 +87,47 @@ export function MediaUploader({
     setTimeout(() => setCopied(false), 2000)
   }
 
+  const openLibrary = async () => {
+    setShowLibraryModal(true)
+    setIsLoadingLibrary(true)
+    try {
+      const res = await listMedia()
+      if (res.success) {
+        setLibraryFiles(res.files)
+      } else {
+        setError(res.error || 'Failed to fetch media assets.')
+      }
+    } catch {
+      setError('Failed to fetch media assets from storage.')
+    } finally {
+      setIsLoadingLibrary(false)
+    }
+  }
+
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <label className="block text-xs font-mono text-muted-foreground font-medium">
           {label}
         </label>
-        <button
-          type="button"
-          onClick={() => setUseDirectUrl(!useDirectUrl)}
-          className="text-xs sm:text-[11px] font-mono text-primary hover:underline flex items-center gap-1 min-h-[44px] px-2"
-        >
-          <LinkIcon className="h-3.5 w-3.5" />
-          <span>{useDirectUrl ? 'Switch to File Upload' : 'Paste External URL'}</span>
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={openLibrary}
+            className="text-[11px] font-mono text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors min-h-[36px]"
+          >
+            <FolderOpen className="h-3.5 w-3.5" />
+            <span>Browse Library</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setUseDirectUrl(!useDirectUrl)}
+            className="text-[11px] font-mono text-primary hover:underline flex items-center gap-1 transition-colors min-h-[36px]"
+          >
+            <LinkIcon className="h-3.5 w-3.5" />
+            <span>{useDirectUrl ? 'Switch to File Upload' : 'Paste External URL'}</span>
+          </button>
+        </div>
       </div>
 
       {error && (
@@ -148,11 +196,8 @@ export function MediaUploader({
       ) : (
         /* Drag and Drop Zone */
         <div
-          onDragOver={(e) => {
-            e.preventDefault()
-            setIsDragging(true)
-          }}
-          onDragLeave={() => setIsDragging(false)}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
           className={`p-6 sm:p-8 rounded-2xl border-2 border-dashed cursor-pointer transition-all flex flex-col items-center justify-center text-center space-y-2 ${
@@ -194,6 +239,99 @@ export function MediaUploader({
               </p>
             </>
           )}
+        </div>
+      )}
+
+      {/* Media Library Picker Modal */}
+      {showLibraryModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="w-full max-w-2xl bg-card border border-border rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div className="p-4 sm:p-5 border-b border-border flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold font-mono text-foreground flex items-center gap-2">
+                  <FolderOpen className="h-4 w-4 text-primary" />
+                  <span>Media Library Storage</span>
+                </h3>
+                <p className="text-xs text-muted-foreground font-mono">
+                  Select an asset to use as your image
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowLibraryModal(false)}
+                className="p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="p-3 border-b border-border bg-muted/30">
+              <input
+                type="text"
+                placeholder="Filter assets by name..."
+                value={librarySearch}
+                onChange={(e) => setLibrarySearch(e.target.value)}
+                className="w-full px-3 py-2 rounded-xl bg-background border border-border text-xs font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+
+            <div className="p-4 overflow-y-auto flex-1">
+              {isLoadingLibrary ? (
+                <div className="flex flex-col items-center justify-center py-12 space-y-2">
+                  <Loader2 className="h-6 w-6 text-primary animate-spin" />
+                  <p className="text-xs font-mono text-muted-foreground">Loading storage assets...</p>
+                </div>
+              ) : libraryFiles.length === 0 ? (
+                <div className="py-12 text-center text-xs font-mono text-muted-foreground">
+                  No uploaded assets found in your storage bucket.
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {libraryFiles
+                    .filter((f) => f.name.toLowerCase().includes(librarySearch.toLowerCase()))
+                    .map((file) => (
+                      <div
+                        key={file.id || file.name}
+                        onClick={() => {
+                          onChange(file.publicUrl)
+                          setShowLibraryModal(false)
+                        }}
+                        className={`group relative rounded-xl overflow-hidden border aspect-video cursor-pointer transition-all ${
+                          value === file.publicUrl
+                            ? 'border-primary ring-2 ring-primary/40'
+                            : 'border-border hover:border-primary hover:scale-[1.02]'
+                        }`}
+                      >
+                        <Image
+                          src={file.publicUrl}
+                          alt={file.name}
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-2">
+                          <span className="text-[10px] font-mono text-white truncate">
+                            {file.name}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
+
+            <div className="p-3 border-t border-border flex justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setShowLibraryModal(false)}
+                className="font-mono text-xs"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
         </div>
       )}
     </div>
