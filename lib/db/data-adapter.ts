@@ -1,5 +1,6 @@
 import { unstable_cache } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@/types/database'
 import {
   personalInfo as fallbackPersonalInfo,
   projects as fallbackProjects,
@@ -79,12 +80,34 @@ const fallbackSkillCategories: SkillCategoryWithSkills[] = [
 ]
 
 /**
+ * Pure database client for public and cached data fetching.
+ * Does NOT import next/headers or cookies(), so it can safely execute
+ * inside unstable_cache and during static generation without DynamicServerError.
+ */
+export function getDbClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!url) return null
+  const key = serviceKey || anonKey
+  if (!key) return null
+
+  return createSupabaseClient<Database>(url, key, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  })
+}
+
+/**
  * Fetch personal profile data from Supabase with fallback to lib/data.ts
  */
 export const getPortfolioProfile = unstable_cache(
   async (): Promise<PersonalInfo> => {
     try {
-      const supabase = createClient()
+      const supabase = getDbClient()
       if (!supabase) return fallbackPersonalInfo
 
       const { data, error } = await supabase
@@ -115,7 +138,7 @@ export const getPortfolioProfile = unstable_cache(
     }
   },
   ['portfolio-profile'],
-  { tags: ['profile'], revalidate: 86400 }
+  { tags: ['profile'], revalidate: 60 }
 )
 
 /**
@@ -124,7 +147,7 @@ export const getPortfolioProfile = unstable_cache(
 export const getPublishedProjects = unstable_cache(
   async (): Promise<Project[]> => {
     try {
-      const supabase = createClient()
+      const supabase = getDbClient()
       if (!supabase) return fallbackProjects
 
       const { data, error } = await supabase
@@ -162,7 +185,7 @@ export const getPublishedProjects = unstable_cache(
     }
   },
   ['portfolio-projects'],
-  { tags: ['projects'], revalidate: 86400 }
+  { tags: ['projects'], revalidate: 60 }
 )
 
 /**
@@ -172,50 +195,47 @@ export async function getProjectBySlug(
   slug: string,
   options?: { allowDraft?: boolean }
 ): Promise<Project | null> {
-  // If draft preview requested, attempt direct DB lookup regardless of is_published
-  if (options?.allowDraft) {
-    try {
-      const supabase = createClient()
-      if (supabase) {
-        const { data, error } = await supabase
-          .from('projects')
-          .select('*')
-          .eq('slug', slug)
-          .maybeSingle()
+  try {
+    const supabase = getDbClient()
+    if (supabase) {
+      let query = supabase.from('projects').select('*').eq('slug', slug)
+      if (!options?.allowDraft) {
+        query = query.eq('is_published', true)
+      }
+      const { data, error } = await query.maybeSingle()
 
-        if (data && !error) {
-          return {
-            id: data.id,
-            title: data.title,
-            slug: data.slug,
-            featured: data.featured,
-            role: data.role,
-            duration: data.duration || undefined,
-            team: data.team || undefined,
-            problem: data.problem,
-            solution: data.solution,
-            impact: {
-              metric: data.impact?.metric || '',
-              detail: data.impact?.detail || '',
-            },
-            tech: data.tech || [],
-            features: data.features || [],
-            image: data.image,
-            gallery: data.gallery && data.gallery.length > 0 ? data.gallery : undefined,
-            liveUrl: data.live_url || undefined,
-            githubUrl: data.github_url || undefined,
-            isPublished: data.is_published,
-          }
+      if (data && !error) {
+        return {
+          id: data.id,
+          title: data.title,
+          slug: data.slug,
+          featured: data.featured,
+          role: data.role,
+          duration: data.duration || undefined,
+          team: data.team || undefined,
+          problem: data.problem,
+          solution: data.solution,
+          impact: {
+            metric: data.impact?.metric || '',
+            detail: data.impact?.detail || '',
+          },
+          tech: data.tech || [],
+          features: data.features || [],
+          image: data.image,
+          gallery: data.gallery && data.gallery.length > 0 ? data.gallery : undefined,
+          liveUrl: data.live_url || undefined,
+          githubUrl: data.github_url || undefined,
+          isPublished: data.is_published,
         }
       }
-    } catch {
-      // Ignore error and fall through
     }
+  } catch {
+    // Ignore error and fall through
   }
 
-  // Fallback to published cached projects
+  // Fallback to published projects or static fallback
   const projects = await getPublishedProjects()
-  return projects.find((p) => p.slug === slug) || null
+  return projects.find((p) => p.slug === slug) || fallbackProjects.find((p) => p.slug === slug) || null
 }
 
 /**
@@ -232,7 +252,7 @@ export async function getAllProjectSlugs(): Promise<string[]> {
 export const getSkillCategoriesWithSkills = unstable_cache(
   async (): Promise<SkillCategoryWithSkills[]> => {
     try {
-      const supabase = createClient()
+      const supabase = getDbClient()
       if (!supabase) return fallbackSkillCategories
 
       const { data: categories, error: catError } = await supabase
@@ -269,7 +289,7 @@ export const getSkillCategoriesWithSkills = unstable_cache(
     }
   },
   ['portfolio-skills'],
-  { tags: ['skills'], revalidate: 86400 }
+  { tags: ['skills'], revalidate: 60 }
 )
 
 /**
@@ -278,7 +298,7 @@ export const getSkillCategoriesWithSkills = unstable_cache(
 export const getExperiences = unstable_cache(
   async (): Promise<ExperienceItem[]> => {
     try {
-      const supabase = createClient()
+      const supabase = getDbClient()
       if (!supabase) return fallbackExperience
 
       const { data, error } = await supabase
@@ -302,7 +322,7 @@ export const getExperiences = unstable_cache(
     }
   },
   ['portfolio-experience'],
-  { tags: ['experience'], revalidate: 86400 }
+  { tags: ['experience'], revalidate: 60 }
 )
 
 /**
@@ -311,7 +331,7 @@ export const getExperiences = unstable_cache(
 export const getCurrentWork = unstable_cache(
   async (): Promise<CurrentWork> => {
     try {
-      const supabase = createClient()
+      const supabase = getDbClient()
       if (!supabase) return fallbackCurrentWork
 
       const { data, error } = await supabase
@@ -335,7 +355,7 @@ export const getCurrentWork = unstable_cache(
     }
   },
   ['portfolio-current-work'],
-  { tags: ['current-work'], revalidate: 86400 }
+  { tags: ['current-work'], revalidate: 60 }
 )
 
 /**
@@ -344,7 +364,7 @@ export const getCurrentWork = unstable_cache(
 export const getCertificates = unstable_cache(
   async (): Promise<CertificateItem[]> => {
     try {
-      const supabase = createClient()
+      const supabase = getDbClient()
       if (!supabase) return fallbackCertificates
 
       const { data, error } = await supabase
@@ -371,6 +391,5 @@ export const getCertificates = unstable_cache(
     }
   },
   ['portfolio-certificates'],
-  { tags: ['certificates'], revalidate: 86400 }
+  { tags: ['certificates'], revalidate: 60 }
 )
-

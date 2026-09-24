@@ -16,6 +16,8 @@ import {
   getCertificates,
 } from "@/lib/db/data-adapter"
 
+export const revalidate = 60
+
 export default async function Home() {
   const [profile, projects, skillCategories, experiences, currentWork, certificates] =
     await Promise.all([

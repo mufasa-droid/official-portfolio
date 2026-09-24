@@ -15,6 +15,8 @@ interface ProjectPageProps {
   searchParams?: { preview?: string }
 }
 
+export const revalidate = 60
+
 export async function generateStaticParams() {
   const projects = await getPublishedProjects()
   return projects.map((project) => ({
