@@ -104,11 +104,11 @@ export function Projects({ initialProjects = fallbackProjects }: ProjectsProps) 
                     src={featuredProject.image}
                     alt={featuredProject.title}
                     fill
-                    className="object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out-custom"
+                    className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500 ease-out-custom"
                     priority
                     sizes="(max-width: 768px) 100vw, 500px"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
                   <div className="absolute bottom-3 right-3">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-mono text-white">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
@@ -271,10 +271,10 @@ export function Projects({ initialProjects = fallbackProjects }: ProjectsProps) 
               transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
               className="glass-card overflow-hidden border border-border rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl dark:border-white/[0.12]"
             >
-              <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                 
                 {/* Left: Content & Narrative */}
-                <div className="lg:col-span-7 space-y-6">
+                <div className="lg:col-span-6 space-y-6">
                   <div className="flex flex-wrap items-center gap-2.5">
                     {currentProject.featured ? (
                       <Badge variant="accent" className="font-mono">
@@ -365,33 +365,54 @@ export function Projects({ initialProjects = fallbackProjects }: ProjectsProps) 
                   </div>
                 </div>
 
-                {/* Right: Visual Showcase Link */}
-                <div className="lg:col-span-5">
+                {/* Right: Visual Showcase Link in Browser Frame */}
+                <div className="lg:col-span-6">
                   <Link
                     href={`/projects/${currentProject.slug}`}
-                    className="group block relative h-64 sm:h-80 lg:h-[390px] rounded-2xl overflow-hidden border border-border dark:border-white/[0.12] bg-muted/40 shadow-2xl"
+                    className="group block relative rounded-2xl overflow-hidden border border-border dark:border-white/[0.12] bg-card/60 shadow-2xl transition-all duration-300 hover:border-primary/40 hover:shadow-primary/5"
                     aria-label={`Open case study for ${currentProject.title}`}
                   >
-                    <Image
-                      src={currentProject.image}
-                      alt={currentProject.title}
-                      fill
-                      className="object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out-custom"
-                      priority={currentProject.featured}
-                      sizes="(max-width: 1024px) 100vw, 500px"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-                    
-                    <div className="absolute top-4 right-4">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-mono text-zinc-300">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
-                        ACTIVE PREVIEW
+                    {/* Minimal Browser Header */}
+                    <div className="px-4 py-2.5 bg-muted/60 dark:bg-black/60 border-b border-border dark:border-white/[0.08] flex items-center justify-between gap-3 select-none">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-red-500/70 inline-block" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70 inline-block" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70 inline-block" />
+                      </div>
+
+                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-background/80 dark:bg-white/[0.05] border border-border dark:border-white/[0.08] text-[11px] font-mono text-muted-foreground truncate max-w-[200px]">
+                        <span className="text-[10px] text-emerald-500">🔒</span>
+                        <span className="truncate">
+                          {currentProject.liveUrl
+                            ? currentProject.liveUrl.replace(/^https?:\/\//, '')
+                            : `projects/${currentProject.slug}`}
+                        </span>
+                      </div>
+
+                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[10px] font-mono shrink-0">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        LIVE
                       </span>
                     </div>
 
-                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-mono text-white/90 bg-black/70 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-white/15 group-hover:border-primary/50 transition-colors">
-                      <span>Explore Technical Breakdown</span>
-                      <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform text-primary" />
+                    {/* Screenshot Viewport with natural 16:10 aspect ratio and object-top alignment */}
+                    <div className="relative w-full aspect-[16/10] bg-black/40 overflow-hidden">
+                      <Image
+                        src={currentProject.image}
+                        alt={currentProject.title}
+                        fill
+                        className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500 ease-out-custom"
+                        priority={currentProject.featured}
+                        sizes="(max-width: 1024px) 100vw, 650px"
+                      />
+
+                      {/* Subtle Bottom Vignette and Action Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-75 group-hover:opacity-90 transition-opacity" />
+
+                      <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono text-white/90 bg-black/70 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-white/15 group-hover:border-primary/50 transition-colors">
+                        <span>Explore Technical Breakdown</span>
+                        <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform text-primary" />
+                      </div>
                     </div>
                   </Link>
                 </div>

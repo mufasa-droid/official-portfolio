@@ -168,19 +168,50 @@ export default async function ProjectPage({
         </div>
       </div>
 
-      {/* Hero Image */}
+      {/* Hero Image in Editorial Browser Frame */}
       {project.image && (
         <div className="container-custom mb-16 sm:mb-20">
-          <div className="relative h-60 sm:h-96 md:h-[480px] rounded-2xl sm:rounded-3xl overflow-hidden border border-border dark:border-white/[0.12] bg-muted/40 shadow-2xl">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 1200px) 100vw, 1200px"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-border dark:border-white/[0.12] bg-card/60 shadow-2xl">
+            {/* Minimal Browser Header Bar */}
+            <div className="px-4 py-3 bg-muted/60 dark:bg-black/60 border-b border-border dark:border-white/[0.08] flex items-center justify-between gap-3 select-none">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500/70 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70 inline-block" />
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-background/80 dark:bg-white/[0.05] border border-border dark:border-white/[0.08] text-xs font-mono text-muted-foreground truncate max-w-sm">
+                <span className="text-[10px] text-emerald-500">🔒</span>
+                <span className="truncate">
+                  {project.liveUrl
+                    ? project.liveUrl.replace(/^https?:\/\//, '')
+                    : `projects/${project.slug}`}
+                </span>
+              </div>
+              {project.liveUrl ? (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[11px] font-mono hover:bg-emerald-500/20 transition-colors"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  LIVE
+                </a>
+              ) : (
+                <div className="w-12" />
+              )}
+            </div>
+
+            <div className="relative w-full aspect-[16/9] sm:aspect-[16/10] bg-muted/40">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover object-top"
+                priority
+                sizes="(max-width: 1280px) 100vw, 1200px"
+              />
+            </div>
           </div>
         </div>
       )}
@@ -294,13 +325,13 @@ export default async function ProjectPage({
               {project.gallery.map((img, index) => (
                 <div
                   key={index}
-                  className="relative h-64 sm:h-72 rounded-2xl overflow-hidden border border-border dark:border-white/[0.08] bg-muted/40"
+                  className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-border dark:border-white/[0.08] bg-muted/40 shadow-lg"
                 >
                   <Image
                     src={img}
                     alt={`${project.title} interface preview ${index + 1}`}
                     fill
-                    className="object-cover hover:scale-105 transition-transform duration-500 ease-out-custom"
+                    className="object-cover object-top hover:scale-105 transition-transform duration-500 ease-out-custom"
                     sizes="(max-width: 768px) 100vw, 600px"
                   />
                 </div>
