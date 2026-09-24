@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getAuthenticatedAdmin } from '@/app/admin/actions/auth'
+import { isUUID } from '@/lib/utils'
 
 const ProjectSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters.').max(150),
@@ -208,53 +209,124 @@ export async function updateProject(
     return { success: false, message: 'Database client is not available.' }
   }
 
-  // Check unique slug on other projects
-  const { data: existing } = await supabase
-    .from('projects')
-    .select('id')
-    .eq('slug', val.slug)
-    .neq('id', id)
-    .maybeSingle()
+  let targetId: string | null = null
 
-  if (existing) {
-    return {
-      success: false,
-      message: 'Another case study already uses this slug.',
-      errors: { slug: ['Slug is already in use by another project.'] },
+  if (isUUID(id)) {
+    targetId = id
+  } else {
+    // Check if a project exists in database with legacy_id = id OR slug = id OR slug = val.slug
+    const { data: matched } = await supabase
+      .from('projects')
+      .select('id')
+      .or(`legacy_id.eq.${id},slug.eq.${id},slug.eq.${val.slug}`)
+      .maybeSingle()
+
+    if (matched?.id) {
+      targetId = matched.id
     }
   }
 
-  const { error } = await supabase
-    .from('projects')
-    .update({
-      title: val.title,
-      slug: val.slug,
-      role: val.role,
-      duration: val.duration || null,
-      team: val.team || null,
-      problem: val.problem,
-      solution: val.solution,
-      impact: {
-        metric: val.impactMetric,
-        detail: val.impactDetail,
-      },
-      tech: val.tech,
-      features: val.features,
-      image: val.image,
-      gallery: val.gallery || [],
-      live_url: val.liveUrl || null,
-      github_url: val.githubUrl || null,
-      featured: val.featured,
-      is_published: val.isPublished,
-      display_order: val.displayOrder,
-    })
-    .eq('id', id)
+  if (targetId) {
+    // Check unique slug on other projects
+    const { data: existing } = await supabase
+      .from('projects')
+      .select('id')
+      .eq('slug', val.slug)
+      .neq('id', targetId)
+      .maybeSingle()
 
-  if (error) {
-    return {
-      success: false,
-      message: error.message || 'Failed to update case study in database.',
+    if (existing) {
+      return {
+        success: false,
+        message: 'Another case study already uses this slug.',
+        errors: { slug: ['Slug is already in use by another project.'] },
+      }
     }
+
+    const { error } = await supabase
+      .from('projects')
+      .update({
+        title: val.title,
+        slug: val.slug,
+        role: val.role,
+        duration: val.duration || null,
+        team: val.team || null,
+        problem: val.problem,
+        solution: val.solution,
+        impact: {
+          metric: val.impactMetric,
+          detail: val.impactDetail,
+        },
+        tech: val.tech,
+        features: val.features,
+        image: val.image,
+        gallery: val.gallery || [],
+        live_url: val.liveUrl || null,
+        github_url: val.githubUrl || null,
+        featured: val.featured,
+        is_published: val.isPublished,
+        display_order: val.displayOrder,
+      })
+      .eq('id', targetId)
+
+    if (error) {
+      return {
+        success: false,
+        message: error.message || 'Failed to update case study in database.',
+      }
+    }
+  } else {
+    // Project does not yet exist in database (e.g. loaded from static fallback!)
+    const { data: existing } = await supabase
+      .from('projects')
+      .select('id')
+      .eq('slug', val.slug)
+      .maybeSingle()
+
+    if (existing) {
+      return {
+        success: false,
+        message: 'Another case study already uses this slug.',
+        errors: { slug: ['Slug is already in use by another project.'] },
+      }
+    }
+
+    const { data: newProject, error } = await supabase
+      .from('projects')
+      .insert({
+        legacy_id: id,
+        title: val.title,
+        slug: val.slug,
+        role: val.role,
+        duration: val.duration || null,
+        team: val.team || null,
+        problem: val.problem,
+        solution: val.solution,
+        impact: {
+          metric: val.impactMetric,
+          detail: val.impactDetail,
+        },
+        tech: val.tech,
+        features: val.features,
+        image: val.image,
+        gallery: val.gallery || [],
+        live_url: val.liveUrl || null,
+        github_url: val.githubUrl || null,
+        featured: val.featured,
+        is_published: val.isPublished,
+        display_order: val.displayOrder,
+      })
+      .select('id')
+      .single()
+
+    if (error || !newProject) {
+      return {
+        success: false,
+        message: error?.message || 'Failed to persist case study to database.',
+      }
+    }
+
+    targetId = newProject.id
   }
 
   // Invalidate cache tags & paths
@@ -267,8 +339,8 @@ export async function updateProject(
 
   return {
     success: true,
-    message: 'Case study updated successfully!',
-    projectId: id,
+    message: 'Case study saved successfully!',
+    projectId: targetId,
   }
 }
 
@@ -282,12 +354,19 @@ export async function toggleProjectPublish(id: string, currentPublished: boolean
   const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
-  const { error } = await supabase
-    .from('projects')
-    .update({ is_published: !currentPublished })
-    .eq('id', id)
-
-  if (error) throw new Error(error.message)
+  if (isUUID(id)) {
+    const { error } = await supabase
+      .from('projects')
+      .update({ is_published: !currentPublished })
+      .eq('id', id)
+    if (error) throw new Error(error.message)
+  } else {
+    const { error } = await supabase
+      .from('projects')
+      .update({ is_published: !currentPublished })
+      .or(`legacy_id.eq.${id},slug.eq.${id}`)
+    if (error) throw new Error(error.message)
+  }
 
   revalidateTag('projects')
   revalidatePath('/')
@@ -305,12 +384,19 @@ export async function toggleProjectFeatured(id: string, currentFeatured: boolean
   const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
-  const { error } = await supabase
-    .from('projects')
-    .update({ featured: !currentFeatured })
-    .eq('id', id)
-
-  if (error) throw new Error(error.message)
+  if (isUUID(id)) {
+    const { error } = await supabase
+      .from('projects')
+      .update({ featured: !currentFeatured })
+      .eq('id', id)
+    if (error) throw new Error(error.message)
+  } else {
+    const { error } = await supabase
+      .from('projects')
+      .update({ featured: !currentFeatured })
+      .or(`legacy_id.eq.${id},slug.eq.${id}`)
+    if (error) throw new Error(error.message)
+  }
 
   revalidateTag('projects')
   revalidatePath('/')
@@ -327,8 +413,13 @@ export async function deleteProject(id: string) {
   const supabase = createAdminClient() || createClient()
   if (!supabase) throw new Error('Database client unavailable')
 
-  const { error } = await supabase.from('projects').delete().eq('id', id)
-  if (error) throw new Error(error.message)
+  if (isUUID(id)) {
+    const { error } = await supabase.from('projects').delete().eq('id', id)
+    if (error) throw new Error(error.message)
+  } else {
+    const { error } = await supabase.from('projects').delete().or(`legacy_id.eq.${id},slug.eq.${id}`)
+    if (error) throw new Error(error.message)
+  }
 
   revalidateTag('projects')
   revalidatePath('/')

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { projects as fallbackProjects } from '@/lib/data'
 import { ProjectForm } from '@/components/admin/projects/project-form'
+import { isUUID } from '@/lib/utils'
 import type { Database } from '@/types/database'
 
 type ProjectRow = Database['public']['Tables']['projects']['Row']
@@ -15,11 +16,14 @@ export default async function EditProjectPage({ params }: EditProjectPageProps) 
   let project: ProjectRow | null = null
 
   if (supabase) {
-    const { data } = await supabase
-      .from('projects')
-      .select('*')
-      .eq('id', params.id)
-      .maybeSingle()
+    let query = supabase.from('projects').select('*')
+    if (isUUID(params.id)) {
+      query = query.eq('id', params.id)
+    } else {
+      query = query.or(`legacy_id.eq.${params.id},slug.eq.${params.id}`)
+    }
+
+    const { data } = await query.maybeSingle()
 
     if (data) {
       project = data
