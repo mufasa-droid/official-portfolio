@@ -23,6 +23,15 @@ export interface SkillItem {
   icon?: string
 }
 
+export interface SkillCategoryWithSkills {
+  id: string
+  name: string
+  slug: string
+  description: string
+  iconName: string
+  skills: string[]
+}
+
 export interface SkillCategories {
   frontend: SkillItem[]
   backend: SkillItem[]

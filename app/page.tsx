@@ -4,7 +4,6 @@ import { About } from "@/components/sections/about"
 import { Projects } from "@/components/sections/projects"
 import { Skills } from "@/components/sections/skills"
 import { Experience } from "@/components/sections/experience"
-import { Certificates } from "@/components/sections/certificates"
 import { Contact } from "@/components/sections/contact"
 import { Footer } from "@/components/footer"
 import {
@@ -13,20 +12,16 @@ import {
   getSkillCategoriesWithSkills,
   getExperiences,
   getCurrentWork,
-  getCertificates,
-} from "@/lib/db/data-adapter"
-
-export const revalidate = 60
+} from "@/lib/data"
 
 export default async function Home() {
-  const [profile, projects, skillCategories, experiences, currentWork, certificates] =
+  const [profile, projects, skillCategories, experiences, currentWork] =
     await Promise.all([
       getPortfolioProfile(),
       getPublishedProjects(),
       getSkillCategoriesWithSkills(),
       getExperiences(),
       getCurrentWork(),
-      getCertificates(),
     ])
 
   return (
@@ -37,7 +32,6 @@ export default async function Home() {
       <Projects initialProjects={projects} />
       <Skills initialCategories={skillCategories} />
       <Experience initialExperiences={experiences} />
-      <Certificates initialCertificates={certificates} />
       <Contact profile={profile} />
       <Footer profile={profile} />
     </main>

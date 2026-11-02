@@ -56,23 +56,29 @@ export async function submitContactMessage(
     }
   }
 
-  // Persist message to Supabase database if configured
-  try {
-    const { createClient } = await import('@/lib/supabase/server')
-    const { revalidatePath } = await import('next/cache')
-    const supabase = createClient()
-    if (supabase) {
-      await supabase.from('contact_messages').insert({
-        name,
-        email,
-        message,
-        is_read: false,
+  // If Resend API key is provided, send email notification
+  const resendApiKey = process.env.RESEND_API_KEY
+  const adminEmail = process.env.ADMIN_EMAIL || "Abdulhammedmustapha@gmail.com"
+
+  if (resendApiKey) {
+    try {
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${resendApiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "Portfolio Contact <onboarding@resend.dev>",
+          to: [adminEmail],
+          reply_to: email,
+          subject: `Portfolio Message from ${name}`,
+          text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+        }),
       })
-      revalidatePath('/admin/messages')
+    } catch (err) {
+      console.warn("Notice: Failed to dispatch email via Resend:", err)
     }
-  } catch (err) {
-    // If Supabase is unconfigured or offline, gracefully continue so the user is not blocked
-    console.warn('Notice: Could not persist contact message to database:', err)
   }
 
   // Artificial async delay to simulate network latency for responsive UX state

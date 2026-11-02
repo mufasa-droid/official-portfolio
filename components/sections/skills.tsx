@@ -52,7 +52,7 @@ const fallbackSkillCategories = [
   },
 ]
 
-import type { SkillCategoryWithSkills } from "@/lib/db/data-adapter"
+import type { SkillCategoryWithSkills } from "@/types/portfolio"
 
 const ICON_MAP: Record<string, typeof Layout> = {
   Layout,

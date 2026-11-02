@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, ExternalLink, Github, CheckCircle2, Cpu, Layers, Sparkles, AlertCircle } from "lucide-react"
-import { getProjectBySlug, getPublishedProjects, getPortfolioProfile } from "@/lib/db/data-adapter"
+import { getProjectBySlug, getPublishedProjects, getPortfolioProfile } from "@/lib/data"
 import { Project } from "@/types/portfolio"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -14,8 +14,6 @@ interface ProjectPageProps {
   params: { slug: string }
   searchParams?: { preview?: string }
 }
-
-export const revalidate = 60
 
 export async function generateStaticParams() {
   const projects = await getPublishedProjects()

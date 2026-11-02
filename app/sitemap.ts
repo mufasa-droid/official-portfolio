@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next"
-import { getPublishedProjects } from "@/lib/db/data-adapter"
+import { getPublishedProjects } from "@/lib/data"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://abdulhammedmustapha.com"
