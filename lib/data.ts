@@ -141,12 +141,12 @@ export const projects: Project[] = [
       "Demo mode with pre-seeded realistic trade data and one-click guest access",
       "11-table PostgreSQL schema with Row Level Security — every user sees only their own data"
     ],
-    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop",
+    image: "/projects/tradermind/hero.png",
     gallery: [
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1642790106117-e829d14b6cce?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+      "/projects/tradermind/hero.png",
+      "/projects/tradermind/cockpit.jpg",
+      "/projects/tradermind/trades.jpg",
+      "/projects/tradermind/architecture.png",
     ],
     liveUrl: "https://trader-mind-kohl.vercel.app",
     githubUrl: "https://github.com/mufasa-droid/TraderMind",
